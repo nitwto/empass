@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhD Admissions Portal</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+{% include "payment/header.djt" %}
+	<div class="well well-lg">
+	    <div class="row">
+	    	<div class="col-sm-8 col-sm-offset-2">
+	    		<form action="/payment/GoToTransaction" method="post">
+	    		    {% csrf_token %}
+					<div class="form-group">
+						<label>First Name:</label>
+						<input class="form-control" type="text" name="firstname">
+					</div>
+					<div class="form-group">
+						<label>Email Address:</label>
+						<input class="form-control" type="text" name="email">
+					</div>
+					<div class="form-group">
+						<label>Mobile Number :</label>
+						<input class="form-control" type="text" name="phone">
+					</div>
+					<div class="form-group">
+						<label>Category:</label>
+						<select class="form-control" name="category">
+							<option value="" disabled selected>--------------------------</option>
+							{% for category in categories %}
+							<option value="{{category.id}}">{{category.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Amount:</label>
+						<input class="form-control" type="text" name="amount">
+					</div>
+					<div class="form-group">
+						<input class="btn btn-primary" type="submit">
+					</div>
+					
+				</form>
+	    	</div>
+	    </div>
+	</div>
+{% include "footer.djt" %}
+</body>

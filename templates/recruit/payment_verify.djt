@@ -1,0 +1,156 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+		ul li a{
+			height: 30px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+<div class="container-fluid">
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Admin Dashboard</h2></center>	
+	<br>
+</div>
+<div class="row" style="margin-top:2%;">
+	<div class="col-sm-1 col-sm-offset-1">
+		<a href="/payment/logout" type="button" class="btn btn-danger">Logout</a>
+	</div>
+
+	<div class="dropdown col-sm-2">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Department
+	    <span class="caret"></span></button>
+	    <ul class="dropdown-menu">
+	      <li><a href="/payment/1/"> Civil Engineering Department </a></li>
+	      <li><a href="/payment/4/">Electronics and Communication Engineering </a></li>
+	      <li><a href="/payment/7/">Computer Science and Engineering </a></li>
+	      <li><a href="/payment/8/">Biotechnology Department </a></li>
+	      <li><a href="/payment/2/"> Electrical and Electronics Engineering Department </a></li>
+	      <li><a href="/payment/3/"> Mechanical Engineering Department </a></li>
+	      <li><a href="/payment/5/"> Metallurgy Department </a></li>
+	      <li><a href="/payment/6/"> Chemical Engineering Department </a></li>
+	      <li><a href="/payment/12/"> Humanities and Social Science </a></li>
+	      <li><a href="/payment/11/"> Chemistry Department </a></li>
+	      <li><a href="/payment/10/"> Physics Department </a></li>
+	      <li><a href="/payment/9/"> Mathematics Department </a></li>
+	      <li><a href="/payment/13/"> School of Management </a></li>
+    	</ul>
+  	</div>
+  	<div class="col-sm-5 text-center">
+  	<u><h3 id="deptHeading">{{dept.name}}</h3></u>
+  	
+  	</div>
+</div>
+
+
+<div class="row" style="margin-top: 2%">
+
+	<div class="col-sm-10">
+		<div class="row">
+			<center>
+<table id="datatable" class="display table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr style="background-color: #e7efe3;">
+                <th>AppID</th>
+                <th>Name</th>
+                <th>Bank Name</th>
+                <th>Transaction ID</th>
+                <th>Account No</th>
+                <th>Payment Date</th>
+                <th>Payment Type</th>
+                <th>Amount</th>
+                <th>Receipt</th>
+                <th>Status</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+        </thead>
+       <!--  <tfoot>
+            <tr>
+                <th>AppID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Applied for</th>
+                <th>Status</th>
+            </tr>
+        </tfoot> -->
+        <tbody>
+		{% for item in nitw_users %}
+			<tr>
+				<td>{{college}}{{item.app_id.app_id}}</td>
+				<td>{{item.full_name}}</td>
+				<td>{{item.bankName}}</td>
+				<td>{{item.TransID}}</td>
+				<td>{{item.accountNum}}</td>
+				<td>{{item.payDate}}</td>
+				<td>{{item.payType}}</td>
+				<td>{{item.amount}}</td>
+				<td>
+				{% if item.receipt %}<a target="_blank" href="{{item.receipt.url}}"><button class="btn btn-success">Receipt</button></a>
+				{% else %}<a target="_blank" href=""><button class="btn btn-danger" disabled>Receipt</button></a>
+				{% endif %}
+				</td>
+				<td>{{item.payment_status}}</td>
+				<td><a href="/acceptpayment/{{dept.deptID}}/{{item.app_id.app_id}}"><button class="btn btn-success">Accept</button></a></td>
+				<td><a href="/rejectpayment/{{dept.deptID}}/{{item.app_id.app_id}}"><button class="btn btn-danger">Reject</button></a></td>
+			</tr>
+		{% endfor %}
+        </tbody>
+    </table>
+    
+			</center><br>
+		</div>
+	</div>
+</div>
+
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+</div>
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#datatable').DataTable();
+} );
+
+
+
+
+</script>
+
+</html>

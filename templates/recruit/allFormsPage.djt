@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="row" style="background-color:rgba(33, 144, 243, 0.43);">
+	<center><h2>Faculty Recruitment Form</h2></center>
+	<br>
+</div>
+
+<div class="container" style="margin-top:5%;">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th style="text-align: center;"><h4>Forms</h4></th>
+			      </tr>
+			    </thead>
+				<tbody>
+					<tr>
+						<td>
+						<br>
+						<a href="/form1"><button type="button" class="btn btn-primary btn-block">Form 1</button></a><br>
+						<a href="/form2"><button type="button" class="btn btn-primary btn-block">Form 2</button></a><br>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	
+</body>
+
+</html>

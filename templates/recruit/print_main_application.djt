@@ -1,0 +1,858 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+		@media print {
+			body{
+				font-size: 12px;
+			}
+    		@page { size: portrait; }
+    		.noprint {
+    			display:none !important;
+    		}
+			}
+		.danger {
+				margin-bottom: 15px;
+    			padding: 4px 12px;
+    			background-color: #ffdddd;
+    			border-left: 6px solid #f44336;
+			}
+		
+
+	</style>
+
+</head>
+
+<body>
+	<script >
+	function thisFunction()
+	{
+		window.print();
+	}
+
+	function check()
+	{
+		var x = document.getElementById("mycheck").checked;
+		if(x===false)
+		{
+			alert("Checkbox is unchecked!");
+			return false;
+		}
+
+
+	}
+</script>
+<center> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#ffffff" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>
+</div>
+
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<form style="margin-top:3%;" method="post" action="/">
+		{% csrf_token %}
+		<div class="row">
+			<center>
+			<h3><u> Application Form for faculty Position </u></h3>
+			<h3><u>Application ID : {{profile.applicationID}}</u></h3>
+			</center>
+		</div>
+
+		<!-- ////////////////// Part1 ///////////////// -->
+
+		<div id="appln">
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<td>Application for the Post of</td>
+				<td colspan="2">{{profile.postApplied}}</td>
+				<td>in {{profile.departmentApplied}}</td>
+			</tr>
+			<tr>
+				<td><b>Specialization</b></td>
+				<td colspan="3">{{specialization}}</td>
+
+			</tr>
+			<tr>
+				<td><b>Name</b></td>
+				<td>{{generalData.full_name}}</td>
+				<td><b>Gender</b></td>
+				<td>{{generalData.gender}}</td>
+			</tr>
+			<tr>
+				<td><b>Father's Name</b></td>
+				<td>{{generalData.father_name}}</td>
+				<td><b>Occupation</b></td>
+				<td>{{generalData.father_occ}}</td>
+			</tr>
+			<tr>
+				<td><b>Mother's Name</b></td>
+				<td>{{generalData.mother_name}}</td>
+				<td><b>Occupation</b></td>
+				<td>{{generalData.mother_occ}}</td>
+			</tr>
+			<tr>
+				<td><b>Nationality</b></td>
+				<td>{{generalData.nation}}</td>
+				<td><b>Place of Birth</b></td>
+				<td>{{generalData.pob}}</td>
+			</tr>
+			<tr>
+				<td><b>Date of Birth</b></td>
+				<td>{{generalData.dob}}</td>
+				<td><b>Age</b></td>
+				<td>{{generalData.age}}</td>
+			</tr>
+			<tr>
+				<td><b>Aadhaar Number</b></td>
+				<td colspan="3">{% if generalData.aadhaarNo %} {{generalData.aadhaarNo}} {% else %} NA {% endif %}</td>
+				
+			</tr>
+			<tr>
+				<td><b>Contact</b></td>
+				<td>{{profile.contact}}</td>
+				<td><b>Email  </b></td>
+				<td>{{request.user.email}}</td>
+			</tr>
+			<tr>
+				<td><b>Category</b></td>
+				<td>{{generalData.category}}</td>
+				<td><b>PWD </b></td>
+				<td>{{generalData.pwd}}</td>
+			</tr>
+
+		</table>
+
+		<!-- address part -->
+		<div class="row">
+			<div class="col-xs-6">
+				<b>Correspondence Address</b>
+				<table class="table table-bordered">
+					<tr>
+						<td colspan="4">{{generalData.permanent_addr.addr1}}</td>
+					</tr>
+					<tr>
+						<td colspan="4">{{generalData.permanent_addr.addr2}}</td>
+					</tr>
+					<tr>
+						<td><b>City</b></td>
+						<td>{{generalData.permanent_addr.city}}</td>
+						<td><b>State</b></td>
+						<td>{{generalData.permanent_addr.state}}</td>
+					</tr>
+					<tr>
+						<td><b>Country</b></td>
+						<td>{{generalData.permanent_addr.country}}</td>
+						<td><b>Pin</b></td>
+						<td>{{generalData.permanent_addr.pin}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-xs-6">
+				<b>Permanent Address</b>
+				<table class="table table-bordered">
+					<tr>
+						<td colspan="4">{{generalData.permanent_addr.addr1}}</td>
+					</tr>
+					<tr>
+						<td colspan="4">{{generalData.permanent_addr.addr2}}</td>
+					</tr>
+					<tr>
+						<td><b>City</b></td>
+						<td>{{generalData.permanent_addr.city}}</td>
+						<td><b>State</b></td>
+						<td>{{generalData.permanent_addr.state}}</td>
+						</tr>
+					<tr>
+						<td><b>Country</b></td>
+						<td>{{generalData.permanent_addr.country}}</td>
+						<td><b>Pin</b></td>
+						<td>{{generalData.permanent_addr.pin}}</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+
+		</div>
+
+		<div id="part1">
+
+			<hr>
+			<div class="row">
+				<div class="col-sm-10">
+					<b><h3>Particulars of Educational Qualifications (Annexure A)</h3></b>
+				</div>
+			</div>
+
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr style="background-color:#e3e3e3;">
+						<th>Degree Obtained & Specializations</th>
+						<th>Degree</th>
+						<th>Name of University/Institute</th>
+						<th>Year of Passing</th>
+						<th>% of Marks / CGPA</th>
+						<th>Class/Division</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Bachelor's Degree</td>
+						<td>{{Bqual.degreeName}}</td>
+						<td>{{Bqual.university}}</td>
+						<td>{{Bqual.passingYear}}</td>
+						<td>{{Bqual.marks}}</td>
+						<td>{{Bqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Master's Degree</td>
+						<td>{{Mqual.degreeName}}</td>
+						<td>{{Mqual.university}}</td>
+						<td>{{Mqual.passingYear}}</td>
+						<td>{{Mqual.marks}}</td>
+						<td>{{Mqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Ph.D. Degree</td>
+						<td>{{Phdqual.degreeName}}</td>
+						<td>{{Phdqual.university}}</td>
+						<td>{{Phdqual.passingYear}}</td>
+						<td>{{Phdqual.marks}}</td>
+						<td>{{Phdqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Other's (If any)</td>
+						<td>{{Oqual.degreeName}}</td>
+						<td>{{Oqual.university}}</td>
+						<td>{{Oqual.passingYear}}</td>
+						<td>{{Oqual.marks}}</td>
+						<td>{{Oqual.division}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<!-- ////////////////// Part2 ///////////////// -->
+		<div id="part2">
+
+			<hr>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4 style="font-weight:900;">Details of Experience</h4>
+				</div>
+			</div>
+			<br>
+
+			<!-- Teaching Experience Code -->
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>Teaching Experience (years)</b></td>
+					<td>{{Experience.teaching_exp}}</td>
+					<td><b>Post Ph.D. Experience (years)</b></td>
+					<td>{{Experience.postPhd_exp}}</td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Organization</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Last pay Band and Grade Pay</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="teachingExpTbody">
+					{% for texp in teachingData %}
+					<tr>
+						<td>{{forloop.counter}}.</td>
+						<td>{{texp.organization}}</td>
+						<td>{{texp.designation}}</td>
+						<td>{{texp.joiningDate}}</td>
+						<td>{{texp.leavingDate}}</td>
+						<td>{{texp.pay}}</td>
+						<td>{{texp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>2. Research Experience (years)</b></td>
+					<td>{{Experience.research_exp}}</td>
+				</tr>
+			</table>
+
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Organization where employed</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Last pay Band and Grade Pay</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="researchExpTbody">
+					{% for rexp in researchData %}
+					<tr>
+						<td>{{forloop.counter}}.</td>
+						<td>{{rexp.organization}}</td>
+						<td>{{rexp.designation}}</td>
+						<td>{{rexp.joiningDate}}</td>
+						<td>{{rexp.leavingDate}}</td>
+						<td>{{rexp.pay}}</td>
+						<td>{{rexp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+
+			<!-- Industrial Experience Code -->
+
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>3. Industrial Experience (years)</b></td>
+					<td>{{Experience.industrial_exp}}</td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Industry</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Salary Drawn</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="industryExpTbody">
+					{% for iexp in industryData %}
+					<tr>
+						<td>{{for.counter}}</td>
+						<td>{{iexp.organization}}</td>
+						<td>{{iexp.designation}}</td>
+						<td>{{iexp.joiningDate}}</td>
+						<td>{{iexp.leavingDate}}</td>
+						<td>{{iexp.pay}}</td>
+						<td>{{iexp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+
+		</div>
+		<div id="part3">
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(i) External Sponsored R&D Projects:</b></td>
+					<td colspan="3">{% if total_e  %}{{total_e}} {% else %} 0 {% endif %}</td>
+				</tr>
+				<tr>
+					<td><b>Total Sponsored Projects</b></td>
+					<td>{{external_sponsored_rnd.total_projects}} Nos</td>
+					<td><b>As PI </b></td>
+					<td>{{external_sponsored_rnd.project_as_PI}} Nos</td>
+				</tr>
+				<tr>
+					<td><b>Total Patents Granted</b></td>
+					<td>{{external_sponsored_rnd.total_patents}} Nos</td>
+					<td><b>As PI </b></td>
+					<td>{{external_sponsored_rnd.patents_as_pi}} Nos</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(ii) Consultancy Projects</b></td>
+					<td colspan="3">{% if acad_annex_f.credit_score %}{{acad_annex_f.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Consultancy Projects Completed </b></td>
+					<td>{{consultancy_projects.consultancy_projects_completed}}</td>
+					<td><b>Amount Rs.</b></td>
+					<td>{% if consultancy_projects.amount %} {{consultancy_projects.amount}} Lakhs {% else %} 0 {% endif %}</td>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(iii) Ph.D. guided (including thesis submitted cases) :</b></td>
+					<td colspan="3">{% if acad_annex_g.total %}{{acad_annex_g.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total PhD</b></td>
+					<td>{{phd_completed.total_phd}}</td>
+					<td><b>As First Supervisor</b></td>
+					<td>{{phd_completed.as_first_supervisor}}</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(iv) Journal papers in SCI / Scopus / Web of Science, since the last promotion</b></td>
+					<td colspan="3">{% if acad_annex_h.total %}{{acad_annex_h.total}} {% else %} 0 {% endif %} </td>
+				</tr>
+			
+				<tr>
+					<td><b>Total Journal Papers Listed under SCI / Scopus / Web of Science</b></td>
+					<td>{{journal_papers.total_journal_papers}}</td>
+					<td><b>As First Author/Main Supervisor</b></td>
+					<td>{{journal_papers.as_first_supervisor}}</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(v) Conference paper indexed in SCI / Scopus / Web of Science Confernece / internationally renowned confernece :</b></td>
+					<td colspan="3">{% if acad_annex_i.total %}{{acad_annex_i.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total Conference Papers Listed under Web of Science/Scopus/Internationally renowned conference</b></td>
+					<td>{% if conference_paper_sci.total_condfernce_papers %}{{conference_paper_sci.total_conference_papers}} {% else %} 0 {% endif %}</td> <!--doubt -->
+
+					<td><b>As First Author/Main Supervisor</b></td>
+					<td>{% if conference_paper_sci.as_first_supervisor %}{{conference_paper_sci.as_first_supervisor}} {% else %} 0 {% endif %}</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(vi) HoD, Dean, Chief Warden, Professor Incharge (Training and Placement Section), Advisor (Estate), CVO, PI (Exam), TEQIP (Coordinator), <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_j.credit_score %}{{acad_annex_j.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total</b></td>
+					<td>{% if acad_annex_j.total_sem %}{{acad_annex_j.total_sem}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(vii) Warden, Assistant Wardens, Associate Dean, Chairman / Convener Institute academic committees, faculty incharge computer center, IT Services / library / Admission / student activites and other institutional activities, <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_k.credit_score %}{{acad_annex_k.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total</b></td>
+					<td>{% if acad_annex_k.total_sem %}{{acad_annex_k.total_sem}} {% else %} 0 {% endif %} Semesters</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(viii) Chairman and convener of different standing committees and special committee (Ex officio status will not be considered) Faculty incharges. (Each for one year duration) of different units or equivalent, <u>since the last promotion</b></td>
+					<td>{% if acad_annex_l.credit_score %}{{acad_annex_l.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total</b></td>
+					<td>{% if acad_annex_l.total_sem %}{{acad_annex_l.total_sem}} {% else %} 0 {% endif %} Semesters</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(ix) Department activities identified by HoD like lab incharges, or department level committee for a min. period of one year, <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_m.credit_score %}{{acad_annex_m.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Total</b></td>
+					<td>{% if acad_annex_m.total_sem %}{{acad_annex_m.total_sem}} {% else %} 0 {% endif %} Semesters</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(x) Workshop / FDP / short term courses of min 05 working days duration offered as coordinator or convener, <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_n.total %}{{acad_annex_n.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_n.total_number %}{{acad_annex_n.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xi) For conducting national programs like GIAN etc. as course coordinator, <u>since the last promotion :</b></td>
+					<td colspan="3">{% if acad_annex_o.total %}{{acad_annex_o.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>Program of 2 weeks duration</b></td>
+					<td>{% if acad_annex_o.prog_2_week_duration %}{{acad_annex_o.prog_2_week_duration}} {% else %} 0 {% endif %}</td>
+					<td><b>Program of 1 week duration</b></td>
+					<td>{% if acad_annex_o.prog_1_week_duration %}{{acad_annex_o.prog_1_week_duration}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xii) National / International conference oganized as Chairman / Secretary, <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_p.total %}{{acad_annex_p.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_p.total_number %}{{acad_annex_p.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xiii) Length of service over and above the relevant minimum teaching experience required for a given cadre, <u>since the last promotion :</b></td>
+					<td colspan="3">{% if acad_annex_q.credit_score %}{{acad_annex_q.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b>{% if acad_annex_q.total_years %}{{acad_annex_q.total_years}} {% else %} 0 {% endif %}</b></td>
+					<td>Years</td>
+					<td><b>{% if acad_annex_q.total_months %}{{acad_annex_q.total_months}} {% else %} 0 {% endif %}</b></td>
+					<td>Months</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xiv) Establishment of new Lab(s), <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_r.total %}{{acad_annex_r.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_r.total_number %}{{acad_annex_r.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xv) Theory teaching of over and above 6 credit hrs. course, <u>since the last promotion :</b></td>
+					<td>{% if acad_annex_s.credit_score %}{{acad_annex_s.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_s.total_credit %}{{acad_annex_s.total_credit}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xvi) PG Dissertation guided, <u>since the last promotion :</b></td>
+					<td>>{% if acad_annex_t.total %}{{acad_annex_t.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_t.total_number %}{{acad_annex_t.total_number}} {% else %} 0 {% endif %}</td>
+					
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xvii) UG Projects, <u>since the last promotion :</b></td>
+					<td>>{% if acad_annex_u.total %}{{acad_annex_u.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_u.total_number %}{{acad_annex_u.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xviii) Text / Reference book published on relevant subjects from reputed International publishers, <u>since the last promotion :</b></td>
+					<td>>{% if acad_annex_v.total %}{{acad_annex_v.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_v.total_number %}{{acad_annex_v.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xix) Text / Reference book published on relevant subjects from reputed national publishers or book chapters in the books published by reputed international publishers, <u>since the last promotion :</b></td>
+					<td>{% if total_w %}{{total_w}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_w1_w2.total_number %}{{acad_annex_w1_w2.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xx) Significant outreach Institute out Activities, <u>since the last promotion </b></td>
+					<td>{% if acad_annex_x.total %}{{acad_annex_x.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_x.total_number %}{{acad_annex_x.total_number}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xxi) Fellow IEEE, FNA, FNAE, FNASc.</b></td>
+					<td>{% if acad_annex_y.credit_score %}{{acad_annex_y.credit_score}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_y.value %}{{acad_annex_y.value}} {% else %} 0 {% endif %}</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>(xxii) Placement percentage (only for the placement cell officer / faculty incharge of placement), since the last promotion : </b></td>
+					<td>{% if acad_annex_z.total %}{{acad_annex_z.total}} {% else %} 0 {% endif %}</td>
+				</tr>
+			
+				<tr>
+					<td><b></b></td>
+					<td>{% if acad_annex_z.percentage %}{{acad_annex_z.percentage}} {% else %} 0 {% endif %} Percentage (%).</td>
+					
+				</tr>
+			</table>
+		</div>
+
+
+<!-- <table class="table table-bordered table-condensed">
+				<tr>
+					<td><b>Total Credit Points</b></td>
+					<td>{{acad_annex_z.total}}</td>
+				</tr>
+			</table> -->
+		
+		<div class="row" style="font-size:15px;">
+					<div class="col-sm-12">
+						<b>
+						Subjects Taught :-
+						</b>
+					</div>
+				</div>
+		<div>
+		
+			<table class="table table-bordered">
+				<thead style="background-color:#e3e3e3;">
+					<tr>
+						<th>Type</th>
+						<th>Subjects</th>
+					</tr>
+					</thead>
+					<tbody id="referTable">
+						<tr>
+							<td>A) At UG (B.Tech) Level : Core Courses</td>
+							<td>
+								<ol>
+									{% for sub in coreUGobj %}
+										<li>{{sub}}</li>
+									{% endfor %}
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td>B) At UG (B.Tech) Level : Elective Courses</td>
+							<td>
+								<ol>
+									{% for sub in electiveUGobj %}
+										<li>{{sub}}</li>
+									{% endfor %}
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td>C) At PG Level : Core Courses</td>
+							<td>
+								<ol>
+									{% for sub in corePGobj %}
+										<li>{{sub}}</li>
+									{% endfor %}
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td>D) At PG/Doctoral Level : Elective Courses</td>
+							<td>
+								<ol>
+									{% for sub in electivePGobj %}
+										<li>{{sub}}</li>
+									{% endfor %}
+								</ol>
+							</td>
+						</tr>
+					</tbody>
+			</table>
+		</div>
+
+			<hr>
+			<br>
+			<div>
+				<div class="row" style="font-size:15px;">
+					<div class="col-sm-12">
+						<b>
+						Refrences :-
+						</b>
+					</div>
+				</div>
+
+				<table class="table table-bordered">
+					<thead style="background-color:#e3e3e3;">
+						<tr>
+							<th>S.No.</th>
+							<th>Name</th>
+							<th>Designation</th>
+							<th>Dpeartment Address/Phone/Fax No./Email-Id</th>
+						</tr>
+					</thead>
+					<tbody id="referTable">
+						{% for refobj in refobjs %}
+							<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{refobj.name}}</td>
+								<td>{{refobj.designation}}</td>
+								<td>{{refobj.address}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<input disabled type="text" name="refFinaldata" id="refData" hidden>
+			</div>
+			
+		</form>
+
+		<div class="noprint">
+			<center><button  onclick = "thisFunction()" class="btn btn-success" style="float:right;">Print</button></center>
+			
+				<br><br>
+		</div>
+
+		<div class = "noprint">
+			<div class = "danger" >
+		 	
+		 		<p><strong>Note :</strong>If you submit your application, you won't be able to edit it later!</p>
+		 	</div>
+
+		 	<center><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-danger">Submit</button></center>
+		 	<br>
+		 	<center><a href="/uploadPaper/0/" class="btn btn-info">Back</a></center>
+
+		 	<!-- Modal -->
+			  <div class="modal fade" id="myModal" role="dialog">
+			    <div class="modal-dialog">
+			    
+			      <!-- Modal content-->
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <center><h4 class="modal-title">Submit Application</h4></center>
+			        </div>
+			        <div class="modal-body">
+			          <p>Are you sure, you want to submit the form!</p>
+			          <p>You won't be able to edit it again!</p>
+			          <br><br>
+			          <input id = "mycheck" type="checkbox" onchange="document.getElementById('submit').disabled = !this.checked;" name="checked" value="submission"> I am sure!(Check this to enable the button!<br>
+			        </div>
+			        <div class="modal-footer">
+
+			          <center><a href = '/lockApplication'> <button id="submit" type="button" class="btn btn-info" disabled >Submit</button></a></center>
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        </div>
+			      </div>
+		      
+		   		 </div>
+
+			  </div>
+		
+	
+
+</div>
+
+
+</body>
+
+</html>

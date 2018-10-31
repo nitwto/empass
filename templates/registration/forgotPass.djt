@@ -1,0 +1,38 @@
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row main_header">
+	<center><h2>Forgot Password</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="alert alert-info">
+			<center><b>Your ApplicationID is your Username.</b></center>
+			<center>On resetting password, new password will be mailed to your registered email id.</center>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="well well-lg">
+				<form method="POST" action="/register/forgotPassword/">
+				{% csrf_token %}
+					<div class="form-group">
+						<label for="firstName">ApplicationID</label>
+						<input for="firstName" class="form-control" name="appID" required>
+					</div>
+
+					<center><button type="submit" class="btn btn-success btn-lg">Reset Password</button></center>
+				</form>
+				<br>
+				<center><a href="/register">Or Login</a></center>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

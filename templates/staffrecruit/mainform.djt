@@ -1,0 +1,439 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Non Teaching Staff Recruitment Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+    <script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+    <link href="{% static 'style.css' %}" rel="stylesheet" />
+    <style type="text/css">
+        hr {
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+
+        @-webkit-keyframes blinker {
+            from {
+                opacity: 1.0;
+            }
+
+            to {
+                opacity: 0.0;
+            }
+        }
+
+        .blink {
+            text-decoration: blink;
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 0.6s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-direction: alternate;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <center><a href="index.php"> <img src="{% static 'img/HINDI2.png' %}" align="center" height="110px" width="90%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal" /></a></center>
+
+    <div class="row" style="background-color:#003A6A; color: white;">
+        <center>
+            <h2 style="margin-top:10px;">Non Teaching Staff Recruitment Form</h2>
+        </center>
+        <br>
+    </div>
+    <center>
+        <div class="row" style="margin-top:2%;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <div style="font-size: 1em;">
+                        <div class="arrow current">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Upload Photo</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow last">Submitted</div>
+                    </div>
+                    <br />
+                    <ul class="nav navbar-nav navbar-right">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </center>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="alert alert-info">
+                <b>
+                    <h3><u>Instructions to fill the form</u><br> (Kindly follow these for avoiding any inconvenience)</h3>
+                    <ol>
+                        <li>Upload your picture first before proceeding to fill the form. <span class="label label-danger">Important</span></li>
+                        <li>After uploading the picture, you can proceed to fill the form.</li>
+                        <li>
+                            Keep these points in mind while filling the form :
+                            <ol>
+                                <li>Fill all the details (required) at once on a page and save it using the save button given at the bottom of the page, else filled data will not be saved and get lost on coming back. <span class="label label-danger">Important</span></li>
+                                <li>You can modify the data after saving</li>
+                                <li>Go to next part of the form using next button at the bottom of page.</li>
+                                <li>On Second page of the form, First fill the Annexures (whichever applicable) attached to parts of form and then proceed to fill details on the page and save.
+                                    on second page and submit them.
+                                    <ol>
+                                        <li>When submitting the annexures, it is mandatory to upload the pdf of supporting documents (like certificates,etc.)</li>
+                                        <li>All the documents related to a annexure should be merged into single pdf and then you should upload it as a single file. <span class="label label-danger">Important</span></li>
+                                        <li>
+                                            In case of Journal papers, only first pages of each journal should be scanned and merged. <span class="label label-danger">Important</span>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <br>
+                                <li>After filling and saving all the three pages of the form, your application details will be completed.</li>
+                                <li>Upload Your Resume using link given in the end.</li>
+                                <li>You can print your Application form and Annexures from Summary Page.</li>
+                            </ol>
+                            <br>
+                            <b class="blink" style="color:red;">Annexures once filled get freezed on Submit and can't be edited. You will have to refresh it and fill that again in case of any changes. Data to be filled carefully.</b>
+                        </li>
+                    </ol>
+                </b>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <form style="margin-top:3%;" method="POST" id = "mainform" action="/staffrecruit/">
+                {% csrf_token %}
+                <div class="row">
+                    <center>
+                        <h3><u> Application Form for Faculty Position</u></h3>
+                        <h3><u>Application ID : {{profile.applicationID}}</u></h3>
+                    </center><br>
+                </div>
+
+                <!-- ////////////////// Part1 ///////////////// -->
+                <div id="part1">
+
+                    <div class="well well-lg">
+
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-4"> <b>Application for the Post of</b> </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" style="font-size:18px;">
+                                            <b><u>{{profile.postApplied}}</u></b>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4"> <b>Name in Full (In Block Letters)</b> </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="Name" value="{{generalData.full_name}}" placeholder="{{generalData.full_name}}"required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4"> <b>Gender</b> </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="radio-inline"><input type="radio" value="Male" name="gender" {% ifequal generalData.gender 'Male' %} checked {% endifequal %}>Male</label>
+                                            <label class="radio-inline"><input type="radio" value="Female" name="gender" {% ifequal generalData.gender 'Female' %} checked {% endifequal %}>Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <center>
+                                    {% if profile.profilePic %}
+                                    <img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
+                                    {% else %}
+                                    <!-- <img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;"> -->
+                                    {% endif %}
+                                    <br><br>
+                                </center>
+                            </div>
+
+                        </div>
+                        <!-- -->
+
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Father's Name</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="fatherName" value="{{generalData.father_name}}" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-2"> <b>Father's Occupation</b> </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="fatherOccupation" value="{{generalData.father_occ}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Mother's Name</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="motherName" value="{{generalData.mother_name}}" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-2"> <b>Mother's Occupation</b> </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="motherOccupation" value="{{generalData.mother_occ}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Nationality</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="nationality" value="{{generalData.nation}}" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-2"> <b>Place of Birth</b> </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="birthplace" value="{{generalData.pob}}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Date of Birth</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input id="dt" class="form-control" id="dob" type="date" name="dateOfBirth" value="{{generalData.dob}}" required>
+                                </div>
+                            </div>
+
+                      <div class="col-sm-2"> <b>Marital Status </b> </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="maritalstatus" value="{{generalData.pob}}" required>
+                                </div>
+                            </div>
+                     
+                        </div>
+
+                    <!--    <div class="row">
+                            <div class="col-sm-3"><b>Aadhaar Number (optional)</b></div>
+                            <div class="col-sm-3">
+                                <input id="num" class="form-control" type="number" name="aadhaar" value="{{generalData.aadhaarNo}}" min="100000000000" max="999999999999">
+                            </div>
+                        </div>-->
+                        <br>
+                        <hr>
+<div class="row">
+                            <div class="col-sm-3"> <b>Address of Correspondence</b> </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" name="corresAddr1" id="corresAddr1" value="{{corresAddr.addr1}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" name="corresAddr2" id="corresAddr2" value="{{corresAddr.addr2}}">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input class="form-control" type="text" name="corresCity" id="corresCity" value="{{corresAddr.city}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input class="form-control" type="text" name="corresState" id="corresState" value="{{corresAddr.state}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input class="form-control" type="text" name="corresCountry" id="corresCountry" value="{{corresAddr.country}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Pin</label>
+                                            <input class="form-control" type="number" name="corresPin" id="corresPin" value="{{corresAddr.pin}}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <br> -->
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <b>
+                                    <p>Permanent Address</p>
+                                </b>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <div style="text-align: center;" class="ui blue message">
+                                        Same as Address of Correspondence:
+                                        <input class="ui checkbox" type="checkbox" id="addrCopy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" name="permAddr1" id="permAddr1" value="{{permAddr.addr1}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" name="permAddr2" id="permAddr2" value="{{permAddr.addr2}}">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input class="form-control" type="text" name="permCity" id="permCity" value="{{permAddr.city}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input class="form-control" type="text" name="permState" id="permState" value="{{permAddr.state}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input class="form-control" type="text" name="permCountry" id="permCountry" value="{{permAddr.country}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Pin</label>
+                                            <input class="form-control" type="number" name="permPin" id="permPin" value="{{permAddr.pin}}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Contact</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group" style="font-size:15px;">
+                                    <b><u>{{profile.contact}}</u></b>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"> <b>Email : </b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group" style="font-size:15px;">
+                                    <b><u>{{request.user.email}}</u></b>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-sm-3"> <b>PWD</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="radio-inline"><input type="radio" value="yes" name="pwd" {% ifequal generalData.pwd 'yes' %} checked {% endifequal %}>Yes</label>
+                                    <label class="radio-inline"><input type="radio" value="no" name="pwd" {% ifequal generalData.pwd 'no' %} checked {% endifequal %}>No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3"> <b>Category</b> </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="radio-inline"><input type="radio" value="SC" name="category" {% ifequal generalData.category 'SC' %} checked {% endifequal %} onclick=obcfile.style.display="none";obcfilecreamy.style.display="none">SC</label>
+                                    <label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %} onclick=obcfile.style.display="none";obcfilecreamy.style.display="none">ST</label>
+                                    <label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} onclick=obcfile.style.display="block";obcfilecreamy.style.display="none">OBC</label>
+                                    <label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} onclick=obcfile.style.display="none";obcfilecreamy.style.display="none">UR</label>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div id="obcfile" class="row" style="display:none;">
+                            <div class="col-sm-3"> <b> OBC Creamy Layer</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="radio-inline"><input type="radio" value="True" name="obccreamy" {% ifequal generalData.pwd 'yes' %} checked {% endifequal %}onclick=obcfilecreamy.style.display="none">Yes</label>
+                                    <label class="radio-inline"><input type="radio" value="False" name="obccreamy" {% ifequal generalData.pwd 'no' %} checked {% endifequal %}onclick=obcfilecreamy.style.display="block">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="obcfilecreamy" class="row" style="display:none;">
+                            <div class="col-sm-3"> <b> OBC Creamy Layer</b> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control" name="obccreamy" type="file" >
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+       
+
+                </div>
+
+                <center><button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn" form="mainform">Save</button></center>
+
+                <!-- <center><a href="/academic"><button type="button" style="float:right;" id="nxt" class="btn btn-info">Next</button></a></center> -->
+                <center><button type="submit" name="nextBtn" value="nextBtn" style="float:right;" id="nxt" class="btn btn-info" >Next</button></center>
+            </form>
+            <br><br>
+            <br><br>
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+        <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+        <div style="text-align:center">Designed and Developed by WSDC</div>
+    </div>
+
+
+</body>
+
+<style type="text/css">
+    .copyright {
+        background-color: #003A6A;
+        color: white;
+    }
+
+</style>
+
+
+
+</html>

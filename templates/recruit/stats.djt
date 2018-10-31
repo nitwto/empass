@@ -1,0 +1,298 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style>
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+		th{
+			text-align: center;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+<div class="container-fluid">
+
+	<div class="row" style="background-color:#003A6A; color: white;">
+		<center><h2>Statistics</h2></center>	
+		<br>
+	</div>
+
+<br>
+<br>
+	<!-- <div class="row">
+	<div class="dropdown col-sm-offset-5 col-sm-4">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Department
+	    <span class="caret"></span></button>
+	    <ul class="dropdown-menu">
+	      <li><a href="/stats/0/"> All </a></li>
+	      <li><a href="/stats/1/"> Civil Engineering Department </a></li>
+	      <li><a href="/stats/4/">Electronics and Communication Engineering </a></li>
+	      <li><a href="/stats/7/">Computer Science and Engineering </a></li>
+	      <li><a href="/stats/8/">Biotechnology Department </a></li>
+	      <li><a href="/stats/2/"> Electrical and Electronics Engineering Department </a></li>
+	      <li><a href="/stats/3/"> Mechanical Engineering Department </a></li>
+	      <li><a href="/stats/5/"> Metallurgy Department </a></li>
+	      <li><a href="/stats/6/"> Chemical Engineering Department </a></li>
+	      <li><a href="/stats/12/"> Humanities and Social Science </a></li>
+	      <li><a href="/stats/11/"> Chemistry Department </a></li>
+	      <li><a href="/stats/10/"> Physics Department </a></li>
+	      <li><a href="/stats/9/"> Mathematics Department </a></li>
+	      <li><a href="/stats/13/"> School of Management </a></li>
+    	</ul>
+  	</div>
+  	</div> -->
+   	<br>
+	<div class="row text-center">
+	<div class="col-sm-offset-4 col-sm-4">
+	<h3>ALL</h3>
+	<table class=" table table-bordered table-striped" >
+
+		<tr>
+			<th><u>Particular</u></th>
+			<th><u>Count</u></th>
+		</tr>
+		<tr>
+			<th>Outside Applications</th>
+			<td>{{submitted_outside}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 1</td>
+			<td>{{total_accepted_r1}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 1</td>
+			<td>{{total_rejected_r1}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 1</td>
+			<td>{{total_modified_r1}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 1</td>
+			<td>{{total_unreviewed_r1}}</td>
+		</tr>
+
+		<tr>
+			<td>Total Accepted by reviewer 2</td>
+			<td>{{total_accepted_r2}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 2</td>
+			<td>{{total_rejected_r2}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 2</td>
+			<td>{{total_modified_r2}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 2</td>
+			<td>{{total_unreviewed_r2}}</td>
+		</tr>
+		<tr>
+			<td>Max points</td>
+			<td>{{maxValue}}</td>
+		</tr>
+		<tr>
+			<td>Min points</td>
+			<td>{{minValue}}</td>
+		</tr>
+
+		<tr>
+			<th>Internal Applications</th>
+			<td>{{submitted_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 1</td>
+			<td>{{total_accepted_r1_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 1</td>
+			<td>{{total_rejected_r1_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 1</td>
+			<td>{{total_modified_r1_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 1</td>
+			<td>{{total_unreviewed_r1_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 2</td>
+			<td>{{total_accepted_r2_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 2</td>
+			<td>{{total_rejected_r2_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 2</td>
+			<td>{{total_modified_r2_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 2</td>
+			<td>{{total_unreviewed_r2_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Max points</td>
+			<td>{{maxValue_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Min points</td>
+			<td>{{minValue_nitw}}</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+	{% for deptObj in departments %}
+		<div class="col-sm-offset-1 col-sm-4 text-center">
+	<h3>{{deptObj.name}}</h3>
+	<table class=" table table-bordered table-striped" >
+
+		<tr>
+			<th><u>Particular</u></th>
+			<th><u>Count</u></th>
+		</tr>
+		<tr>
+			<th>Outside Applications</th>
+			<td>{{deptObj.submitted_outside}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 1</td>
+			<td>{{deptObj.sc_accepted}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 1</td>
+			<td>{{deptObj.sc_rejected}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 1</td>
+			<td>{{deptObj.sc_modified}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 1</td>
+			<td>{{deptObj.sc_unreviewed}}</td>
+		</tr>
+
+		<tr>
+			<td>Total Accepted by reviewer 2</td>
+			<td>{{deptObj.sc2_accepted}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 2</td>
+			<td>{{deptObj.sc2_rejected}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 2</td>
+			<td>{{deptObj.sc2_modified}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 2</td>
+			<td>{{deptObj.sc2_unreviewed}}</td>
+		</tr>
+		<tr>
+			<td>Max points</td>
+			<td>{{deptObj.maxValue}}</td>
+		</tr>
+		<tr>
+			<td>Min points</td>
+			<td>{{deptObj.minValue}}</td>
+		</tr>
+
+		<tr>
+			<th>Internal Applications</th>
+			<td>{{deptObj.submitted_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 1</td>
+			<td>{{deptObj.sc_accepted_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 1</td>
+			<td>{{deptObj.sc_rejected_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 1</td>
+			<td>{{deptObj.sc_modified_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 1</td>
+			<td>{{deptObj.sc_unreviewed_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Accepted by reviewer 2</td>
+			<td>{{deptObj.sc2_accepted_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Rejecetd by reviewer 2</td>
+			<td>{{deptObj.sc2_rejected_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Total Modified by reviewer 2</td>
+			<td>{{deptObj.sc2_modified_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Not reviewed by reviewer 2</td>
+			<td>{{deptObj.sc2_unreviewed_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Max points</td>
+			<td>{{deptObj.maxValue_nitw}}</td>
+		</tr>
+		<tr>
+			<td>Min points</td>
+			<td>{{deptObj.minValue_nitw}}</td>
+		</tr>
+	</table>
+	</div>
+	{% endfor %}
+	
+
+	</div>
+
+<br>
+<br>
+
+	<div class="row copyright">
+	  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+	  <div style="text-align:center">Designed and Developed by WSDC</div>
+	</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

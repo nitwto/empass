@@ -1,0 +1,27 @@
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row main_header">
+	<center><h2>Registration</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-success">			  
+			  <strong>
+			  You are registered successfully.  An Email has been sent to your email-id.<br>
+			  The cradentials are in the mail. User your application id as username for login.
+			  <br>Please Follow this link to Login.
+			  </strong>
+			  <br> <a href="/register">Login</a>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+
+{% endblock%}

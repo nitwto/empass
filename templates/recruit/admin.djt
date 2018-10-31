@@ -1,0 +1,131 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Admin Dashboard</h2></center>	
+	<br>
+</div>
+<div class="row" style="margin-top:2%;">
+	<div class="col-sm-11 col-sm-offset-1">
+		{% if masteruser %}
+		<a href="/stats" type="button" class="btn btn-success">Statistics</a>
+                <a href="/genpdf" type="button" class="btn btn-info">Generate PDF</a>
+                <a href="/gen_shortlist_admin" type="button" class="btn btn-info">Shortlist Generator Admin</a>
+                <a href="/call_letter_admin" type="button" class="btn btn-info">Call Letter Admin</a>
+                <a href="/call_letter_blank" type="button" class="btn btn-info">Custom Call Letters</a>
+                <a href="/pass_reset" type="button" class="btn btn-danger">Password Reset</a>
+		{% if internalmasteruser %}
+		<a target="_blank" href="/export_int" type="button" class="btn btn-success">Export Data</a>
+		{% else %}
+		<a target="_blank" href="/export_ext" type="button" class="btn btn-success">Export Data</a>
+		{% endif %}
+		{% endif %}
+		<a href="/faculty_admin/logout" type="button" class="btn btn-danger">Logout</a>
+
+	</div>
+</div>
+
+
+<div class="row" style="margin-top: 2%">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="row">
+			<center>
+<table id="datatable" class="display table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr style="background-color: #e7efe3;">
+                <th>AppID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Applied for</th>
+                <th>Status</th>
+                {% if status2Column %}
+                	<th>Status 2</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>AppID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Applied for</th>
+                <th>Status</th>
+                {% if status2Column %}
+                	<th>Status 2</th>
+                {% endif %}
+            </tr>
+        </tfoot>
+        <tbody>
+		{% for item in userlist %}
+			<tr>
+				<td><a href="/recruit/viewedu/{{item.app_id.app_id}}">{{college}}{{item.app_id.app_id}}</a></td>
+				<td>{{item.full_name}}</td>
+				<td>{{item.category}}</td>
+				<td>{{item.app_id.post_for}}</td>
+				<td>{{item.scrutiny_status}}</td>
+				{% if status2Column %}
+                	<td>{{item.scrutiny_status2}}</td>
+                {% endif %}
+			</tr>
+		{% endfor %}
+        </tbody>
+    </table>
+    		
+			</center><br>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#datatable').DataTable();
+} );
+
+</script>
+
+</html>

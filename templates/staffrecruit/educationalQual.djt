@@ -1,0 +1,203 @@
+{% extends "staffrecruit/base.djt" %}
+
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div style="font-size: 1em;">
+                    <div class="arrow completed">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+                <br />
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</center>
+<center>
+<div class="row">
+    <div class="col-sm-12 text-center">
+        
+            <h3><b>Particulars of Educational Qualifications</b></h3>
+        
+    </div>
+</div>
+</center>
+
+<div style="justify-content: space-around;">
+<form enctype="multipart/form-data" style="margin-top:3%;" method="post" action="/staffrecruit/educationalqual/">
+    {% csrf_token %}
+    <div class="well well-lg">
+        <div class="row">
+            <div class="col-sm-3"><b>Degree Obtained & Branch/Specializations</b></div>
+            <div class="col-sm-2"><b>Name of University/Institute</b></div>
+            <div class="col-sm-2"><b>Year of Passing</b></div>
+            <div class="col-sm-2"><b>% of Marks / CGPA</b></div>
+            <div class="col-sm-2"><b>Class/Division</b></div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-3">S.S.C/10th</div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="suniv" class="form-control" value="{{s.university}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="spassingyear" class="form-control" value="{{s.yearofpassing}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="scgpa" class="form-control" value="{{s.cgpa}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="sdivision" class="form-control" value="{{s.classdiv}}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">Intermediate/ITI</div>
+           
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="iuniv" class="form-control" value="{{i.university}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="ipassingyear" class="form-control" value="{{i.yearofpassing}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="icgpa" class="form-control" value="{{i.cgpa}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="idivision" class="form-control" value="{{i.classdiv}}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">Degree/Diploma</div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="duniv" class="form-control" value="{{d.university}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="dpassingyear" class="form-control" value="{{d.yearofpassing}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="dcgpa" class="form-control" value="{{d.cgpa}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="ddivision" class="form-control" value="{{d.classdiv}}">
+                </div>
+            </div>
+        </div>
+    <div class="row">
+            <div class="col-sm-3">Master's Degree</div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="muniv" class="form-control" value="{{m.university}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="mpassingyear" class="form-control" value="{{m.yearofpassing}}" required>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="mcgpa" class="form-control" value="{{m.cgpa}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="mdivision" class="form-control" value="{{m.classdiv}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">Other's (If any)</div>
+        
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="Ouniv" class="form-control" value="{{o.university}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="Opassingyear" class="form-control" value="{{o.yearofpassing}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="Ocgpa" class="form-control" value="{{o.marks}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="Odivision" class="form-control" value="{{o.classdiv}}">
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+<center>
+<div class="row">
+        <div class="col-sm-12">
+         <b style="color:blue;">Upload proofs to support your educational qualifications</b>
+            <input type="file" name="files" multiple>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-sm-12">
+            <b style="color:red;">Save the data on the page before proceeding to the next page, else it will be lost.</b>
+        </div>
+    </div>
+    </center><br>
+        <center>
+        <a href="/staffrecruit/uploadpic"><button type="button" id="back" class="btn btn-info">Back</button></a>&nbsp;&nbsp;
+        <button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn">Save</button>&nbsp;&nbsp;
+         <button type="submit" name="nextBtn" value="nextBtn" id="nxt" class="btn btn-info">Next</button>
+         </center>
+        
+       
+
+    </div>
+
+</form>
+</div>
+<br><br>
+{% endblock %}

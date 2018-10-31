@@ -1,0 +1,48 @@
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row main_header" ">
+	<center><h2>Password reset successful!</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-success">			  
+			  <strong>
+			  Your new password has been set!
+			  <br>Please Follow this link to Login.
+			  </strong>
+			  <br> <a href="/register">Login</a>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+
+
+{% endblock%}
+
+<!-- <div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  position: absolute;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  padding: 1rem;
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+</html> -->

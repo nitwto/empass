@@ -1,0 +1,180 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+<body>
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+	<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+	<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+		{% csrf_token %}
+			<div class="row">
+				<br/>
+				<div class="row">
+					<center><h3><u> Annexure - B</u></h3></center><br>
+					<center><h4>2. Teaching Experience (Enclose Experience Certificate to support the claim )</h4></center>
+					<br>
+				</div>
+			</div>
+
+			<div id="alert" class="alert alert-danger">
+  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-8">
+		<input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+	</div>
+</div>
+<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Name of Institution and Position </th>
+			        <th>From</th>
+			        <th>To</th>
+			        <th>Total Years</th>
+			        <th>Pay and Pay Sacle(Band) with AGP/GP Separately</th>
+			      </tr>
+			    </thead>
+			    <tbody id="annexure_b">
+			    	
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="institution">Name of Institution and Position</label>
+						<input for="institution" class="form-control" id="institution1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="from">From</label>
+						<input for="from" type="date" class="form-control" id="from1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="to">To</label>
+						<input for="to" type="date" class="form-control" id="to1">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="totalyears">Total Years</label>
+						<input for="totalyears" class="form-control" id="totalyears1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="pay">Pay</label>
+						<input for="pay" class="form-control" id="pay1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add1">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="annexure_b" id="annexure_b" hidden>
+			<input type="text" name="total" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+		</form>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_b= [];
+	$('#alert').hide();
+
+	$('#Add1').click(function(){
+		var institution = $('#institution1').val(); 
+		var from = $('#from1').val();
+		var to = $('#to1').val(); 
+		var totalyears = $('#totalyears1').val(); 
+		var pay = $('#pay1').val(); 
+		
+		if(!institution || !from || !to || !totalyears || !pay) {
+			$('#alert').show();
+			return false;
+		}
+		$('#institution1').val("");
+		$('#from1').val("");
+		$('#to1').val("");
+		$('#totalyears1').val("");
+		$('#pay1').val("");
+		
+		var data = {
+			'institution' : institution,
+			'from' : from,
+			'to' : to,
+			'totalyears' : totalyears,
+			'pay' : pay
+		};
+
+		var i = rowCount+annexure_b.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + institution + '</td>';
+		rowHtml = rowHtml + '<td>' + from + '</td>';
+		rowHtml = rowHtml + '<td>' + to + '</td>';
+		rowHtml = rowHtml + '<td>' + totalyears + '</td>';
+		rowHtml = rowHtml + '<td>' + pay + '</td>';
+
+		$('#annexure_b').append(rowHtml);
+
+		annexure_b.push(data);
+
+		var dataString = JSON.stringify(annexure_b);
+		console.log(dataString);
+		$('input[name="annexure_b"]').val(dataString);
+	});
+	 $('#annexure').submit(function() {
+	 		if(annexure_b.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+

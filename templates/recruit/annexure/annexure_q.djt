@@ -1,0 +1,348 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	   table {border-collapse:collapse; }
+	   table td {border:solid 1px; word-wrap:break-word;}
+	</style>
+<title>Annexures</title>
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+				{% csrf_token %}
+			<div class="row">
+				<center><h3><u> Annexure - Q</u></h3></center><br>
+				<center><h4>18.Length of service over and above the relevant minimum teaching experience required for a given cadre</h4></center><br>
+			</div>
+				<div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+2 credit points per semester with maximum
+of 10 credit points since the last
+promotion.
+</div>
+			<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+					<div class="col-sm-7">
+						<div class="form-group">
+							<input class="form-control" type="text" name="last_prom" value="{{last_prom}}" required>
+						</div>
+					</div>
+				</div>
+				<div id="alert" class="alert alert-danger">
+				  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+				</div>
+
+<table class="table table-bordered">
+					<thead>
+				        <tr style="background-color:#e3e3e3;">
+					        <th >S.No.</th>
+					        <th colspan="7">Details of teaching experience since last promotion</th>
+				        </tr>
+				        <tr style="background-color:#e3e3e3;">
+				        	<th colspan="1"></th>
+				        	<th>Post</th>
+				        	<th>AGP</th>
+				        	<th>Place</th>
+				        	<th>From</th>
+				        	<th>To</th>
+				        	<th colspan="1">Total</th>
+						  <th colspan="2"></th>
+				        </tr>
+				        <tr>
+				        	<th colspan="6"></th>
+				        	<th>Yrs</th>
+				        	<th>Mnth</th>
+				        </tr>	
+				    </thead>
+					<tfoot>
+						<tr>
+						  <td colspan="6"><b>Total</b></td>
+						  <td id="t1">{{total_yr}}</td><td id="t2">{{total_mnth}}</td>
+						</tr>
+					</tfoot>
+				    <tbody id="annexure_q">
+				    	{% for item in annex_q %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.post}}</td>
+				    		<td>{{item.agp}}</td>
+				    		<td>{{item.place}}</td>
+				    		<td>{{item.from}}</td>
+				    		<td>{{item.to_date}}</td>
+				    		<td>{{item.tot_yrs}}</td>
+				    		<td>{{item.tot_mnth}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table>
+
+				<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="post">Post</label>
+							<input for="post" class="form-control" id="post">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="agp">AGP</label>
+							<input for="agp" class="form-control" id="agp">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="place">Place</label>
+							<input for="place" class="form-control" id="place">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="from">From Date</label>
+							<input for="from" type="date" class="form-control" id="from">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="to_date">To(dd/mm/yyyy) or Continuing</label>
+							<input for="to_date" type="text" class="form-control" id="to_date">
+						</div>
+					</div>
+				</div>
+				<br>
+				<b>Length of Service </b>(Example : Worked for 5 yrs and 4 months so put 5 in years and 4 in months)
+				<hr>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="tot_yrs">Years</label>
+							<input for="tot_yrs" type="number" class="form-control" id="tot_yrs">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="tot_mnth">Months</label>
+							<input for="tot_mnth" type="number" class="form-control" id="tot_mnth">
+						</div>
+					</div>
+				</div>
+				
+				<center><button type="button" id="Add">Add</button><br></center>
+
+				</div>
+				<br>
+				<div class="well well-lg">
+					<b>Total experience(Years)</b>
+					<hr>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label for="exp_phd">Total experience after Ph.D</label>
+								<input for="exp_phd" type="number" id="exp_phd" name="exp_phd" value="{{exp_phd}}" class="form-control" id="exp_phd" required>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label for="exp_cad">Total experience over and above the relevant minimum
+									teaching experience required for a given cadre</label>
+								<input for="exp_cad" type="number" id="exp_cad" name="exp_cad" value="{{exp_cur}}" class="form-control" id="exp_cad" required>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label for="total">Total</label>
+								<input for="total" name="total" value="{{tot_exp}}" class="form-control" id="total" readonly>
+							</div>
+						</div>
+					</div>	
+			</div>
+			<div class="row">
+				<div class="col-sm-6"><b>Credit Points</b> </div>
+				<div class="col-sm-12">
+					<div class="form-group">
+						<input class="form-control"name="credit" value="{{credit}}" type="number" step="0.01" required>
+					</div>
+				</div>
+			</div>
+			<input type="text" name="annexure_q" id="annexure_q" val="" hidden>		
+			<br>
+			</div>
+
+				<input type="text" name="total_yr" hidden>
+				<input type="text" name="total_mnth" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+			<a href="/refresh/q" class="btn btn-lg btn-danger">Refresh</a>
+			<a href="/academic/annexure_q_main" class="btn btn-lg btn-info">Back</a>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_q = [];
+	var total_yr = $("#t1").html();
+	if(!total_yr)
+		total_yr = 0;;
+	var total_m = $("#t2").html();
+	if(!total_m)
+		total_m = 0;;
+
+	var rowCount = $('#annexure_q tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+		var x=$('#total').val();
+		if(!x)
+		{
+			$('#total').val("0");
+		}
+
+	});
+
+	var exp_phd = document.getElementById("exp_phd");
+	var exp_cad = document.getElementById("exp_cad");
+
+	exp_phd.onchange = function(){
+		var t = $("#total").val();
+		var tmp = exp_cad.value;
+		if(!tmp)
+		{
+			tmp=0;
+		} 
+		t = parseInt(tmp) + parseInt(this.value);
+		$("#total").val(t);
+	}
+
+	exp_cad.onchange = function(){
+		var t = $("#total").val();
+		var tmp = exp_phd.value;
+		if(!tmp)
+		{
+			tmp=0;
+		} 
+		t = parseInt(tmp) + parseInt(this.value);
+		$("#total").val(t);
+	}
+
+	$('#Add').click(function(){
+		var post = $('#post').val(); $('#post').val("");
+		var agp = $('#agp').val(); $('#agp').val("");
+		var place = $('#place').val(); $('#place').val("");
+		var from = $('#from').val(); $('#from').val("");
+		var to_date = $('#to_date').val(); $('#to_date').val("");
+		var tot_yrs = $('#tot_yrs').val(); $('#tot_yrs').val("");
+		var tot_mnth = $('#tot_mnth').val(); $('#tot_mnth').val("");
+
+		if(!post  || !agp || !place || !from || !to_date || !tot_yrs || !tot_mnth)
+		{
+			$('#alert').show();
+			return false;
+		}
+
+		total_yr = parseInt(total_yr)+parseInt(tot_yrs);
+		total_m = parseInt(total_m)+parseInt(tot_mnth);
+		if(total_m >=12)
+		{
+			total_yr+=1;
+			total_m=total_m%12;
+		}
+
+		var data = {
+			'post' : post,
+			'agp' : agp,
+			'place' : place,
+			'from' : from,
+			'to_date' : to_date,
+			'tot_yrs' : tot_yrs,
+			'tot_mnth' : tot_mnth,
+		};
+
+		var i = rowCount+annexure_q.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + post + '</td>';
+		rowHtml = rowHtml + '<td>' + agp + '</td>';
+		rowHtml = rowHtml + '<td>' + place + '</td>';
+		rowHtml = rowHtml + '<td>' + from + '</td>';
+		rowHtml = rowHtml + '<td>' + to_date + '</td>';
+		rowHtml = rowHtml + '<td>' + tot_yrs + '</td>';
+		rowHtml = rowHtml + '<td>' + tot_mnth + '</td>';
+
+		$('#annexure_q').append(rowHtml);
+		$('#t1').html(total_yr);
+		$('#t2').html(total_m);
+		annexure_q.push(data);
+
+		var dataString = JSON.stringify(annexure_q);
+		console.log(dataString);
+		$('input[name="annexure_q"]').val(dataString);
+		$('input[name="total_yr"]').val(total_yr);
+		$('input[name="total_mnth"]').val(total_m);
+	});
+
+	 $('#annexure').submit(function() {
+	 		if(annexure_q.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+			var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

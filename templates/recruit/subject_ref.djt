@@ -1,0 +1,375 @@
+{% extends "recruit/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+    <center>
+        <div class="row" style="margin-top:2%;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div style="font-size: 1em;">
+                        <div class="arrow-visited">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Eductional Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow current">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Upload Documents</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow last">Submitted</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </center>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <form method="post" action="/subject_ref/">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-5">
+                        <b>
+                            <h3><u>Subjects Taught</u></h3>
+                        </b><br>
+                    </div>
+                </div>
+                <div class="well well-lg">
+                    <div class="row">
+                        <b>A) At UG (B.Tech) Level : Core Courses </b><br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control" type="text" id="course1">
+                            </div>
+                            <center><button type="button" id="Add1">Add</button><br></center>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <thead style="background-color:#e3e3e3;">
+                                    <tr>
+                                        <th>Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courseTable1">
+                                    {% for sub in coreUGobj %}
+                                    <tr>
+                                        <td>{{sub}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="text" name="coreUGdata" id="coreUG" hidden>
+                </div>
+
+                <div class="well well-lg">
+                    <div class="row">
+                        <b>B) At UG (B.Tech) Level : Elective Courses </b><br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control" type="text" id="course2">
+                            </div>
+                            <center><button type="button" id="Add2">Add</button><br></center>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <thead style="background-color:#e3e3e3;">
+                                    <tr>
+                                        <th>Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courseTable2">
+                                    {% for sub in electiveUGobj %}
+                                    <tr>
+                                        <td>{{sub}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="text" name="electiveUGdata" id="electiveUG" hidden>
+                </div>
+
+                <div class="well well-lg">
+                    <div class="row">
+                        <b>C) At PG Level : Core Courses </b><br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control" type="text" id="course3">
+                            </div>
+                            <center><button type="button" id="Add3">Add</button><br></center>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <thead style="background-color:#e3e3e3;">
+                                    <tr>
+                                        <th>Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courseTable3">
+                                    {% for sub in corePGobj %}
+                                    <tr>
+                                        <td>{{sub}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="text" name="corePGdata" id="corePG" hidden>
+                </div>
+
+                <div class="well well-lg" id="refwell">
+                    <div class="row">
+                        <b>D) At PG/Doctoral Level : Elective Courses </b><br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control" type="text" id="course4">
+                            </div>
+                            <center><button type="button" id="Add4">Add</button><br></center>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <thead style="background-color:#e3e3e3;">
+                                    <tr>
+                                        <th>Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courseTable4">
+                                    {% for sub in electivePGobj %}
+                                    <tr>
+                                        <td>{{sub}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="text" name="electivePGdata" id="electivePG" hidden>
+                </div>
+
+                <hr>
+                <hr>
+
+                <div>
+                    <div class="row" style="font-size:15px;">
+                        <div class="col-sm-12">
+                            <b>
+                                Give name, designation and address (Phone / Fax No. / Email) of three referees not related to you.
+                                Reference should be of persons who have intimate knowledge of your work.
+                            </b>
+                        </div>
+                    </div>
+                    <br><br>
+
+                    <table class="table table-bordered">
+                        <thead style="background-color:#e3e3e3;">
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Dpeartment Address/Phone/Fax No./Email-Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="referTable">
+                            {% for refobj in refobjs %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{refobj.name}}</td>
+                                <td>{{refobj.designation}}</td>
+                                <td>{{refobj.address}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="well well-lg">
+                        <div class="row">
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <div class="form-group">
+                                    <label for="refName">Name</label>
+                                    <input for="refName" class="form-control" id="refName">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="designation">Designation</label>
+                                    <input for="designation" class="form-control" id="designation">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="form-group">
+                                    <label for="address">Department Address/Phone/Fax No./Email-Id</label>
+                                    <textarea for="address" class="form-control" rows="4" id="address">
+								</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                        <center><button type="button" id="Addref">Add</button><br></center>
+                    </div>
+                    <input type="text" name="refFinaldata" id="refData" hidden>
+                </div>
+
+                <hr>
+                <center><button type="submit" class="btn btn-success" style="">Save</button></center>
+
+                <div class="row">
+                    <a href="/academic/" style="float:left;" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+
+                    <a href="/uploadPaper/0" style="float: right;" class="btn btn-info">Next <span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+                <br><br>
+
+                <!-- <center><a href="/uploadPaper/0"><button type="button" class="btn btn-md btn-primary">Upload Documents</button></a></center><br> -->
+                
+
+            </form>
+        </div>
+    </div>
+
+<style type="text/css">
+    .copyright {
+        background-color: #003A6A;
+        color: white;
+    }
+
+</style>
+
+<script type="text/javascript">
+    courseList1 = [];
+    courseList2 = [];
+    courseList3 = [];
+    courseList4 = [];
+    refdataArray = [];
+
+    $(document).ready(function() {
+        $('#coreUG').val(JSON.stringify(courseList1));
+        $('#electiveUG').val(JSON.stringify(courseList2));
+        $('#corePG').val(JSON.stringify(courseList3));
+        $('#electivePG').val(JSON.stringify(courseList4));
+        $('#refData').val(JSON.stringify(refdataArray));
+    });
+
+    $('#Add1').click(function() {
+        var subject = $('#course1').val();
+        courseList1.push(subject);
+        $('#course1').val("");
+
+        if (!subject) {
+            alert("Please fill some value");
+            return false;
+        }
+
+        innerHtml = '<tr><td>' + subject + '</td></tr>';
+        $('#courseTable1').append(innerHtml);
+
+        $('#coreUG').val(JSON.stringify(courseList1));
+    });
+
+    $('#Add2').click(function() {
+        var subject = $('#course2').val();
+        courseList2.push(subject);
+        $('#course2').val("");
+
+        if (!subject) {
+            alert("Please fill some value");
+            return false;
+        }
+
+        innerHtml = '<tr><td>' + subject + '</td></tr>';
+        $('#courseTable2').append(innerHtml);
+
+        $('#electiveUG').val(JSON.stringify(courseList2));
+    });
+
+    $('#Add3').click(function() {
+        var subject = $('#course3').val();
+        courseList3.push(subject);
+        $('#course3').val("");
+
+        if (!subject) {
+            alert("Please fill some value");
+            return false;
+        }
+
+        innerHtml = '<tr><td>' + subject + '</td></tr>';
+        $('#courseTable3').append(innerHtml);
+
+        $('#corePG').val(JSON.stringify(courseList3));
+    });
+
+    $('#Add4').click(function() {
+        var subject = $('#course4').val();
+        courseList4.push(subject);
+        $('#course4').val("");
+
+        if (!subject) {
+            alert("Please fill some value");
+            return false;
+        }
+
+        innerHtml = '<tr><td>' + subject + '</td></tr>';
+        $('#courseTable4').append(innerHtml);
+
+        $('#electivePG').val(JSON.stringify(courseList4));
+    });
+    var rowC = $('#referTable tr').length;
+    $('#Addref').click(function() {
+        var name = $('#refName').val();
+        $('#refName').val("");
+        var designation = $('#designation').val();
+        $('#designation').val("");
+        var address = $('#address').val();
+        $('#address').val("");
+
+        if (!name || !designation || !address) {
+            alert("Please fill all values or fill NA");
+            return false;
+        }
+
+        var dataobj = {
+            'name': name,
+            'designation': designation,
+            'address': address
+        };
+
+        var rowCount = $('#referTable tr').length;
+        var i = refdataArray.length + rowC;
+
+        if (i > 2) {
+            alert('Only 3 References can be added');
+            return;
+        }
+
+        var rowHtml = '<tr>' + '<td>' + (i + 1) + '</td>';
+        rowHtml = rowHtml + '<td>' + name + '</td>';
+        rowHtml = rowHtml + '<td>' + designation + '</td>';
+        rowHtml = rowHtml + '<td>' + address + '</td></tr>';
+
+        $('#referTable').append(rowHtml);
+
+        refdataArray.push(dataobj);
+        $('#refData').val(JSON.stringify(refdataArray));
+        console.log($('#refData').val());
+    });
+
+    $("#nxt").click(function() {
+        if (confirm("Did you click on Save first before moving on Next")) {
+
+        } else {
+            alert("Please Save first");
+            return false;
+        }
+    });
+
+</script>
+
+{% endblock %}

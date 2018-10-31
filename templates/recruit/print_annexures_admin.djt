@@ -1,0 +1,1209 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" **media="screen"**>
+	<title>Print Annexures</title>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+
+
+		@media print {
+			a{
+				display: none;
+			}
+			.notprint{
+    			 display: none; 
+    		}
+		}
+		
+
+	
+
+		
+	</style>
+
+</head>
+
+<body>
+	<center><a target="_blank" href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Admin Dashboard</h2></center>
+</div>
+<div class="row">
+	<div class="row">
+		<center>
+		<h3><u> Application Form for faculty Position </u></h3>
+		<h3><u>Application ID : {{college}}{{profile.applicationID}}</u></h3>
+		<h3><u>Applicant Name : {{profile.user.first_name}} {{profile.user.last_name}}</u></h3>
+		</center><br>
+	</div>
+</div>
+		<div class="row" style="background-color:#003A6A; color: white;">
+				<center><h2>Annexures</h2></center>
+			</div>
+<div class="row">
+
+	<div class="col-sm-2">
+		<center class="notprint" style="padding-top: 100px;">
+
+				<a href="/recruit/viewscrutiny/{{profile.applicationID}}"><button class="btn btn-success" >&nbsp;&nbsp;View Scrutiny&nbsp;&nbsp;</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewappl/{{profile.applicationID}}"><button class="btn btn-success">View Application</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewannex/{{profile.applicationID}}"><button class="btn btn-success disabled">View Annexures</button></a>
+				<br>
+				<br>
+				<a href="/faculty_admin" type="button" class="btn btn-warning">Home</a>
+				<br>
+				<br>
+				<a href="/faculty_admin/logout" type="button" class="btn btn-danger">Logout</a>		
+			</center>
+
+	</div>
+
+
+	<div class="col-sm-9" style="border-left: 1px solid grey;padding-left: 50px;">
+	<!-- <form id="annexure" style="margin-top:3%;"> -->
+		<!-- {% csrf_token %} -->
+<div class="row">
+			<center><h4>Annexure - A (Qualifications) </h4>
+
+			{% if annex_a_file %}<a target="_blank" href="{{annex_a_file.url}}"><button class="printbtn btn btn-success">Annexure A</button></a>
+			<h6>(Uploaded by the applicant)</h6>
+			{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure A</button></a>
+			{% endif %}
+			
+			</center><br>
+</div>
+<table class="table table-bordered">
+	<thead>
+        <tr style="background-color:#e3e3e3;">
+	        <th>S.No.</th>
+	        <th>Qualification</th>
+	        <th>Degree</th>
+	        <th>%Mark/CGPA</th>
+	        <th>Div.</th>
+	        <th colspan="2"><center>Date</center></th>
+	        <th>University/Institution</th>
+        </tr>
+        <tr style="background-color:#e3e3e3;">
+        	<th colspan="5"></th>
+            <th>Entry</th>
+            <th>Completion</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="annexure_a">
+    	{% for rec in annex_a %}
+    	<tr>
+    		<td>{{forloop.counter}}</td>
+    		<td>{{rec.qualification_a}}</td>
+    		<td>{{rec.degree_a}}</td>
+    		<td>{{rec.marks_a}}</td>
+    		<td>{{rec.div_a}}</td>
+    		<td>{{rec.entry_a}}</td>
+    		<td>{{rec.completion_a}}</td>
+    		<td>{{rec.university_a}}</td>
+    	</tr>
+    	{% endfor %}
+    </tbody>
+</table>
+<div class="pagebreak">
+<hr>
+</div>
+		<div class="row">
+			<center><h4>External Sponsored R&D Projects completed or ongoing/patent granted (Annexure E1)</h4>
+			{% if annex_e1_file %}<a target="_blank" href="{{annex_e1_file.url}}"><button class="printbtn btn btn-success">Annexure E1</button></a>
+			<h6>(Uploaded by the applicant)</h6>
+			{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure E1</button></a>
+			{% endif %}
+			</center><br>
+		</div>
+		<div id="part2">
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of R&D Project</th>
+			<th>Completed/Ongoing</th>
+			<th colspan="2"><center>Duration</center></th>
+			<th>Funding Agency</th>
+			<th>Amount in  Lakhs</th>
+			<th colspan="2"><center>Role</center>
+			<th>Credit Points</th>
+		</tr>
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="3"></th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan="2"></th>
+			<th>As PI or Co PI</th>
+			<th>Total No. of Co PIs for the project</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="annexure_e1">
+		{% for item in annex_e1 %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.progress}}</td>
+			<td>{{item.funding_agency}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to}}</td>
+			<td>{{item.amount}}</td>
+			<td>{{item.pi_co}}</td>
+			<td>{{item.total_co_pi}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Patent Details (Annexure E2)</h4>
+	{% if annex_e2_file %}<a target="_blank" href="{{annex_e2_file.url}}"><button class="printbtn btn btn-success">Annexure E2</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure E2</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Patent Title</th>
+			<th>Status</th>
+			<th>Details</th>
+			<th colspan="2">Role</th>
+			<th colspan="2">Credit Points</th>
+		</tr>
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="2"></th>
+			<th>Applied/Granted</th>
+			<th>No. & Date of application/grant</th>
+			<th>Principal Inventor or Coinventor</th>
+			<th>Total No of Co Inventors in patent</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+	<tbody id="annexure_e2">
+		{% for item in annex_e2 %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.patent}}</td>
+			<td>{{item.status}}</td>
+			<td>{{item.details}}</td>
+			<td>{{item.principal_role}}</td>
+			<td>{{item.total_coinv}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr></div>
+<div class="row">
+	<center><h4>Consultancy Project (Annexure F)</h4>
+	{% if annex_f_file %}<a target="_blank" href="{{annex_f_file.url}}"><button class="printbtn btn btn-success">Annexure F</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure F</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Sponsoring Agency</th>
+			<th>Completion Date</th>
+			<th>Number of Coordinators</th>
+			<th>Consultancy Amount</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_f">
+		{% for item in annex_f %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.spons_ag}}</td>
+			<td>{{item.comp_date}}</td>
+			<td>{{item.noc}}</td>
+			<td>{{item.con_amt}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>PhD Completed(Including thesis submitted cases) (Annexure G)</h4>
+	{% if annex_g_file %}<a target="_blank" href="{{annex_g_file.url}}"><button class="printbtn btn btn-success">Annexure G</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure G</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Name of Research Scholar</th>
+			<th>Title of Thesis</th>
+			<th>Status(Submitted/Awarded)</th>
+			<th>Date of Submission/PhD Award</th>
+			<th colspan="2">Role</th>
+			<th>Credit Points</th>
+		</tr>
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="5"></th>
+			<th>As Main/Co Supervisor</th>
+			<th>Total No of Co Supervisor/s</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="annexure_g">
+		{% for item in annex_g %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.res_name}}</td>
+				<td>{{item.thesis}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.sub_date}}</td>
+				<td>{{item.role_main}}</td>
+				<td>{{item.co_sup}}</td>
+				<td>{{item.credit}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Journal Papers in SCSI/Scopus(Paid Journal Papers not allowed) (Annexure H)</h4>
+	{% if annex_h_file %}<a target="_blank" href="{{annex_h_file.url}}"><button class="printbtn btn btn-success">Annexure H</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure H</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_h_last_prom" value="{{annex_h_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Title of the Paper</th>
+			<th>Name of Journal Volume,pg year</th>
+			<th>Is it paid Journal(Y/N)?</th>
+			<th>Indexed in Scopus/SCI (Y/N)</th>
+			<th colspan="2">Role</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_h">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="5"></td>
+			<td>As First Author/Main Supervisor/Other Authors</td>
+			<td>Total No of Other Authors</td>
+			<td></td>
+		</tr>
+		{% for item in annex_h %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.journal}}</td>
+			<td>{{item.paid}}</td>
+			<td>{{item.indexed}}</td>
+			<td>{{item.roles}}</td>
+			<td>{{item.no_authors}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Conference Paper Indexed (Annexure I)</h4>
+	{% if annex_i_file %}<a target="_blank" href="{{annex_i_file.url}}"><button class="printbtn btn btn-success">Annexure I</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure I</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Title of the Paper</th>
+			<th>Proceeding Details</th>
+			<th>Indexed in Scopus/SCI (Y/N)</th>
+			<th colspan="2">Role</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_i">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="2"></td>
+			<td>Name of Conference Pg,Year</td>
+			<td></td>
+			<td>As First Author/Main Supervisor/Other Authors</td>
+			<td>Total No of Other Authors</td>
+			<td colspan="2"></td>
+		</tr>
+		{% for item in annex_i %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.conference}}</td>
+			<td>{{item.indexed}}</td>
+			<td>{{item.roles}}</td>
+			<td>{{item.no_authors}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Administrative assignments-I (Annexure J)</h4><br><p>(HoD/Dean/Chief Warden/<u>Prof.I/C (T&P)</u>/Advisor(Estate)/CVO/PI(Exam)/TEQIP(coordinator)</p>
+	{% if annex_j_file > 0 %}<a target="_blank" href="{{annex_j_file.url}}"><button class="printbtn btn btn-success">Annexure J</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure J</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_j_last_prom" value="{{annex_j_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Assignment</th>
+			<th colspan="2">Date</th>
+			<th>No. of Semester</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_j">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="2"></td>
+			<td>From</td>
+			<td>To</td>
+			<td colspan="1"></td>
+		</tr>
+		{% for item in annex_j %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.sem}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Administrative assignments-II (Annexure K)</h4><br>
+	<p>Faulty in-charge(Comp centre/IT Serviices/Library/Admission/<u>student activities</u>/<u>other institutional activities(please specify) )</u></p>
+	{% if annex_k_file > 0 %}<a target="_blank" href="{{annex_k_file.url}}"><button class="printbtn btn btn-success">Annexure K</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure K</button></a>
+	{% endif %}
+	</center><br>
+
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_k_last_prom" value="{{annex_k_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Assignment</th>
+			<th colspan="2">Date</th>
+			<th>No. of Semester</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_k">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="2"></td>
+			<td>From</td>
+			<td>To</td>
+			<td colspan="1"></td>
+		</tr>
+		{% for item in annex_k %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.sem}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Administrative assignments-III (Annexure L)</h4>
+	<br>
+	<p>(Chairman and Convener of different standing committee and special committee(Ex officio status will not be considered)<br>Faulty in-charge(<u>each for one year duration</u>) of different units or equivalent not covered above</p>
+	{% if annex_l_file > 0 %}<a target="_blank" href="{{annex_l_file.url}}"><button class="printbtn btn btn-success">Annexure L</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure L</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_l_last_prom" value="{{annex_l_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Assignment</th>
+			<th colspan="2">Date</th>
+			<th>Is the assignment more than 1 year</th>
+			<th>No. of Semester</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_l">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="2"></td>
+			<td>From</td>
+			<td>To</td>
+			<td colspan="2"></td>
+		</tr>
+		{% for item in annex_l %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.assign}}</td>
+			<td>{{item.sem}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Administrative assignments-IV (Annexure M)</h4>
+	<br>
+	<p>(Departmental activities identified by HoD like lab in charges or departmental committee for minimum period of one year)</p>
+	{% if annex_m_file > 0 %}<a target="_blank" href="{{annex_m_file.url}}"><button class="printbtn btn btn-success">Annexure M</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure M</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_m_last_prom" value="{{annex_m_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Assignment</th>
+			<th colspan="2">Date</th>
+			<th>Is the assignment more than 1 year</th>
+			<th>No. of Semester</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_m">
+		<tr style="background-color:#e3e3e3;">
+			<td colspan="2"></td>
+			<td>From</td>
+			<td>To</td>
+			<td colspan="2"></td>
+		</tr>
+		{% for item in annex_m %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.assign}}</td>
+			<td>{{item.sem}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Workshop/FDP/STTP (Annexure N)</h4>
+	<br>
+	<p>(Departmental activities identified by HoD like lab in charges or departmental committee for minimum period of one year)</p>
+	{% if annex_n_file > 0 %}<a target="_blank" href="{{annex_n_file.url}}"><button class="printbtn btn btn-success">Annexure N</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure N</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_n_last_prom" value="{{annex_n_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Title</th>
+			<th >W/s /FDP/STTP</th>
+			<th colspan="2">Duration</th>
+			<th>Total no. of Days</th>
+			<th colspan="2">Role</th>
+			<th>Venue</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_n">
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="3"></th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan="1"></th>
+			<th>As Conventor/Coordinator</th>
+			<th>Other(Specify)</th>
+			<th colspan="2"></th>
+		</tr>
+		{% for item in annex_n %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.ws}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.tot_day}}</td>
+			<td>{{item.roles}}</td>
+			<td>{{item.other}}</td>
+			<td>{{item.venue}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Conducting national programmes like GIAN etc. (Annexure O)</h4>
+	{% if annex_o_file > 0 %}<a target="_blank" href="{{annex_o_file.url}}"><button class="printbtn btn btn-success">Annexure O</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure O</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_o_last_prom" value="{{annex_o_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Title</th>
+			<th >GIAN/Other(Specify)</th>
+			<th colspan="2">Duration</th>
+			<th>Total no. of Weeks</th>
+			<th colspan="2">Role</th>
+			<th>Venue</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_o">
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="3"></th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan="1"></th>
+			<th>As Conventor/Coordinator</th>
+			<th>Other(Specify)</th>
+			<th colspan="2"></th>
+		</tr>
+		{% for item in annex_o %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.gian}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.tot_weeks}}</td>
+			<td>{{item.roles}}</td>
+			<td>{{item.other}}</td>
+			<td>{{item.venue}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>National /International Conference organized as Chairman/Secretary (Annexure P)</h4>
+	{% if annex_p_file > 0 %}<a target="_blank" href="{{annex_p_file.url}}"><button class="printbtn btn btn-success">Annexure P</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure P</button></a>
+	{% endif %}}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_p_last_prom" value="{{annex_p_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th >Title of the conference</th>
+			<th >Level</th>
+			<th colspan="2">Duration</th>
+			<th colspan="2">Role</th>
+			<th>Venue</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_p">
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="2"></th>
+			<th>National/International</th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan="1"></th>
+			<th>As Chairman/Secretary</th>
+			<th>Other(Specify)</th>
+			<th></th>
+		</tr>
+		{% for item in annex_p %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.level}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.roles}}</td>
+			<td>{{item.other}}</td>
+			<td>{{item.venue}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Length of Service (Annexure Q)</h4>
+	{% if annex_q_file > 0 %}<a target="_blank" href="{{annex_q_file.url}}"><button class="printbtn btn btn-success">Annexure Q</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure Q</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_q_last_prom" value="{{annex_q_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th >S.No.</th>
+			<th colspan="7">Details of teaching experience since last promotion</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_q">
+		<tr style="background-color:#e3e3e3;">
+			<th colspan="1"></th>
+			<th>AGP</th>
+			<th>Place</th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan="2">Total</th>
+			<th colspan="2"></th>
+		</tr>
+		<tr>
+			<th colspan="6"></th>
+			<th>Yrs</th>
+			<th>Mnth</th>
+		</tr>	
+		{% for item in annex_q %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.post}}</td>
+			<td>{{item.agp}}</td>
+			<td>{{item.place}}</td>
+			<td>{{item.from}}</td>
+			<td>{{item.to_date}}</td>
+			<td>{{item.tot_yrs}}</td>
+			<td>{{item.tot_mnth}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Establishment of new labs (Annexure R)</h4>
+	{% if annex_r_file > 0 %}<a target="_blank" href="{{annex_r_file.url}}"><button class="printbtn btn btn-success">Annexure R</button></a>
+<h6>(Uploaded by the applicant)</h6>
+{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure R</button></a>
+{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_r_last_prom" value="{{annex_r_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Name(s) of lab established</th>
+			<th>Academic Year</th>
+			<th>Department concerned</th>
+			<th>No. of experiments</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_r">
+		{% for item in annex_r %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.lab_name}}</td>
+			<td>{{item.academic}}</td>
+			<td>{{item.department}}</td>
+			<td>{{item.experiments}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Theory Teaching (Annexure S)</h4>
+	{% if annex_s_file > 0 %}<a target="_blank" href="{{annex_s_file.url}}"><button class="printbtn btn btn-success">Annexure S</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure S</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_s_last_prom" value="{{annex_s_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Academics</th>
+			<th>Semester</th>
+			<th>Teaching load hrs/week Theory only</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_s">
+		{% for item in annex_s %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.academics}}</td>
+			<td>{{item.odd}}</td>
+				<td>{{item.even}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>PG Disseration (Annexure T)</h4>
+	{% if annex_t_file > 0 %}<a target="_blank" href="{{annex_t_file.url}}"><button class="printbtn btn btn-success">Annexure T</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure T</button></a>
+	{% endif %}
+	</center><br>
+
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_t_last_prom" value="{{annex_t_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of Disseration</th>
+			<th>Name of Student</th>
+			<th>Pass out Year</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_t">
+		{% for item in annex_t %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.passout}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr></div>
+<div class="row">
+	<center><h4>UG Projects (Annexure U)</h4>
+	{% if annex_u_file > 0 %}<a target="_blank" href="{{annex_u_file.url}}"><button class="printbtn btn btn-success">Annexure U</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure U</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_u_last_prom" value="{{annex_u_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of project report</th>
+			<th>Name of Student</th>
+			<th>Pass out Year</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_u">
+		{% for item in annex_u %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.passout}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Books Published on relevant subjects from reputed international publishers (Annexure V)</h4>\
+	{% if annex_v_file > 0 %}<a target="_blank" href="{{annex_v_file.url}}"><button class="printbtn btn btn-success">Annexure V</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure V</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_v_last_prom" value="{{annex_v_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of book</th>
+			<th>Name of Publisher</th>
+			<th>Year of Publications</th>
+			<th>Year of Latest Edition</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_v">
+		{% for item in annex_v %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.publish_yr}}</td>
+			<td>{{item.edition_yr}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Books Published on relevant subjects from reputed national publishers (Annexure W1)</h4>
+	{% if annex_w1_file > 0 %}<a target="_blank" href="{{annex_w1_file.url}}"><button class="printbtn btn btn-success">Annexure W1</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure W1</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_w1_last_prom" value="{{annex_w1_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of Book</th>
+			<th>Name of Publisher</th>
+			<th>Year of </th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_w1">
+		{% for item in annex_w1 %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.passout}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Chapters in the Books Published on relevant subjects from reputed national publishers (Annexure W2)</h4>
+	{% if annex_w2_file > 0 %}<a target="_blank" href="{{annex_w2_file.url}}"><button class="printbtn btn btn-success">Annexure W2</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure W2</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_w2_last_prom" value="{{annex_w2_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Title of Book</th>
+			<th>Name of Publisher</th>
+			<th>Year of </th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_w2">
+		{% for item in annex_w2 %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.passout}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"> <hr></div>
+<div class="row">
+	<center><h4>Outreach Activity (Annexure X)</h4>
+	{% if annex_x_file > 0 %}<a target="_blank" href="{{annex_x_file.url}}"><button class="printbtn btn btn-success">Annexure X</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure X</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="last_prom" value="{{last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Name of Activity</th>
+			<th>Place</th>
+			<th>Date</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_x">
+		{% for item in annex_x %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.act}}</td>
+			<td>{{item.place}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<div class="row">
+	<center><h4>Fellow of IEEE/FNA/FNAE/FNASc (Annexure Y)</h4>
+	{% if annex_y_file > 0 %}<a target="_blank" href="{{annex_y_file.url}}"><button class="printbtn btn btn-success">Annexure Y</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure Y</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<!-- <div class="col-sm-12"><h4> Are you a Fellow of :</h4></div>
+	<div class="col-sm-6">
+		<div class="checkbox checkbox-inline">
+			<input name="annex_y_ieee" type="checkbox" id="annex_y_ieee" value="annex_y_ieee" {% if annex_y_ieee %}checked="checked"{% endif %}>
+			<label for="annex_y_ieee"> <b>IEEE</b> </label>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="checkbox checkbox-inline">
+			<input name = "annex_y_fna" type="checkbox" id="annex_y_fna" value="annex_y_fna" {% if annex_y_fna  %}checked="checked"{% endif %}>
+			<label for="annex_y_fna"> <b>FNA</b> </label>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="checkbox checkbox-inline">
+			<input name = "annex_y_fnae" type="checkbox" id="annex_y_fnae" value="annex_y_fnae" {% if annex_y_fnae%}checked="checked"{% endif %}>
+			<label for="annex_y_fnae"> <b>FNAE</b> </label>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="checkbox checkbox-inline">
+			<input name= "annex_y_fnasc" type="checkbox" id="annex_y_fnasc" value="annex_y_fnasc" {% if annex_y_fnasc %}checked="checked"{% endif %}>
+			<label for="annex_y_fnasc"> <b>FNASc</b> </label>
+		</div>
+	</div> -->
+</div>
+<div class="row">
+	<center><h4>Placement percentage(only for the placment cell officers/Faculty in-charge of Placement) (Annexure Z)</h4>
+	{% if annex_z_file %}<a target="_blank" href="{{annex_z_file.url}}"><button class="printbtn btn btn-success">Annexure Z</button></a>
+	<h6>(Uploaded by the applicant)</h6>
+	{% else %}<a target="_blank" href=""><button class="printbtn btn btn-danger" disabled>Annexure Z</button></a>
+	{% endif %}
+	</center><br>
+</div>
+<div class="row">
+	<div class="col-sm-4"> <b>Date of Last Promotion :</b> </div>
+	<div class="col-sm-7">
+		<div class="form-group">
+			<input class="form-control" type="date" name="annex_z_last_prom" value="{{annex_z_last_prom}}" readonly>
+		</div>
+	</div>
+</div>
+<table class="table table-bordered">
+	<thead>
+		<tr style="background-color:#e3e3e3;">
+			<th>S.No.</th>
+			<th>Academic Year</th>
+			<th>No of students passing out</th>
+			<th>No of Jobs offered</th>
+			<th>Percentage</th>
+			<th>Credit Points</th>
+		</tr>
+	</thead>
+	<tbody id="annexure_z">
+		{% for item in annex_z %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{item.acad_yr}}</td>
+			<td>{{item.students}}</td>
+			<td>{{item.jobs_off}}</td>
+			<td>{{item.percent}}</td>
+			<td>{{item.credit}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagebreak"><hr> </div>
+<!-- </form> -->
+<tr>
+</div>
+	<center>
+	<div class="col-sm-12">
+		<button id="printbtn1" onclick="printPage()" type="button" class="btn btn-primary">Print</button>
+	</div>
+	</center>
+</div>
+</body>
+
+<script type="text/javascript">
+	var total = 0;
+	
+    function printPage() {
+    	var button = document.getElementById('printbtn1');
+    	button.style.display = 'none';
+
+    	var button1 = document.getElementsByClassName('printbtn');
+    	[].forEach.call(button1,function(element) {
+    		element.style.display = 'none';
+    	});
+    	window.print();
+    	button.style.display = 'block';
+    	[].forEach.call(button1,function(element) {
+    		element.style.display = 'block';
+    	});
+    }
+</script>
+
+</html>

@@ -1,0 +1,340 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+		@media print {
+    		@page { size: landscape; };
+			}
+	</style>
+
+</head>
+
+<body>
+<center> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#ffffff" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></center>
+<div class="container-fluid">
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Scrutiny Dashboard</h2></center>
+</div>
+<center>
+
+<div class="row">
+	<div class="col-sm-2">
+		<center class="notprint" style="padding-top: 100px;">
+
+				<a href="/recruit/viewscrutiny/{{app_id}}"><button class="btn btn-success" >&nbsp;&nbsp;View Scrutiny&nbsp;&nbsp;</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewappl/{{app_id}}"><button class="btn btn-success">View Application</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewannex/{{app_id}}"><button class="btn btn-success">View Annexures</button></a>
+				<br>
+				<br>
+				<a href="/faculty_admin" type="button" class="btn btn-warning">Home</a>
+				<br>
+				<br>
+				<a href="/faculty_admin/logout" type="button" class="btn btn-danger">Logout</a>	
+			</center>
+
+	</div>
+	<div class="col-sm-8">
+	<div style="margin: 5% 10%">
+		<div class="row">
+			<center>
+			<div>
+				<b><h3>Particulars of Educational Qualifications (Annexure A)</h3></b>
+				{% if annex_a_file %}
+				<a type="button" target="_blank" class="btn btn-success" href="{{annex_a_file.url}}">Annexure A</a><br>
+				{% else %}
+				<a type="button" target="_blank" class="btn btn-danger" disabled>Annexure A</a><br>
+				{% endif %}
+			</div>
+			</center>
+		</div>
+		<br>
+		<table class="table table-bordered">
+			<thead>
+				<tr style="background-color:#e3e3e3;">
+					<th>Degree Obtained & Specializations</th>
+					<th>Degree</th>
+					<th>Name of University/Institute</th>
+					<th>Year of Passing</th>
+					<th>% of Marks / CGPA</th>
+					<th>Class/Division</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Bachelor's Degree</td>
+					<td>{{Bqual.degreeName}}</td>
+					<td>{{Bqual.university}}</td>
+					<td>{{Bqual.passingYear}}</td>
+					<td>{{Bqual.marks}}</td>
+					<td>{{Bqual.division}}</td>
+				</tr>
+				<tr>
+					<td>Master's Degree</td>
+					<td>{{Mqual.degreeName}}</td>
+					<td>{{Mqual.university}}</td>
+					<td>{{Mqual.passingYear}}</td>
+					<td>{{Mqual.marks}}</td>
+					<td>{{Mqual.division}}</td>
+				</tr>
+				<tr>
+					<td>Ph.D. Degree</td>
+					<td>{{Phdqual.degreeName}}</td>
+					<td>{{Phdqual.university}}</td>
+					<td>{{Phdqual.passingYear}}</td>
+					<td>{{Phdqual.marks}}</td>
+					<td>{{Phdqual.division}}</td>
+				</tr>
+				<tr>
+					<td>Other's (If any)</td>
+					<td>{{Oqual.degreeName}}</td>
+					<td>{{Oqual.university}}</td>
+					<td>{{Oqual.passingYear}}</td>
+					<td>{{Oqual.marks}}</td>
+					<td>{{Oqual.division}}</td>
+				</tr>
+			</tbody>
+		</table>
+		{% if annex_a %}
+			<br>
+			<h3>Annexure A data</h3>
+		<table class="table table-bordered">
+				<thead>
+			        <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Qualification</th>
+				        <th>Degree</th>
+				        <th>%Mark/CGPA</th>
+				        <th>Div.</th>
+				        <th colspan="2"><center>Date</center></th>
+				        <th>University/Institution</th>
+			        </tr>
+			        <tr style="background-color:#e3e3e3;">
+			        	<th colspan="5"></th>
+			            <th>Entry</th>
+			            <th>Completion</th>
+			            <th></th>
+			        </tr>
+			    </thead>
+			    <tbody id="annexure_a">
+			    	{% for rec in annex_a %}
+			    	<tr>
+			    		<td>{{forloop.counter}}</td>
+			    		<td>{{rec.qualification_a}}</td>
+			    		<td>{{rec.degree_a}}</td>
+			    		<td>{{rec.marks_a}}</td>
+			    		<td>{{rec.div_a}}</td>
+			    		<td>{{rec.entry_a}}</td>
+			    		<td>{{rec.completion_a}}</td>
+			    		<td>{{rec.university_a}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+			{% endif %}
+		</div>
+		<!-- ////////////////// Part2 ///////////////// -->
+		<div id="part2" style="margin: 2% 5%">
+
+			<hr>
+		<div class="row">
+			<center>
+			<div>
+				<h4 style="font-weight:900;">Details of Experience</h4>
+			</div>
+			{% if paper %}
+				<a type="button" target="_blank" class="btn btn-success" href="{{paper.url}}">Supporting Documents</a><br>
+			{% else %}
+				<a type="button" target="_blank" class="btn btn-danger" disabled>Supporting Documents</a><br>
+			{% endif %}
+			</center>
+		</div>
+		<br>
+
+		<!-- Teaching Experience Code -->
+		<div class="row">
+			<div class="col-sm-3"> <b>Teaching Experience (years)</b> </div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<input class="form-control" type="text" name="teachingExperience" value="{{Experience.teaching_exp}}" readonly>
+				</div>
+			</div>
+			<div class="col-sm-3"> <b>Post Ph.D. Experience (years) </b> </div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<input class="form-control" type="text" name="phdExperience" value="{{Experience.postPhd_exp}}" readonly>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+			  <tr style="background-color:#e3e3e3;">
+				<th>S.No.</th>
+				<th>Name of Organization</th>
+				<th>Designation</th>
+				<th>Date of Joining</th>
+				<th>Date of Leaving</th>
+				<th>Last pay Band and Grade Pay</th>
+				<th>Service (Regular/Contract)</th>
+			  </tr>
+			</thead>
+			<tbody id="teachingExpTbody">
+				{% for texp in teachingData %}
+				<tr>
+					<td>{{forloop.counter}}.</td>
+					<td>{{texp.organization}}</td>
+					<td>{{texp.designation}}</td>
+					<td>{{texp.joiningDate}}</td>
+					<td>{{texp.leavingDate}}</td>
+					<td>{{texp.pay}}</td>
+					<td>{{texp.service}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<br>
+
+		<input type="text" name="teachingExpData" id="teachingExp" hidden>
+
+		<!-- Research Experience Code -->
+		{% if researchData.count > 0 %}
+		<div class="row">
+			<div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<input class="form-control" type="text" name="researchExperience" value="{{Experience.research_exp}}" readonly>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+			  <tr style="background-color:#e3e3e3;">
+				<th>S.No.</th>
+				<th>Name of Organization where employed</th>
+				<th>Designation</th>
+				<th>Date of Joining</th>
+				<th>Date of Leaving</th>
+				<th>Last pay Band and Grade Pay</th>
+				<th>Service (Regular/Contract)</th>
+			  </tr>
+			</thead>
+			<tbody id="researchExpTbody">
+				{% for rexp in researchData %}
+				<tr>
+					<td>{{forloop.counter}}.</td>
+					<td>{{rexp.organization}}</td>
+					<td>{{rexp.designation}}</td>
+					<td>{{rexp.joiningDate}}</td>
+					<td>{{rexp.leavingDate}}</td>
+					<td>{{rexp.pay}}</td>
+					<td>{{rexp.service}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+		<br>
+
+		<input type="text" name="researchExpData" id="researchExp" hidden>
+
+		<!-- Industrial Experience Code -->
+		{% if industryData.count > 1 %}
+		<div class="row">
+			<div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<input class="form-control" type="text" name="industryExperience" value="{{Experience.industrial_exp}}" readonly>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+			  <tr style="background-color:#e3e3e3;">
+				<th>S.No.</th>
+				<th>Name of Industry</th>
+				<th>Designation</th>
+				<th>Date of Joining</th>
+				<th>Date of Leaving</th>
+				<th>Salary Drawn</th>
+				<th>Service (Regular/Contract)</th>
+			  </tr>
+			</thead>
+			<tbody id="industryExpTbody">
+				{% for iexp in industryData %}
+				<tr>
+					<td>{{for.counter}}</td>
+					<td>{{iexp.organization}}</td>
+					<td>{{iexp.designation}}</td>
+					<td>{{iexp.joiningDate}}</td>
+					<td>{{iexp.leavingDate}}</td>
+					<td>{{iexp.pay}}</td>
+					<td>{{iexp.service}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+		<br>
+
+		<input type="text" name="industryExpData" id="industryExp" hidden>
+		<center>
+			<form method="POST" enctype="multipart/form-data" action="/submitRemark/{{app_id}}/" onkeypress="return event.keyCode != 13;">
+			    {% csrf_token %}
+		{% if A2user %}
+		<div>
+			<h4><u>A1 user remarks :-</u></h4>
+			{{remarks}}
+		</div>
+		<br>
+		<br><br>
+		Your remark :-
+		<div class="col-sm-12" style="margin-top: 2%">
+			<textarea rows="4" cols="50" name="remarks" placeholder="Remarks" maxlength="195">{{remarks_A2}}</textarea>
+		</div>
+		{% else %}
+		<div class="col-sm-12" style="margin-top: 2%">
+			<textarea rows="4" cols="50" name="remarks" placeholder="Remarks">{{remarks}}</textarea>
+		</div>
+		{% endif %}
+		</center>
+		<input type="submit" class="btn btn-success" value="Submit Remark">
+		</form>
+		</div>
+		</center>
+		<center>
+		<a href="/faculty_admin" type="button" class="btn btn-primary">Back</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/rejectcandidate/{{app_id}}"type="button" class="btn btn-danger">Reject</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/viewscrutiny/{{app_id}}" type="button" class="btn btn-success">Continue Evaluation</a>
+		<br>
+		<br>
+		<br>
+		<br>
+</center>
+</div>
+</div>
+
+</body>
+
+</html>

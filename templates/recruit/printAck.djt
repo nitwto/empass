@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Print Annexures</title>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="row" style="background-color:white; color: white;">
+	<center><h2>National Institute Of Technology, Warangal</h2></center>
+</div>	
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>
+</div>
+
+<div class="row" style="margin-top:5%;">
+	<div class="col-sm-8 col-sm-offset-3">
+		<div class="row">
+			<div class="col-sm-8">
+				<b>Name</b>   : &nbsp&nbsp&nbsp   {{facuser.full_name}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<b>Application ID</b> : &nbsp&nbsp&nbsp {{app.app_id}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<b>Post Applied for</b> : &nbsp&nbsp&nbsp {{app.post_for}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<b>Department</b> : &nbsp&nbsp&nbsp {{app.post_in}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<b>Submission Date</b> : &nbsp&nbsp&nbsp {{app.submitDate}}
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	window.print();
+</script>
+
+</html>

@@ -1,0 +1,85 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Generate PDF</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+	<form method="post">
+	{%csrf_token%}<br><br>
+	Enter csv here:<br>
+	<textarea class="form-group" rows="20" cols="50" name="sendlist" id="csv" required></textarea><br>
+	Count : <p id="count"></p><br>
+	<button class="btn btn-success" type="submit">Generate</button>
+	</form>
+	<br><br>
+	<form>
+		Fill with all Application IDs from:<br>
+		Department:
+		<select id="dept" name="dept">
+			<option value="" disabled selected>-----------------</option>
+			{%for dept in departments%}
+			<option value="{{dept.name}}">{{dept.name}}</option>
+			{%endfor%}
+		</select><br>
+		Status:
+		<select id="status" name="status">
+			<option value="" disabled selected>-----------------</option>
+			<option value="0">Not Reviewed</option>
+			<option value="1">Under Reviewed</option>
+			<option value="2">Rejected</option>
+			<option value="3">Approved</option>
+		</select><br>
+		Shortlisted only : <input id="short" type="checkbox" name="short">
+	</form>
+
+	<script type="text/javascript">
+		var sh;
+		$('#dept').change(function(){
+			if($('#short').is(':checked')){sh = 1;}
+				else{sh = 0;}
+			$.post("getAppids/", {'dept': $('#dept').val(), 'status': $('#status').val(), 'short': sh}, function(data) {
+		        $('#csv').val(data);
+		        $('#count').text(data.split(',').length);
+		    });
+		});
+		$('#status').change(function(){
+			if($('#short').is(':checked')){sh = 1;}
+				else{sh = 0;}
+			$.post("getAppids/", {'dept': $('#dept').val(), 'status': $('#status').val(), 'short': sh}, function(data) {
+		        $('#csv').val(data);
+		        $('#count').text(data.split(',').length);
+		    });
+		});
+		$('#short').change(function(){
+			if($('#short').is(':checked')){sh = 1;$('#status').hide();}
+				else{sh = 0; $('#status').show();}
+			$.post("getAppids/", {'dept': $('#dept').val(), 'status': $('#status').val(), 'short': sh}, function(data) {
+		        $('#csv').val(data);
+		        $('#count').text(data.split(',').length);
+		    });
+		});
+	</script>
+</body>

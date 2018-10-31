@@ -1,0 +1,122 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Non Teaching Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+</head>
+
+<body>
+<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="90%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div id="container">
+	<div class="row" style="margin-top:4%;">
+		<div>
+			<div class="col-sm-10 col-sm-offset-1">
+				<center><b><h3><u> GENERAL INSTRUCTIONS &amp; INFORMATION </u></h3></b></center>
+				<center><b>Note : Separate Application has to be submitted for different posts.</b></center>
+				<br><br>
+				<div class="well well-lg">
+				<ol>
+					<li>
+						The application form will not be supplied on postal request. The application form should be filled online from the website of the institute <b>https://www.nitw.ac.in.</b> The filled application form along with annexures and supporting documents should be sent to the following address:<b> The Registrar, National Institute of Technology Warangal, Warangal-506004, Telangana, INDIA.</b>
+					</li>
+					<br>
+					<li>
+						<p style="color:red;">In addition, applicants from abroad are advised to submit a scanned copy of filled in application to e-mail: registrar@nitw.ac.in</p>
+					</li>
+					<!-- <br> -->
+					<li>
+						The date for determining eligibility of candidates in every respect shall be the closing date for receipt of application forms (i.e. 27 th October, 2017).
+					</li>
+					<br>
+					<li>
+						The Institute has the right to set higher norms than minimum prescribed and the areas of specialization while short listing, taking into account the specific requirements of the individual departments. The short listing norms may not be uniform across the departments of the Institute and shall be binding on the applicants. The decision of the institute related to all matters pertaining to the recruitment shall be final and binding on the applicants. The list of short listed candidates will be displayed on the website of the mentor-institute. Candidates are advised to visit the website <a href="https://www.nitw.ac.in">https://www.nitw.ac.in</a> regularly.
+					</li>
+					<br>
+					<li>
+						Higher starting pay and /or AGP may be offered to deserving candidates on the recommendation of the selection committee at the discretion of the Board of Governors.
+					</li>
+					<br>
+					<li>
+						All applications which are not in prescribed form / without relevant supporting enclosures will be rejected outright. No correspondence shall be entertained in this regard.
+					</li>
+					<br>
+					<li>
+						Institute will not be responsible, under any circumstances, for any sort of postal delay/loss.
+					</li>
+					<br>
+					<li>
+						Persons serving in Government / Semi- Government / PSUs / Universities / Educational Institutions should send their applications either <b>THROUGH PROPER CHANNEL</b> or should furnish a <b>NO OBJECTION CERTIFICATE</b> from the competent authority at the time of interview. They can, however, send advance copy of completed application form.
+					</li>
+					<br>
+					<li>
+						No TA/DA will be paid for attending test/interview.
+					</li>
+					<br>
+					<li>
+						For SC/ST/OBC (Non Creamy Layer) candidates, the application form should be with a copy of the relevant caste certificate. For OBC candidates, Non - Creamy Layer status issued by the competent authority empowered for the purpose not prior to 31-March- 2017, as a proof in support of the caste claim is essential. No other certificate will be accepted as sufficient proof.
+					</li>
+					<br>
+					<li>
+						The persons with disability (PWD) shall be required to produce medical certificate in the prescribed form issued by the competent medical authorities for the purpose of employment. Persons suffering from not less than 40% of the disability shall only be eligible for the benefit of reservation, if any, and other relaxations as permissible under the rules.
+					</li>
+					<br>
+					<li>
+						Reservation policy for faculty positions at entry level will be applicable as per the directives of the Department of Higher &amp; Technical Education, Ministry of the HRD, Government of India.
+					</li>
+					<br>
+					<li>
+						More than six months of experience in relevant regular position in any organization will only be considered for total experience.
+					</li>
+					<br>
+					<li>
+						Original documents and ID proof (Adhaar /Passport/Voter ID/PAN Card) will have to be produced at the time of interview, else interview will not be conducted.
+					</li>
+					<br>
+					<li>
+						Application in the prescribed format completed in all respects along with self-attested copies of relevant testimonials, certificates should be submitted to <b> “ The Registrar, National Institute of Technology Warangal, Warangal-506004, Telangana, INDIA. "</b>
+					</li>
+					<br>
+					<li>
+						The envelope containing the application be super scribed as <b>APPLICATION FOR THE POST OF .............................DEPARTMENT......................................”.</b>
+					</li>
+					<br>
+					<li>
+						Selection committee may offer lower faculty position, than the post for which he / she has applied for. The Institute reserves the right to modify / defer or cancel the advertisement/ recruitment at any stage of processing without assigning any reasons.
+					</li>
+					<br>
+					<li>
+						Legal disputes, if any, with National Institute of Technology, Andhra Pradesh, will be restricted within the jurisdiction of Hyderabad High Court only.
+					</li>
+				</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-11 col-sm-offset-1">
+			<form action="/staffregister/termsandconditions/" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
+			{% csrf_token %}
+
+			<input type="checkbox" name="checkbox" value="check" id="agree" /> <b>&nbsp I Agree, The information furnished by me is correct and true to the best of my knowledge.</b><br><br>
+
+			<center><button type="submit" class="btn btn-success btn-md">I agree</button></center>
+
+			</form>
+			<br><br>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>

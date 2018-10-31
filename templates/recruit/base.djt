@@ -1,0 +1,106 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Faculty Recruitment Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+    <script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+    <link href="{% static 'style.css' %}" rel="stylesheet" />
+    <style type="text/css">
+        hr {
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+
+        @-webkit-keyframes blinker {
+            from {
+                opacity: 1.0;
+            }
+
+            to {
+                opacity: 0.0;
+            }
+        }
+
+        .blink {
+            text-decoration: blink;
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 0.6s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-direction: alternate;
+        }
+        .main_header{
+            background-color:#00ABB6;
+            margin-top: 0.5%; 
+            color: white; 
+            padding-top: 0px; 
+            padding-bottom: -25%; 
+            height: auto; 
+            margin-bottom: -0.9%
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+   <!--  <center><a href="index.php"> <img src="{% static 'img/nitwlogo.png' %}" style="background-color:#00ABB6; align="center" height="110px" width="90%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal" /></a></center> -->
+        <div class="row" style="margin-left: 0%">
+            <a href="/"> <img  src="{% static 'img/nitwlogo.png' %}" align="center" style="background-color:#00ABB6; padding-left:0px" height="98px" width="99%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a>
+        </div>
+    <div class="row main_header" >
+        <center>
+           <br>
+            <h2 style="display: inline;">Faculty Recruitment Form</h2>
+            <div class="dropdown" style="margin-right: 8%; float: right;">
+                    <button style="background-color: #00ABB6; border: 1px solid;" class="btn dropdown-toggle" type="button" data-toggle="dropdown">Action
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/register/changePassword">Change Password</a></li>
+                        <li><a href="/register/signout">Logout</a></li>
+                    </ul>
+                </div>
+        <br style="clear: both;">
+        </center>
+        <br>    
+    </div>
+    {% block content %}
+
+    {% endblock %}
+  
+
+
+    <div class="copyright">
+        <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+        <div style="text-align:center">Designed and Developed by WSDC</div>
+    </div>
+
+
+</body>
+
+<style type="text/css">
+    .copyright {
+        background-color: #00ABB6;
+        color: white;
+    }
+
+</style>
+
+
+
+</html>

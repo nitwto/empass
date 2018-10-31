@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Portal</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Favicon image -->
+	<link rel="shortcut icon" type="img/png" href="{% static 'img/favicon.png' %}">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- semantic UI library  -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script> -->
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+		.blink{
+			animation: blinker 2.0s linear infinite;
+		}
+		@keyframes blinker{
+			10% {opacity: 0.0;}
+		}
+		.main_header{
+			background-color:#00ABB6;
+			margin-top: 0.5%; 
+			color: white; 
+			padding-top: 0px; 
+			padding-bottom: -20%; 
+			height: 72px; 
+			margin-bottom: -0.5%
+		}
+	</style>
+</head>
+
+<body>
+	
+	<!-- <div id="title" align="center"> -->
+	
+		<!-- <div style="float:left;" align="center"> -->
+	<div class="row" style="margin-left: 0%">
+		<a href="/"> <img  src="{% static 'img/nitwlogo.png' %}" align="center" style="background-color:#00ABB6; padding-left:0px" height="98px" width="99%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a>
+	</div>
+
+	{% block content %}
+	{% endblock %}
+	
+		<!-- </div> -->
+	<!-- </div> -->
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC &copy; 2018</div>
+</div>
+</body>
+<style type="text/css">
+	.copyright {
+	  background-color: #00ABB6;
+	  color: white;
+	}
+	.copyright_for_shart {
+	  position: absolute;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  padding: 1rem;
+	  background-color: #00ABB6;
+	  color: white;
+	}
+</style>
+
+</html>

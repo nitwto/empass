@@ -1,0 +1,80 @@
+{% extends "recruit/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+    <center>
+        <div class="row" style="margin-top:2%;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div style="font-size: 1em;">
+                        <div class="arrow-visited">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Eductional Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited">Upload Documents</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow-visited last" style="background: 006600; color: #fff;">Submitted</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </center>
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="ui green message">
+                <center>
+                    <b>
+                        <h3>Your Application form has been submitted.</h3>
+                    </b>
+                    <b>You can print your application form and Annexures using the buttons given below.</b>
+                </center>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="" style="margin: auto; width: 50%;">
+        <div class=" panel panel-primary">
+            <div class="panel-heading">
+                <!-- <div class="col-sm-4 col-sm-offset-4"> -->
+                <center>
+                    <h4>View or Print Details</h4>
+                </center>
+            </div>
+            <div class="panel-body">
+                <center>
+                    <a href="/all_annexures" class="ui tiny green button">All Annexures</a>
+                    <!-- </center> -->
+                    <!-- <br> -->
+                    <!-- <center> -->
+                    <a href="/print_main_application" class="ui tiny green button">Print Application</a>
+                    <!-- </center> -->
+                    <!-- <br> -->
+                    <!-- <center> -->
+                    <a href="/print_annexures" class="ui tiny green button">Print Annexures</a>
+                    <!-- </center> -->
+                    <!-- <br> -->
+                    <!-- <center> -->
+                    <a href="/printAck" class="ui tiny green button">Print Acknowledgement Receipt</a>
+                    <!-- <br> -->
+                </center>
+            </div>
+            <!-- </center> -->
+        </div>
+        <br><br><br><br>
+    </div>
+    <!-- <br><br><br> -->
+    <!-- <div class="container">
+		<center>
+			<h5><b>Sorry, at this point of time, only shortlisted candidates are allowed to access the portal !</b></h5><br>
+			<span style="float: right;">-Faculty Recruitment NITW</span>
+		</center>
+    </div> -->
+    <!-- <div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<a href="/subject_ref"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
+		</div>
+	</div> -->
+
+{% endblock %}

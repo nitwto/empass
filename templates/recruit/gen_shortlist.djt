@@ -1,0 +1,384 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+	<center><b>{{dept}}</b></center>
+	<center><button type="button" class="btn btn-info hidden-print" onclick="window.print();">Print</button></center><br>
+	<form method="post">
+	{% csrf_token %}
+	<center>UR</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in ur_1 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+    <br><hr><br>
+    <center>ST</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in st_1 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	<br><hr><br>
+	<center>SC</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in sc_1 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	<br><hr><br>
+	<center>OBC</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in obc_1 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	<br><hr><br>
+	<center>Assoc</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in all_2 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	<br><hr><br>
+	<center>Prof</center>
+	<table class="table table-striped" border="1">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Category</th>
+				<th>PWD</th>
+				<th>Department</th>
+				<th>Post</th>
+				<th>AGP</th>
+				<th>Scrutiny Total</th>
+				<th>Remarks</th>
+				<th>AGP</th>
+				<th>Batch</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d, k in dit %}
+			{% if d in all_3 %}
+			<tr>
+			<td></td>
+			<td>{{d}}</td>
+			<td>{{k.f.full_name}}</td>
+			<td>{{k.f.age}}</td>
+			<td>{{k.f.category}}</td>
+			<td>{{k.f.pwd}}</td>
+			<td>{{k.a.post_in}}</td>
+			<td>{{k.a.post_for}}</td>
+			<td>{{k.a.agp1}},{{k.a.agp2}},{{k.a.agp3}}</td>
+			<td>{{k.s.scrutiny_total}}</td>
+			<td>{{k.s.remarks}}</td>
+			<td><select name="agp_{{d}}">
+					<option value="" selected disabled>Conditional Call Letter</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-6000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000) on Contract'%}selected{%endif%} value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-7000)'%}selected{%endif%} value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+					<option {%if k.h.agp == 'Assistant Professor ( AGP-8000)'%}selected{%endif%} value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+					<option {%if k.h.agp == 'Associate Professor ( AGP-9500)'%}selected{%endif%} value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+					<option {%if k.h.agp == 'Professor ( AGP-10500)'%}selected{%endif%} value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+				</select></td>
+			<td>
+				<select name="batch_{{d}}">
+					<option {%if k.h.batch == 1%}selected{%endif%} value="1">1</option>
+					<option {%if k.h.batch == 2%}selected{%endif%} value="2">2</option>
+				</select>
+			</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<center><button type="submit" class="btn btn-success hidden-print">SAVE</button></center>
+	</form>
+</body>
+<style type="text/css">
+body
+{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+table
+{
+	counter-reset: Serial;
+    border-collapse: separate;
+}
+
+tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content: counter(Serial); /* Display the counter */
+}
+</style>

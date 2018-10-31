@@ -1,0 +1,166 @@
+{% extends "staffrecruit/base.djt" %}
+
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div style="font-size: 1em;">
+                    <div class="arrow completed">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">Miscellaneous</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+                <br />
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</center>
+<center>
+<form style="margin-top:3%;" method="post" action="/staffrecruit/miscellaneous/">
+    {% csrf_token %}
+
+<div style="justify-content: space-around;">
+    <div class="well well-lg">
+    <div class="row">
+    <div class="col-sm-12 ">
+        
+           <h4> <b>Membership/Fellowship and postion of responsibility in Professional Socities</b></h4>
+        
+    </div>
+</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                   <input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" >
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                <input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" >
+                </div>
+            </div>
+            
+        </div>
+ <div class="row">
+    <div class="col-sm-12 ">
+        
+           <h4> <b>Attainments in Sports and Extracurricular activities (inlcuding NCC)</b></h4>
+        
+    </div>
+</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                   <input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" >
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+               <input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" >
+                </div>
+            </div>
+            
+        </div>
+    <div class="row">
+    <div class="col-sm-12 ">
+        
+           <h4> <b>Languages Known</b></h4>
+        
+    </div>
+</div>  
+<div class="row">
+            <div class="col-sm-3"><b>Language</b></div>
+            <div class="col-sm-3"><b>Read</b></div>
+            <div class="col-sm-3"><b>Write</b></div>
+            <div class="col-sm-3"><b>Speak</b></div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="number" name="Bpassingyear" class="form-control" value="{{Bqual.passingYear}}">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" step="0.1" name="Bmarks" class="form-control" value="{{Bqual.marks}}" >
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" name="Bdivision" class="form-control" value="{{Bqual.division}}" >
+                </div>
+            </div>
+             <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" name="Buniv" class="form-control" value="{{Bqual.university}}">
+                </div>
+            </div>
+        </div>
+ <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="number" name="Bpassingyear" class="form-control" value="{{Bqual.passingYear}}">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" step="0.1" name="Bmarks" class="form-control" value="{{Bqual.marks}}" >
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" name="Bdivision" class="form-control" value="{{Bqual.division}}" >
+                </div>
+            </div>
+             <div class="col-sm-3">
+                <div class="form-group">
+                    <input type="checkbox" name="Buniv" class="form-control" value="{{Bqual.university}}">
+                </div>
+            </div>
+        </div>
+        <br>
+
+       
+
+    </div>
+    </div>
+</div>
+
+<center>
+  <div class="row">
+        <div class="col-sm-12">
+            <b style="color:red;">Save the data on the page before proceeding to the next page, else it will be lost.</b>
+        </div>
+    </div>
+    </center><br>
+        <center>
+        <a href="/staffrecruit/experience/"><button type="button" id="back" class="btn btn-info">Back</button></a>&nbsp;&nbsp;
+        <button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn">Save</button>&nbsp;&nbsp;
+          <a href="/staffrecruit/references/"><button type="button" name="nextBtn" value="nextBtn" id="nxt" class="btn btn-info">Next</button>
+         </center>
+</form>
+<br><br>
+{% endblock %}

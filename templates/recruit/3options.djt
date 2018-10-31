@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Admin Dashboard</h2></center>	
+	<br>
+</div>
+<center><h1>Application No. {{app_id}}</h1></center>
+
+<div class="row" style="margin-top: 2%">
+	<center>
+		
+		<a href="/recruit/viewscrutiny/{{app_id}}"><button class="btn btn-success">&nbsp;&nbsp;View Scrutiny&nbsp;&nbsp;</button></a>
+			
+		
+		<br>
+		<br>
+
+			<a href="/recruit/viewappl/{{app_id}}"><button class="btn btn-success">View Application</button></a>
+			
+		<br>
+		<br>
+		
+			<a href="/recruit/viewannex/{{app_id}}"><button class="btn btn-success">View Annexures</button></a>
+
+		<br>
+		<br>
+		<br>
+
+		<a href="/faculty_admin" type="button" class="btn btn-danger">Back</a>
+		
+	</center>
+</div>
+
+
+
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+</div>
+</body>
+
+
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	  position: fixed;
+	  width: 100%;
+	  bottom: 0;
+	  left: 0;
+	}
+	.container-fluid{
+		height: 100vh;
+	}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#datatable').DataTable();
+} );
+
+</script>
+
+</html>

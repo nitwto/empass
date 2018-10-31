@@ -1,0 +1,98 @@
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row main_header">
+	<center><h2>Faculty Recruitment Portal</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	{% if error %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{error}}</strong>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="well well-lg">
+				<form method="POST" action="/register/paymentDetails/" enctype="multipart/form-data" id="payform">
+				{% csrf_token %}
+					<div class="form-group">
+						<label for="trans">Transaction-ID</label>
+						<input for="trans" class="form-control" name="transID" value="{{paydata.transID}}" disabled>
+					</div>
+					<div class="form-group">
+						<label for="account">Account Number (Debit)</label>
+						<input for="account" class="form-control" name="account" type="text" required>
+					</div>
+					<div class="form-group">
+						<label for="bank">Bank Name</label>
+						<input for="bank" class="form-control" name="bank" type="text" required>
+					</div>
+					<div class="form-group">
+						<label for="paydate">Date of Payment</label>
+						<input for="paydate" class="form-control" name="paydate" type="date" min="2018-09-01" required>
+					</div>
+					<div class="form-group">
+						<label>Category</label>
+						<select class="form-control" name="paytype" required>
+					  	<option>----</option>
+					  	<option value="GEN/OBC">General / OBC</option>
+					    <option value="SC/ST/PWD">SC / ST / PWD</option>
+					    <option value="abroad">Foreign Payment</option>
+					  </select>
+					</div>
+					<div class="form-group" id="amount" hidden>
+						<label>Amount</label>
+						<input type="text" class="form-control" name="amount" id="amountval" disabled>
+					</div>
+					<div class="form-group">
+						<label for="receipt">Upload Payment Receipt(pdf only)</label>
+						<input for="receipt" class="form-control" name="receipt" type="file" required>
+					</div>
+
+					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>
+				</form>
+				<br>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$('select').change(function(){
+		$('#amount').show();
+		var x;
+		if($(this).val()=='SC/ST/PWD') { x='Rs.500'; $('#amountval').val(x); }
+		else if($(this).val()=='GEN/OBC') { x='Rs.1000'; $('#amountval').val(x); }
+		else if($(this).val()=='abroad') { x='$25'; $('#amountval').val(x); }
+		else { $('#amount').hide(); }
+	});
+
+	$('#payform').submit(function(){
+		formdata = new FormData($(this));
+		if(!$('input[type="file"]').val()) {
+		   alert('upload payment receipt also');
+		   return false;
+		}
+		$.ajax({
+	        // data: $(this).serialize(),
+	        data : formdata,
+	        type: $(this).attr('method'),
+	        url: $(this).attr('action'),
+	        success: function() {
+	        	window.location.href = "/";
+	        }
+	    });
+	    return false;
+	});
+</script>
+{% endblock%}

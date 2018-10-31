@@ -1,0 +1,55 @@
+
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<div style="display:none">
+   	<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">
+</div>
+
+<div class="row main_header">
+	<center><h2>Transaction Success</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	
+	<div class="row" style="margin-top:10%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div style="height: auto;width: 500px;margin-bottom: 50px;border-radius: 30px;padding-top: 10px;" class="alert alert-success">
+			  <center>			  
+			    <h4>Thank You.</h4>
+			    <h4>You transaction is completed successfully. Please note down the following details for future reference.</h4>
+			  </center>
+			    
+			    <ul>
+			    	<li><h4>User ID : <b>{{ UserId }}</b></h4></li>
+			    	<li><h4>Transaction ID : <b>{{ txnid }}</b></h4></li>
+			    	<li><h4>Transaction Amount : <b>{{ amount}}</b></h4></li>
+			    	<li><h4>Transaction Status : <b>{{ status }}</b></h4></li>
+			    </ul>
+			    <center><a href="/" class="btn btn-success">Continue</a></center>
+                
+			</div>
+		</div>
+		<div style="height: 100px; clear: both;">d</div>
+	</div>
+	
+	
+</div>
+
+{% endblock%}
+<!--
+<html>
+<body>
+<div style="display:none">
+   	<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">
+</div>
+<h4>Thank You.</h4>
+<h4>Your order status is {{ status }}</h4>
+<h4>Your UserId is {{ UserId }}</h4>
+<h4>Your Transaction ID for this transaction is {{ txnid }}</h4>
+<h4>We have received a payment of Rs {{ amount}}</h4> 
+
+</body>
+</html>
+-->

@@ -1,0 +1,187 @@
+{% extends "recruit/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div style="font-size: 1em;">
+                    <div class="arrow-visited">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Eductional Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">Upload Documents</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</center>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="alert alert-info" style="font-size:16px;">
+            <ol>
+                <b>
+                    <li>You have to upload your Resume/CV.</li>
+                </b>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <center>
+            <form method="POST" enctype="multipart/form-data" action="/uploadPaper/6/" onsubmit="return (validate());">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-4"><b>CV : </b></div>
+                    {% if obj.cvpaper %}
+                    <div class="col-sm-4"><a href="{{obj.cvpaper.url}}">open</a></div>
+                    {% endif %}
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-7">
+                        <input type="file" accept="application/pdf" class="btn {% if obj.cvpaper %} btn-success {% else %} btn-danger {% endif %}" name="cvpaper">
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="submit" class="btn btn-primary" value="Save">
+                    </div>
+                </div>
+            </form>
+        </center>
+
+    </div>
+
+    <br><br><br>
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="alert alert-info" style="font-size:16px;">
+                <ol>
+                    <b>
+                        2. You have to upload your Teaching Plan.
+                    </b>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <center>
+                <form method="POST" enctype="multipart/form-data" action="/uploadPaper/7/" onsubmit="return (valid());">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-4"><b>Teaching Plan : </b></div>
+                        {% if obj.teachpaper %}
+                        <div class="col-sm-4"><a href="{{obj.teachpaper.url}}">open</a></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <input type="file" accept="application/pdf" class="btn {% if obj.teachpaper %} btn-success {% else %} btn-danger {% endif %}" name="teachpaper">
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="teaching" type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </div>
+                </form>
+            </center>
+
+        </div>
+        <br><br><br>
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="alert alert-info" style="font-size:16px;">
+                    <ol>
+                        <b>
+                            3. You have to upload your Research Plan.
+                        </b>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <center>
+                    <form method="POST" enctype="multipart/form-data" action="/uploadPaper/8/" onsubmit="return (validity());">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-4"><b>Research Plan : </b></div>
+                            {% if obj.researchpaper %}
+                            <div class="col-sm-4"><a href="{{obj.researchpaper.url}}">open</a></div>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <input id="research" accept="application/pdf" type="file" class="btn {% if obj.researchpaper %} btn-success {% else %} btn-danger {% endif %}" name="researchpaper">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="submit" class="btn btn-primary" value="Save">
+                            </div>
+                        </div>
+                    </form>
+                </center>
+
+            </div>
+
+            <br><br><br> <br><br><br>
+            <div class="col-sm-10" style="margin-left: 10%">
+                <a href="/subject_ref"><button style="float:left;" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Back</button></a>
+                <a href="/printSummary"><button type="submit" name="nextBtn" value="nextBtn" style="float:right;" id="nxt" class="btn btn-info">Next <span class="glyphicon glyphicon-chevron-right"></span></button></a>
+            </div>
+            
+           <!--
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<a href="/subject_ref"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
+				<a href="/print_main_application"><button class="btn btn-primary" type="button" style="float: right;">Next</button></a>
+			</div>
+		</div>
+		-->
+            <br><br><br>
+        </div>
+            {% if app.submitted is False %}
+                <center><a href="/lockApplication"><button type="button" id="nxt" class="btn btn-lg btn-primary">Submit</button></a></center> 
+            {% endif %}
+            <br><br>
+
+        <script type="text/javascript">
+            function validate() {
+                valid = true;
+                if ($('input[type="file"]').val() == '') {
+                    valid = false;
+                    alert('choose some file');
+                }
+                return valid;
+            }
+
+            function valid() {
+                valid = true;
+                if ($("#teaching").val() == '') {
+                    valid = false;
+                    alert('choose some file');
+                }
+                return valid;
+            }
+
+            function validity() {
+                valid = true;
+                if ($("#research").val() == '') {
+                    valid = false;
+                    alert('choose some file');
+                }
+                return valid;
+            }
+
+        </script>
+
+        {% endblock %}

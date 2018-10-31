@@ -1,0 +1,114 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Call Letter</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<br><br>
+		<center><b>{{entries.dept.name}} {{entries.post.name}} {%if entries.is_nitw%}Internal{%else%}External{%endif%}</b></center>
+		<br><br>
+		<form method="post">
+			{% csrf_token %}
+		<button type="button" class="btn btn-info hidden-print" onclick="window.print();">Print the Page</button> {%if not entries.is_sent%}<button class="btn btn-danger hidden-print" type="submit">Send Call Letters</button>{%endif%}
+		</form>
+
+	<center><b><h4>LIST  OF SHORTLISTED CANDIDATES</h4></b></center>
+	<table class="table table-striped table-bordered" id="mobs">
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Application ID</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Contact</th>
+				{%if entries.is_sent%}<th>Acceptance</th>{%endif%}
+			</tr>
+		</thead>
+		<tbody>
+			{% for det in dets %}
+			<tr>
+			    <td></td>
+				<td>{{det.app_id}}</td>
+				<td>{{det.facuser_set.get.full_name}}</td>
+				<td>{{det.user.email}}</td>
+				<td>{{det.contact}}</td>
+				{%if entries.is_sent%}<td>{%if det.acc == 0%}Not Accepted{%elif det.acc == 1%}Accepted{%elif det.acc == 2%}Willing{%elif det.acc == 3%}Can't say{%endif%}</td>{%endif%}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+		<br><br>
+		<p><b>Message:</b> {{msg}}</p><br><br>
+   <!--  <table class="table table-striped table-bordered" id="mobs">
+		<thead>
+			<tr>
+				<th>Mobile Number</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mob in mobs %}
+			<tr>
+				<td>{{mob}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<br><br><br> -->
+	<p><b>Mail:</b></p><br>
+	{{body}}
+	<br><br>
+	<!-- <table class="table table-striped table-bordered" id="mails">
+		<thead>
+			<tr>
+				<th>Email Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mail in mails %}
+			<tr>
+				<td>{{mail}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table> -->
+    </div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+    // $('#mobs').DataTable();
+    // $('#mails').DataTable();
+    });
+</script>
+<style type="text/css">
+body
+{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+table
+{
+	counter-reset: Serial;
+    border-collapse: separate;
+}
+
+tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content: counter(Serial); /* Display the counter */
+}
+</style>

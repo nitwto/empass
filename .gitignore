@@ -1,0 +1,8 @@
+*.pyc
+media/*
+documents/*
+db.sqlite3
+*.DS_Store
+facultyForm/database.py
+facultyForm/settings.py
+payment/Config.py

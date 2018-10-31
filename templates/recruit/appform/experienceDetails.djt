@@ -1,0 +1,825 @@
+{% extends "recruit/appform/base.djt" %}
+
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div style="font-size: 1em;">
+                    <div class="arrow-visited">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow-visited">Eductional Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Upload Documents</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</center>
+<div class="container">
+    <div id="part2">
+
+        <!-- <div class="row">
+				<div class="col-sm-2">
+					<h4 style="font-weight:900;">Title of Ph.D.</h4>
+				</div>
+				<div class="col-sm-9">
+					<b>Thesis with name and address of Ph.D. Guide (Enclose Abstract of Thesis).</b>
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-sm-2"><b>Degree</b></div>
+				<div class="col-sm-2"><b>Title of Thesis</b></div>
+				<div class="col-sm-3"><b>Guide</b></div>
+				<div class="col-sm-3"><b>University</b></div>
+				<div class="col-sm-2"><b>Yesr of Award</b></div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-sm-2">Ph.D.</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input type="text" name="titleThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input type="text" name="guideThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input type="text" name="universityThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input type="text" name="awardYearThesis" class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<hr> -->
+
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 style="font-weight:900;">Details of Experience</h4>
+            </div>
+        </div>
+        <br>
+        <form style="margin-top:3%;" method="post" action="/experiencedetails">
+            {% csrf_token %}
+            <!-- Teaching Experience Code -->
+            <div class="row">
+                <div class="col-sm-9">
+                    <b>Note : In case of No Experience, keep 0 as the value.</b>
+                </div>
+                <!-- 				<div class="col-sm-3">
+					<a href="/refresh_exp/te" class="btn btn-lg btn-info">Reset</a>
+				</div> -->
+            </div><br>
+            <div class="row">
+                <div class="col-sm-3"> <b>1. Teaching Experience (years)</b> </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input class="form-control" type="number" min="0" step="0.1" name="teachingExperience" value="{{Experience.teaching_exp}}" required>
+                    </div>
+                </div>
+                <div class="col-sm-3"> <b>Post Ph.D. Experience (years) </b> </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <input class="form-control" type="number" min="0" step="0.1" name="phdExperience" value="{{Experience.postPhd_exp}}" required>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:#e3e3e3;">
+                        <th>S.No.</th>
+                        <th>Name of Organization</th>
+                        <th>Designation</th>
+                        <th>Date of Joining</th>
+                        <th>Date of Leaving</th>
+                        <th>Last pay Band and Grade Pay</th>
+                        <th>Service (Regular/Contract)</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="teachingExpTbody">
+                    {% for texp in teachingData %}
+                    <tr>
+                        <td>{{forloop.counter}}.</td>
+                        <td>{{texp.organization}}</td>
+                        <td>{{texp.designation}}</td>
+                        <td>{{texp.joiningDate}}</td>
+                        <td>{{texp.leavingDate}}</td>
+                        <td>{{texp.pay}}</td>
+                        <td>{{texp.service}}</td>
+                        <td><a id="te_{{forloop.counter}}" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="organization">Name of Organization</label>
+                            <input for="organization" class="form-control" id="organization1">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input for="designation" class="form-control" id="designation1">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Joining">Date of Joining(YYYY-MM-DD)</label>
+                            <input type="text" for="Date of Joining" class="form-control" id="joiningDate1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Leaving">Date of Leaving(YYYY-MM-DD) or Continuing</label>
+                            <input type="text" for="Date of Leaving" class="form-control" id="leavingDate1">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Pay">Pay</label>
+                            <input for="Pay" class="form-control" id="pay1">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Service">Service (Regular/Contract)</label>
+                            <!-- <input for="Service" class="form-control" id="service1"> -->
+                            <select for="Service" class="form-control" id="service1">
+                                <option>----</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Contract">Contract</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <center><button type="button" id="Add1">Add</button><br></center>
+
+            </div>
+            <br>
+
+            <input type="text" name="teachingExpData" id="teachingExp" hidden>
+
+            <!-- Research Experience Code -->
+
+            <div class="row">
+                <div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control" type="number" min="0" step="0.1" name="researchExperience" value="{{Experience.research_exp}}" required>
+                    </div>
+                </div>
+                <!-- 				<div class="col-sm-3">
+					<a id="re" class="btn btn-lg btn-info">Reset</a>
+				</div> -->
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:#e3e3e3;">
+                        <th>S.No.</th>
+                        <th>Name of Organization where employed</th>
+                        <th>Designation</th>
+                        <th>Date of Joining</th>
+                        <th>Date of Leaving</th>
+                        <th>Last pay Band and Grade Pay</th>
+                        <th>Service (Regular/Contract)</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="researchExpTbody">
+                    {% for rexp in researchData %}
+                    <tr>
+                        <td>{{forloop.counter}}.</td>
+                        <td>{{rexp.organization}}</td>
+                        <td>{{rexp.designation}}</td>
+                        <td>{{rexp.joiningDate}}</td>
+                        <td>{{rexp.leavingDate}}</td>
+                        <td>{{rexp.pay}}</td>
+                        <td>{{rexp.service}}</td>
+                        <td><a id="re_{{forloop.counter}}" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="organization">Name of Organization</label>
+                            <input for="organization" class="form-control" id="organization2">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input for="designation" class="form-control" id="designation2">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Joining">Date of Joining(YYYY-MM-DD)</label>
+                            <input type="text" for="Date of Joining" class="form-control" id="joiningDate2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Leaving">Date of Leaving(YYYY-MM-DD) or Continuing</label>
+                            <input type="text" for="Date of Leaving" class="form-control" id="leavingDate2">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Pay">Pay</label>
+                            <input for="Pay" class="form-control" id="pay2">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Service">Service (Regular/Contract)</label>
+                            <!-- <input for="Service" class="form-control" id="service2"> -->
+                            <select for="Service" class="form-control" id="service2">
+                                <option>----</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Contract">Contract</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <center><button type="button" id="Add2">Add</button><br></center>
+
+            </div>
+            <br>
+
+            <input type="text" name="researchExpData" id="researchExp" hidden>
+
+            <!-- Industrial Experience Code -->
+
+            <div class="row">
+                <div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control" type="number" min="0" step="0.1" name="industryExperience" value="{{Experience.industrial_exp}}" required>
+                    </div>
+                </div>
+                <!-- 				<div class="col-sm-3">
+					<a href="/refresh_exp/ie" class="btn btn-lg btn-info">Reset</a>
+				</div> -->
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:#e3e3e3;">
+                        <th>S.No.</th>
+                        <th>Name of Industry</th>
+                        <th>Designation</th>
+                        <th>Date of Joining</th>
+                        <th>Date of Leaving</th>
+                        <th>Salary Drawn</th>
+                        <th>Service (Regular/Contract)</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="industryExpTbody">
+                    {% for iexp in industryData %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{iexp.organization}}</td>
+                        <td>{{iexp.designation}}</td>
+                        <td>{{iexp.joiningDate}}</td>
+                        <td>{{iexp.leavingDate}}</td>
+                        <td>{{iexp.pay}}</td>
+                        <td>{{iexp.service}}</td>
+                        <td><a id="ie_{{forloop.counter}}" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-info">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="organization">Name of Organization</label>
+                            <input for="organization" class="form-control" id="organization3">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input for="designation" class="form-control" id="designation3">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Joining">Date of Joining(YYYY-MM-DD)</label>
+                            <input type="text" for="Date of Joining" class="form-control" id="joiningDate3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Date of Leaving">Date of Leaving(YYYY-MM-DD) or Continuing</label>
+                            <input type="text" for="Date of Leaving" class="form-control" id="leavingDate3">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Pay">Salary Drawn</label>
+                            <input for="Pay" class="form-control" id="pay3">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Service">Service (Regular/Contract)</label>
+                            <!-- <input for="Service" class="form-control" id="service3"> -->
+                            <select for="Service" class="form-control" id="service3">
+                                <option>----</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Contract">Contract</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <center><button type="button" id="Add3">Add</button><br></center>
+
+            </div>
+            <br>
+
+            <input type="text" name="industryExpData" id="industryExp" hidden>
+
+            <center><button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
+            
+        <div class="row">
+            <a href="/educationalqual"><button type="button" id="bacl" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Back</button></a>
+            <button type="submit" name="nextBtn" value="nextBtn" id="nxt" class="btn btn-info" style="float: right;">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <b>Upload Documents supporting the Experience Data you have filled, using this button</b>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" name="supportDocBtn" value="supportDocBtn" class="btn {% if paperobj.paper1 %} btn-success {% else %} btn-danger {% endif %}">Upload Supporting Documents</button>
+                    <br>
+                    <b style="color:red;">Save the data on page before proceeding to upload, else it will be lost.</b>
+                </div>
+            </div>
+<br>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-large">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Editor</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="well well-lg">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="organization_m">Name of Organization</label>
+                                            <input for="organization_m" class="form-control" id="organization_m">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="designation_m">Designation</label>
+                                            <input for="designation_m" class="form-control" id="designation_m">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Date of Joining">Date of Joining(YYYY-MM-DD)</label>
+                                            <input type="text" for="Date of Joining" class="form-control" id="joiningDate_m">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="num_m">
+                                <input type="hidden" id="choice_m">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
+                                            <input type="text" for="Date of Leaving" class="form-control" id="leavingDate_m">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Pay">Pay</label>
+                                            <input for="Pay" class="form-control" id="pay_m">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Service">Service (Regular/Contract)</label>
+                                            <!-- <input for="Service" class="form-control" id="service2"> -->
+                                            <select for="Service" class="form-control" id="service_m">
+                                                <option>----</option>
+                                                <option value="Regular">Regular</option>
+                                                <option value="Contract">Contract</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <center><button type="button" id="edited">Save</button><br></center>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</form>
+</div>
+</div>
+
+    {% endblock %}
+
+    {% block script %}
+    <script type="text/javascript">
+        var teachingExpDataArray = [];
+        var researchExpDataArray = [];
+        var industryExpDataArray = [];
+        var education = [];
+
+        $(document).ready(function() {
+
+
+            $('#finalData').val("");
+            var dataString = JSON.stringify(teachingExpDataArray);
+            $('#teachingExp').val(dataString);
+            dataString = JSON.stringify(researchExpDataArray);
+            $('#researchExp').val(dataString);
+            dataString = JSON.stringify(industryExpDataArray);
+            $('#industryExp').val(dataString);
+        });
+
+
+        $('#teachingExpTbody tr').each(function(row, tr) {
+            var data = {
+                'organization': $(tr).find('td:eq(1)').text(),
+                'designation': $(tr).find('td:eq(2)').text(),
+                'joiningDate': $(tr).find('td:eq(3)').text(),
+                'leavingDate': $(tr).find('td:eq(4)').text(),
+                'pay': $(tr).find('td:eq(5)').text(),
+                'service': $(tr).find('td:eq(6)').text()
+            };
+            teachingExpDataArray.push(data);
+        });
+
+        $('#researchExpTbody tr').each(function(row, tr) {
+            var data = {
+                'organization': $(tr).find('td:eq(1)').text(),
+                'designation': $(tr).find('td:eq(2)').text(),
+                'joiningDate': $(tr).find('td:eq(3)').text(),
+                'leavingDate': $(tr).find('td:eq(4)').text(),
+                'pay': $(tr).find('td:eq(5)').text(),
+                'service': $(tr).find('td:eq(6)').text()
+            };
+            researchExpDataArray.push(data);
+        });
+
+        $('#industryExpTbody tr').each(function(row, tr) {
+            var data = {
+                'organization': $(tr).find('td:eq(1)').text(),
+                'designation': $(tr).find('td:eq(2)').text(),
+                'joiningDate': $(tr).find('td:eq(3)').text(),
+                'leavingDate': $(tr).find('td:eq(4)').text(),
+                'pay': $(tr).find('td:eq(5)').text(),
+                'service': $(tr).find('td:eq(6)').text()
+            };
+            industryExpDataArray.push(data);
+        });
+
+        $('#Add1').click(function() {
+            var designation = $('#designation1').val();
+            var organization = $('#organization1').val();
+            var joiningDate = $('#joiningDate1').val();
+            var leavingDate = $('#leavingDate1').val();
+            var pay = $('#pay1').val();
+            var service = $('#service1').val();
+
+            if (!designation || !organization || !joiningDate || !leavingDate || !pay || !service) {
+                alert("Please fill all fields or fill NA");
+                return false;
+            } else {
+                $('#designation1').val("");
+                $('#organization1').val("");
+                $('#joiningDate1').val("");
+                $('#leavingDate1').val("");
+                $('#pay1').val("");
+                $('#service1').val("");
+            }
+
+            var data = {
+                'organization': organization,
+                'designation': designation,
+                'joiningDate': joiningDate,
+                'leavingDate': leavingDate,
+                'pay': pay,
+                'service': service
+            };
+
+            var rowCount = $('#teachingExpTbody tr').length;
+            var i = teachingExpDataArray.length;
+            var rowHtml = '<tr>' + '<td>' + (i + 1) + '</td>';
+            rowHtml = rowHtml + '<td>' + organization + '</td>';
+            rowHtml = rowHtml + '<td>' + designation + '</td>';
+            rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+            rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+            rowHtml = rowHtml + '<td>' + pay + '</td>';
+            rowHtml = rowHtml + '<td>' + service + '</td>';
+            rowHtml = rowHtml + '<td><a id="te_' + ((parseInt(i) + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+
+            $('#teachingExpTbody').append(rowHtml);
+
+            teachingExpDataArray.push(data);
+
+            var dataString = JSON.stringify(teachingExpDataArray);
+            console.log(dataString);
+            $('#teachingExp').val(dataString);
+        });
+
+        $('#Add2').click(function() {
+            var designation = $('#designation2').val();
+            var organization = $('#organization2').val();
+            var joiningDate = $('#joiningDate2').val();
+            var leavingDate = $('#leavingDate2').val();
+            var pay = $('#pay2').val();
+            var service = $('#service2').val();
+
+            if (!designation || !organization || !joiningDate || !leavingDate || !pay || !service) {
+                alert("Please fill all fields or fill NA");
+                return false;
+            } else {
+                $('#designation2').val("");
+                $('#organization2').val("");
+                $('#joiningDate2').val("");
+                $('#leavingDate2').val("");
+                $('#pay2').val("");
+                $('#service2').val("");
+            }
+
+            var data = {
+                'organization': organization,
+                'designation': designation,
+                'joiningDate': joiningDate,
+                'leavingDate': leavingDate,
+                'pay': pay,
+                'service': service
+            };
+
+            var rowCount = $('#researchExpTbody tr').length;
+            var i = researchExpDataArray.length;
+
+            var rowHtml = '<tr>' + '<td>' + (i + 1) + '</td>';
+            rowHtml = rowHtml + '<td>' + organization + '</td>';
+            rowHtml = rowHtml + '<td>' + designation + '</td>';
+            rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+            rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+            rowHtml = rowHtml + '<td>' + pay + '</td>';
+            rowHtml = rowHtml + '<td>' + service + '</td>';
+            rowHtml = rowHtml + '<td><a id="re_' + ((parseInt(i) + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+
+            $('#researchExpTbody').append(rowHtml);
+
+            researchExpDataArray.push(data);
+
+            var dataString = JSON.stringify(researchExpDataArray);
+            console.log(dataString);
+            $('#researchExp').val(dataString);
+        });
+
+        $('#Add3').click(function() {
+            var designation = $('#designation3').val();
+            var organization = $('#organization3').val();
+            var joiningDate = $('#joiningDate3').val();
+            var leavingDate = $('#leavingDate3').val();
+            var pay = $('#pay3').val();
+            var service = $('#service3').val();
+
+            if (!designation || !organization || !joiningDate || !leavingDate || !pay || !service) {
+                alert("Please fill all fields or fill NA");
+                return false;
+            } else {
+                $('#designation3').val("");
+                $('#organization3').val("");
+                $('#joiningDate3').val("");
+                $('#leavingDate3').val("");
+                $('#pay3').val("");
+                $('#service3').val("");
+            }
+
+            var data = {
+                'organization': organization,
+                'designation': designation,
+                'joiningDate': joiningDate,
+                'leavingDate': leavingDate,
+                'pay': pay,
+                'service': service
+            };
+
+            var rowCount = $('#industryExpTbody tr').length;
+            var i = industryExpDataArray.length;
+            var rowHtml = '<tr>' + '<td>' + (i + 1) + '</td>';
+            rowHtml = rowHtml + '<td>' + organization + '</td>';
+            rowHtml = rowHtml + '<td>' + designation + '</td>';
+            rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+            rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+            rowHtml = rowHtml + '<td>' + pay + '</td>';
+            rowHtml = rowHtml + '<td>' + service + '</td>';
+            rowHtml = rowHtml + '<td><a id="ie_' + ((parseInt(i) + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+
+            $('#industryExpTbody').append(rowHtml);
+
+            industryExpDataArray.push(data);
+
+            var dataString = JSON.stringify(industryExpDataArray);
+            console.log(dataString);
+            $('#industryExp').val(dataString);
+        });
+
+        function edit(str) {
+            var id = $(str).attr('id');
+            var res = id.split("_");
+            if (res[0] == "re") {
+                var num = parseInt(res[1]);
+                var data = researchExpDataArray[num - 1];
+
+                $("#organization_m").val(data.organization);
+                $("#designation_m").val(data.designation);
+                $("#joiningDate_m").val(data.joiningDate);
+                $("#leavingDate_m").val(data.leavingDate);
+                $("#pay_m").val(data.pay);
+                $("#service_m").val(data.service);
+                $("#num_m").val(num);
+                $("#choice_m").val("re");
+
+            } else if (res[0] == "te") {
+                var num = parseInt(res[1]);
+                var data = teachingExpDataArray[num - 1];
+
+                $("#organization_m").val(data.organization);
+                $("#designation_m").val(data.designation);
+                $("#joiningDate_m").val(data.joiningDate);
+                $("#leavingDate_m").val(data.leavingDate);
+                $("#pay_m").val(data.pay);
+                $("#service_m").val(data.service);
+                $("#num_m").val(num);
+                $("#choice_m").val("te");
+
+            } else if (res[0] == "ie") {
+                var num = parseInt(res[1]);
+                var data = industryExpDataArray[num - 1];
+
+                $("#organization_m").val(data.organization);
+                $("#designation_m").val(data.designation);
+                $("#joiningDate_m").val(data.joiningDate);
+                $("#leavingDate_m").val(data.leavingDate);
+                $("#pay_m").val(data.pay);
+                $("#service_m").val(data.service);
+                $("#num_m").val(num);
+                $("#choice_m").val("ie");
+
+            }
+        }
+
+        function enter_table(str) {
+            if (str == "re") {
+                var count = 0;
+                for (var res in researchExpDataArray) {
+                    console.log(res);
+                    var rowHtml = '<tr>' + '<td>' + (parseInt(res) + 1) + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].organization + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].designation + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].joiningDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].leavingDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].pay + '</td>';
+                    rowHtml = rowHtml + '<td>' + researchExpDataArray[res].service + '</td>';
+                    rowHtml = rowHtml + '<td><a id="re_' + ((parseInt(res) + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+                    // alert(rowHtml);
+                    if (res == 0)
+                        $("#researchExpTbody").html(rowHtml);
+                    else
+                        $('#researchExpTbody').append(rowHtml);
+                }
+                var dataString = JSON.stringify(researchExpDataArray);
+                console.log(dataString);
+                $('#researchExp').val(dataString);
+            } else if (str == "te") {
+                for (var res in teachingExpDataArray) {
+                    var rowHtml = '<tr>' + '<td>' + (parseInt(res) + 1) + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].organization + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].designation + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].joiningDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].leavingDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].pay + '</td>';
+                    rowHtml = rowHtml + '<td>' + teachingExpDataArray[res].service + '</td>';
+                    rowHtml = rowHtml + '<td><a id="te_' + (parseInt(res + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+                    if (res == 0)
+                        $('#teachingExpTbody').html(rowHtml);
+                    else
+                        $('#teachingExpTbody').append(rowHtml);
+                }
+                var dataString = JSON.stringify(teachingExpDataArray);
+                // console.log(dataString);
+                $('#teachingExp').val(dataString);
+            } else {
+                for (var res in industryExpDataArray) {
+
+                    var rowHtml = '<tr>' + '<td>' + (res + 1) + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].organization + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].designation + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].joiningDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].leavingDate + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].pay + '</td>';
+                    rowHtml = rowHtml + '<td>' + industryExpDataArray[res].service + '</td>';
+                    rowHtml = rowHtml + '<td><a id="ie_' + (parseInt(res + 1)) + '" onclick="edit(this)" data-toggle="modal" data-target="#myModal" class="btn btn-info">Edit</a></td></tr>';
+                    if (res == 0)
+                        $('#industryExpTbody').html(rowHtml);
+                    else
+                        $('#industryExpTbody').append(rowHtml);
+                }
+                var dataString = JSON.stringify(industryExpDataArray);
+                // console.log(dataString);
+                $('#industryExp').val(dataString);
+            }
+        }
+
+        $("#edited").click(function() {
+            var designation = $('#designation_m').val();
+            var organization = $('#organization_m').val();
+            var joiningDate = $('#joiningDate_m').val();
+            var leavingDate = $('#leavingDate_m').val();
+            var pay = $('#pay_m').val();
+            var service = $('#service_m').val();
+
+            var data = {
+                'organization': organization,
+                'designation': designation,
+                'joiningDate': joiningDate,
+                'leavingDate': leavingDate,
+                'pay': pay,
+                'service': service
+            };
+
+
+            var num = parseInt($("#num_m").val());
+            var choice = $("#choice_m").val();
+            if (choice == "re") {
+                researchExpDataArray[num - 1] = data;
+                enter_table("re");
+            } else if (choice == "te") {
+                teachingExpDataArray[num - 1] = data;
+                enter_table("te");
+            } else if (choice == "ie") {
+                industryExpDataArray[num - 1] = data;
+                enter_table("ie");
+            }
+            $('#myModal').modal('toggle');
+
+        });
+
+    </script>
+    {% endblock %}

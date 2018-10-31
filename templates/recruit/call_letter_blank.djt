@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Call Letter</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+	@media print{
+		table{
+			page-break-inside: avoid;
+		}
+		@page{
+			size: portrait;
+		}
+		/*#p1{
+			line-height: 30px;
+		}*/
+    }
+    p, li{
+			text-align: justify;
+			text-justify:inter-word;
+		}
+	</style>
+</head>
+
+<body>
+	<br><br><br>
+	<form method="post">
+		{% csrf_token %}
+		Name : <input type="text" name="name"><br>
+		Position Applied for: <select name="post" required>
+			        {%for post in posts%}
+			        <option value="{{post.id}}">{{post.name}}</option>
+			        {%endfor%}
+			        <option value="4">Professor (HAG Scale)</option>
+					</select><br>
+		AGP Selected for: <select name="agp">
+							<option value="Assistant Professor ( AGP-6000) on Contract">Assistant Professor ( AGP-6000) on Contract</option>
+							<option value="Assistant Professor ( AGP-7000) on Contract">Assistant Professor ( AGP-7000) on Contract</option>
+							<option value="Assistant Professor ( AGP-7000)">Assistant Professor ( AGP-7000)</option>
+							<option value="Assistant Professor ( AGP-8000)">Assistant Professor ( AGP-8000)</option>
+							<option value="Associate Professor ( AGP-9500)">Associate Professor ( AGP-9500)</option>
+							<option value="Professor ( AGP-10500)">Professor ( AGP-10500)</option>
+							<option value="Professor (HAG Scale)">Professor (HAG Scale)</option>
+						</select><br>
+		Batch: <select name="batch">
+			      <option value="1">1</option>
+			      <option value="2">2</option>
+				</select><br>
+		Application ID/Employee ID : <input type="text" name="app_id"><br>
+		Address : <input type="text" name="addr"><br>
+		Department : <select name="dept" required>
+			          {%for dept in depts%}
+			          <option value="{{dept.id}}">{{dept.name}}</option>
+			          {%endfor%}
+			          <option value="100">Physical Education Department</option>
+					</select><br>
+		Disclaimer : <input type="checkbox" name="disc">&nbsp;&nbsp;&nbsp;&nbsp; No : <input type="text" name="disc_no"><br>
+		Custom Dispatch No, Dispatch Date and Reference No : <input type="checkbox" id="dispcb" name="disp">
+		<div id="disp">
+			Dispatch No: <input type="text" name="disp_no"><br>
+			Dispatch Date: <input type="text" id="date" name="disp_date"><br>
+			Reference No: <input type="text" name="refno">
+		</div>
+		<br><br>
+		<button type="submit" class="btn btn-success">Generate</button>
+	</form>
+</body>
+<style type="text/css">
+	img {
+    pointer-events: none;
+    }
+</style>
+
+<script type="text/javascript">
+	if($('#dispcb').is(':checked')){
+		$('#disp').show();
+		$('#date').val('Feb. 24, 2018');
+	}
+	else{
+		$('#disp').hide();
+	}
+	$('#dispcb').change(function(){
+		if($('#dispcb').is(':checked')){
+			$('#disp').show();
+			$('#date').val('2018-03-15 09:00');
+		}
+		else{
+			$('#disp').hide();
+		}
+	});
+</script>

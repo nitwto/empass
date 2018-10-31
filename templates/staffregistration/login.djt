@@ -1,0 +1,175 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Non Teaching Staff Recruitment Portal</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+		.blink{
+			animation: blinker 2.0s linear infinite;
+		}
+		@keyframes blinker{
+			10% {opacity: 0.0;}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- <div id="title" align="center"> -->
+	
+		<!-- <div style="float:left;" align="center"> -->
+	
+		<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="90%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+		<!-- </div> -->
+	<!-- </div> -->
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Non Teaching Staff Recruitment Portal</h2></center>
+	<br>
+</div>
+
+<div class="well well-lg">
+	<!-- <center>
+		<h1 class="blink">The deadline for submission of Applications (both online and hard copies) has been reached for Faculty Recruitment - NIT Warangal.<br>
+		Last Date for Online application submission - 04th December 2017<br>
+		Last Date for Hard copies submission - 08th December 2017</h1>
+	</center> -->
+</div>
+
+<div class="container">
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-8">
+			<div class="well well-lg">
+				<center><h2 style="margin-top:0px;"><span class="label label-primary">NIT Warangal</span></h2></center>
+				<br>
+
+				<b>
+				<p class="text-justify">
+					National Institute of Technology, Warangal, formerly known as Regional Engineering College, was established in 1959.
+				</p>
+				<p class="text-justify">
+					Pandit Jawaharlal Nehru laid the foundation stone for this institute on October 10, 1959, the first in the chain of 30 NITs (formerly known as RECs) in the country.
+				</p>
+				<p class="text-justify">
+					Alumni of the institute are spaced both length and breadth wise across the world and occupied noble positions in the industry as well as academia.
+				</p>
+				<p class="text-justify">
+					The Institute is well known for its dedicated faculty, staff and the state-of-the art infrastructure conducive to a healthy academic environment. The Institute is constantly striving to achieve higher levels of technical excellence. Faculty of the institute are actively participating the development activities of the country in particular and the academic community all over the world in general.
+				</p>
+				<p class="text-justify">
+					The Institute is looking for motivated and dynamic persons with passion for filling up the positions of Non Teaching staff in NITW.
+				</p>
+				<p style="color:red;" class="blink">
+					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> 
+				</p>
+				</b>
+				<br>
+				<!-- <hr>
+				<br>
+				<center><b>Extension of Deadline</b> <span class="label label-danger blink"> Important </span></center><br>
+				<p>The last date for the submission of online application along with required enclosures is extended till <b>3rd November, 2017 upto 5:30 PM.</b> However, the last date for submission of hard copy of application with enclosures shall remain same i.e., 3rd November, 2017 upto 5:30 PM. This is applicable to both outside as well as internal faculty of the institute.</p>
+				<br> -->
+				<hr>
+				<center><h3 style="margin-top:0px;"><span class="label label-danger">Important Links</span></h3></center>
+				<hr>
+				<!--<ul>
+					<li>
+						<a href="{% static 'main/Advt-facultyNITW-210917.pdf' %}"><b>Recruitment for Faculty Positions</b></a>
+					</li>
+					<br>
+					<li>
+						<a href="{% static 'main/General_Instructions_NIT__Warangal.pdf' %}"><b>General Instructions</b></a>
+					</li>
+					<br>
+					<li>
+						<a href="{% static 'main/Gazette_of_India_Dated_July_24_2017.pdf' %}"><b>Gazette of India Dated July 24,2017</b></a>
+					</li>
+                                        <br>
+					<li>
+						<a href="{% static 'main/Qualification_and_Credit_Rules.pdf' %}"><b>Qualification and Credit Rules</b></a>
+					</li>
+					<br>
+					<li>
+						<a href="{% static 'main/Essential_Qualification.pdf' %}"><b>Essential Qualification</b></a>
+					</li>
+                                        <br>
+					<li>
+						<a href="{% static 'main/Faculty Recruitment-Proposed Distribution-Sept-2017.pdf' %}"><b>Proposed Distribution of Faculty Positions</b></a>
+					</li>
+                                        
+				</ul>-->
+			</div>
+			
+		</div>
+		<div class="col-sm-4">
+			<div class="row" style="margin-top:3%;">
+				<div class="col-sm-12">
+					<div class="alert alert-info">
+					<center><b>Your ApplicationID is your Username.</b></center>
+					</div>
+				</div>
+			</div>
+			<center><b><span class="badge blink">{{error}}</span></b></center>
+			<div class="well well-lg">
+				<form method="POST" action="/staffregister/signin/">
+				{% csrf_token %}
+					<div class="form-group">
+						<label for="firstName">Username</label>
+						<input for="firstName" class="form-control" name="username">
+					</div>
+					<div class="form-group">
+						<label for="lastName">Password</label>
+						<input for="lastName" class="form-control" name="password" type="password">
+					</div>
+
+					<button type="submit" class="btn btn-success btn-md">Login</button>
+					<button type="reset" class="btn btn-danger btn-md">Reset</button>
+				</form>
+				<br>
+				<center><a href="/staffregister/signup">New User Registration</a></center>
+				<br>
+				<center><a href="/password_reset/">Forgot Password</a></center>
+			</div>
+			<div class="well well-lg">
+				<center>
+				<h3 style="margin-top:0px;"><span class="label label-info">Contact</span></h3>
+			 9 AM to 5 PM <br><br>	
+				<b style="color:blue;">Technical Queries :</b><br> 
+				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+				&nbsp +91-8702462291<br><br>
+				<b style="color:blue;">Technical Support </b><br> 
+				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp support_recruit17@nitw.ac.in
+				</center>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+	
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+</html>

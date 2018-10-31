@@ -1,0 +1,240 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+			{% csrf_token %}
+		<div class="row">
+			<center><h3><u> Annexure - Z </u></h3></center><br>
+			<center><h4>27.Placement percentage(only for the placment cell officers/Faculty in-charge of Placement)</h4></center><br>
+		</div>
+	<div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+<table>
+<tr><td><b>above 85% </b></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>4 credit points per year upto a maximum of 20
+points since the last promotion. </td></tr>
+<tr><td><b>75% - 84%</b></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>2 credit points per year upto a maximum of 10
+points since the last promotion. </td></tr>
+</table>
+<br>*% to be based on total no of students passing out and
+single job offer
+</div>
+	
+		<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+			<hr>
+			<!-- Annexure - A -->
+			<div class="row">
+				<div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+				<div class="col-sm-7">
+					<div class="form-group">
+						<input class="form-control" type="text" name="last_prom" value="{{last_prom}}" required>
+					</div>
+				</div>
+			</div>
+			<div id="alert" class="alert alert-danger">
+  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+</div>
+<table class="table table-bordered">
+				<thead>
+			        <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Academic Year</th>
+				        <th>No of students passing out</th>
+				        <th>No of Jobs offered</th>
+				        <th>Percentage</th>
+				        <th>Credit Points</th>
+			        </tr>
+			    </thead>
+			    <tfoot>
+			    	<tr>
+			    		<td colspan="5">Total</td>
+			    		<td><div id="total_z">{{total}}</div></td>
+			    	</tr>	
+			    </tfoot>
+			    <tbody id="annexure_z">
+			    	{% for item in annex_z %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.acad_yr}}</td>
+				    		<td>{{item.students}}</td>
+				    		<td>{{item.jobs_off}}</td>
+				    		<td>{{item.percent}}</td>
+				    		<td>{{item.credit}}</td>
+				    	</tr>
+				    {% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="acad_yr">Academic Year</label>
+						<input for="acad_yr" class="form-control" id="acad_yr">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="students">No of students passing out</label>
+						<input for="students" class="form-control" id="students">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="jobs_off">No of Jobs Offered</label>
+						<input for="jobs_off" class="form-control" id="jobs_off">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="percent">Percentage</label>
+						<input for="percent" class="form-control" id="percent">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="credit">Credit Points</label>
+						<input for="credit" class="form-control" type="number" min="0" id="credit" step="0.01">
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add_a">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="annexure_z" id="annexure_z" hidden>			
+
+		</div>
+
+			<input type="text" name="total" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+			<a href="/refresh/z" class="btn btn-lg btn-danger">Refresh</a>
+			<a href="/academic/annexure_z_main" class="btn btn-lg btn-info">Back</a>
+		</form>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_z = [];
+	var total= $("#total_z").html();
+	if(!total)
+		total = 0;;
+	var rowCount = $('#myTable tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+	});
+
+	$('#Add_a').click(function(){
+		var acad_yr = $('#acad_yr').val(); $('#acad_yr').val("");
+		var students = $('#students').val(); $('#students').val("");
+		var jobs_off = $('#jobs_off').val(); $('#jobs_off').val("");
+		var percent = $('#percent').val(); $('#percent').val("");
+		var credit = $('#credit').val(); $('#credit').val("");
+		if(!acad_yr || !students || !jobs_off || !percent || !credit)
+		{
+			$('#alert').show();
+			return false;
+		}
+		total = parseFloat(total) + parseFloat(credit);
+
+		var data = {
+			'acad_yr' : acad_yr,
+			'students' : students,
+			'jobs_off' : jobs_off,
+			'percent' : percent,
+			'credit' : credit
+		};
+
+		var i = rowCount+annexure_z.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + acad_yr + '</td>';
+		rowHtml = rowHtml + '<td>' + students + '</td>';
+		rowHtml = rowHtml + '<td>' + jobs_off + '</td>';
+		rowHtml = rowHtml + '<td>' + percent + '</td>';
+		rowHtml = rowHtml + '<td>' + credit + '</td></tr>';
+
+		$('#annexure_z').append(rowHtml);
+
+		annexure_z.push(data);
+
+		var dataString = JSON.stringify(annexure_z);
+		console.log(dataString);
+		$("#total_z").html(total);
+		$('input[name="annexure_z"]').val(dataString);
+		$('input[name="total"]').val(total);
+	});
+	 $('#annexure').submit(function() {
+	 		if(annexure_z.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+	 		var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

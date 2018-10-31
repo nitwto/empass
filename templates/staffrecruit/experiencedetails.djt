@@ -1,0 +1,201 @@
+{% extends "staffrecruit/base.djt" %}
+
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div style="font-size: 1em;">
+                    <div class="arrow completed">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+                <br />
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</center>
+<center>
+<div class="row">
+    <div class="col-sm-12 text-center">
+        
+            <h3><b>Details of Experience</b></h3>
+        
+    </div>
+</div>
+</center>
+<form enctype="multipart/form-data" style="margin-top:3%;" method="post" action="/staffrecruit/experience/">
+    {% csrf_token %}
+<div style="justify-content: space-around;">
+
+    <div class="well well-lg">
+        <div class="row">
+            <div class="col-sm-2"><b>Name of the organisation where employed</b></div>
+            <div class="col-sm-2"><b>Designation</b></div>
+            <div class="col-sm-2"><b>Date of Joining</b></div>
+            <div class="col-sm-2"><b>Date of Leaving</b></div>
+            <div class="col-sm-2"><b>Last Pay Band and Grade Pay</b></div>
+            <div class="col-sm-2"><b>Service Regular/Contract</b></div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="org1" class="form-control" value="{{emp1.org}}" >
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="des1" class="form-control" value="{{emp1.designation}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="doj1" class="form-control" value="{{emp1.doj}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="dol1" class="form-control" value="{{emp1.dol}}" >
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="pay1" class="form-control" value="{{emp1.pay}}" >
+                </div>
+            </div>
+             <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="service1" class="form-control" value="{{emp1.service}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="org2" class="form-control" value="{{emp2.org}}" >
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="des2" class="form-control" value="{{emp2.designation}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" name="doj2" class="form-control" value="{{emp2.doj}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="number" step="0.1" name="dol2" class="form-control" value="{{emp2.dol}}" >
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="pay2" class="form-control" value="{{emp2.pay}}" >
+                </div>
+            </div>
+             <div class="col-sm-2">
+                <div class="form-group">
+                    <input type="text" name="service2" class="form-control" value="{{emp2.service}}">
+                </div>
+            </div>
+        </div>
+
+    
+    
+
+        <br>
+
+<center>
+ <div class="row">
+        <div class="col-sm-12">
+         <b style="color:blue;">Upload proofs to support your experience details</b>
+            <input type="file" name="files" multiple>
+        </div>
+    </div><br>
+  
+         </center>
+       
+
+    </div>
+    <div class="row">
+    <div class="col-sm-12 text-center">
+        
+            <h3><b>Administrative Responsibilites</b></h3>
+        
+    </div>
+</div><br>
+    <div style="justify-content: space-around;">
+
+    <div class="well well-lg">
+        <div class="row">
+            <div class="col-sm-6"><b>Responsiblity Held</b></div>
+            <div class="col-sm-6"><b>Duration</b></div>
+            
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" name="resp1" class="form-control" value="{{Bqual.university}}" >
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" name="dur1" class="form-control" value="{{Bqual.university}}">
+                </div>
+            </div>
+            
+            </div>
+    
+
+        <div class="row">
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" name="resp2" class="form-control" value="{{Bqual.division}}" >
+                </div>
+            </div>
+             <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" name="dur2" class="form-control" value="{{Bqual.university}}">
+                </div>
+            </div>
+        </div>
+
+
+</div>
+<center>
+  <div class="row">
+        <div class="col-sm-12">
+            <b style="color:red;">Save the data on the page before proceeding to the next page, else it will be lost.</b>
+        </div>
+    </div>
+    </center><br>
+        <center>
+        <a href="/staffrecruit/educationalqual/"><button type="button" id="back" class="btn btn-info">Back</button></a>&nbsp;&nbsp;
+        <button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn">Save</button>&nbsp;&nbsp;
+        <a href="/staffrecruit/miscellaneous/"> <button type="button" name="nextBtn" value="nextBtn" id="nxt" class="btn btn-info">Next</button></a>
+         </center>
+</form>
+<br><br>
+{% endblock %}

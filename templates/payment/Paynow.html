@@ -1,0 +1,138 @@
+
+{% extends "recruit/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+    <center>
+        <div class="row" style="margin-top:2%;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <br />
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </center>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <form action="{{action}}" method="post" name="payuForm">
+              {% csrf_token %}
+            <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
+            <input type="hidden" name="hash_string" value="{{ hash_string }}" />
+            <input type="hidden" name="hash" value="{{ hashh }}"/>
+            <input type="hidden" name="posted" value="{{ posted }}"/>
+            <input type="hidden" name="txnid" value="{{ txnid }}" />
+            <input type="hidden" name="surl" value="{{ posted.surl }}" size="64" />
+            <input type="hidden" name="furl" value="{{ posted.furl }}" size="64" />
+            <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
+                        
+                <div class="col-sm-12">
+                    <div class="well well-lg">
+                        <div class="row">
+                            <div class="col-sm-4">
+                               <div class="form-group">
+                                   <label>Category</label>
+                                   <select class="form-control" name="paytype" id="paytype" required>
+                                     <option value="jbk" >----</option>
+                                     <option value="GEN/OBC">General / OBC</option>
+                                     <option value="SC/ST/PWD">SC / ST / PWD</option>
+                                     <option value="abroad">Foreign Payment</option>
+                                   </select>
+                               </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="refName">Amount</label>
+                                    <input class="form-control" name="amount1" value="{{ posted.amount|default:'' }}" id="amountval1" disabled />
+                                    <input type="hidden" class="form-control" name="amount" value="{{ posted.amount|default:'' }}" id="amountval" />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="designation">Name</label>
+                                    <input name="firstname1" type="text" class="form-control" id="firstname1" value="{{ posted.firstname|default:'' }}"  />
+                                    <input name="firstname" type="hidden" class="form-control" id="firstname" value="{{ posted.firstname|default:'' }}"  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="designation">Email</label>
+                                    <input class="form-control" type="text" name="email1" id="email1" value="{{ posted.email|default:'' }}" disabled />
+                                    <input class="form-control" type="hidden" name="email" id="email" value="{{ posted.email|default:'' }}" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="address">Phone</label>
+                                    <input class="form-control" type="text" name="phone1" value="{{ posted.phone|default:'' }}" disabled />
+                                    <input class="form-control" type="hidden" name="phone" value="{{ posted.phone|default:'' }}" />
+                                    <input type="hidden" class="form-control"  name="productinfo" value="{{ posted.productinfo|default:'Recruitment' }}" />
+                                    <input type="hidden" name="ptype" id="ptype" value="{{posted.paytype}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="address">Date of Payment</label>
+                                    <input class="form-control" name="pdate" value="{{ posted.pdate|default:'' }}" disabled="" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="designation">pay</label>
+                                    <input class="form-control" name="paynow" id="email" value="{{ posted.paytype }}" />
+                                </div>
+                            </div>
+                        </div>
+                      -->
+                    </div>
+                </div>
+                <center><input type="submit" value="Submit"class="btn btn-success"  />
+                  <p style="color: red;font-weight: bold;">* Please click two times on submit button</p></center>
+                <hr>
+            </form>
+        </div>
+    </div>
+<br><br><br><br><br><br><br><br>
+</body>
+
+<style type="text/css">
+    .copyright {
+        background-color: #003A6A;
+        color: white;
+    }
+
+</style>
+<script type="text/javascript">
+    
+    if($("#ptype").val()=="SC/ST/PWD"){ x='Rs. 0'; $('#amountval1').val(x);$('#amountval').val("0");$("#paytype").val("SC/ST/PWD"); }
+    if($("#ptype").val()=="GEN/OBC") { x='Rs.1000'; $('#amountval1').val(x);$('#amountval').val("1000");$("#paytype").val("GEN/OBC"); }
+    if($("#ptype").val()=="abroad"){ x='$25'; $('#amountval1').val(x); $('#amountval').val("25");$("#paytype").val("abroad");}
+ 
+  $('select').change(function(){
+    $('#amount').show();
+    var x;
+    if($(this).val()=='SC/ST/PWD') { x='Rs. 0'; $('#amountval1').val(x);$('#amountval').val("0"); }
+    else if($(this).val()=='GEN/OBC') { x='Rs.1000'; $('#amountval1').val(x);$('#amountval').val("1000"); }
+    else if($(this).val()=='abroad') { x='$25'; $('#amountval1').val(x); $('#amountval').val("25");}
+    else { $('#amount').hide(); }
+  });  
+</script>
+
+<script type="text/javascript">
+    var hash = "{{hashh}}";
+    function submitPayuForm() {
+      if(hash =='') {
+        return;
+      }
+      var payuForm = document.forms.payuForm;
+      payuForm.submit();
+    }
+  </script>
+
+{% endblock %}

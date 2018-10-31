@@ -1,0 +1,6 @@
+{% load static %}
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="80%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row" style="background-color:#564c4A; color: #DBEAE4;">
+	<center><h2><b>WSDC PAYMENT SYSTEM</b></h2></center>
+	<br>
+</div>

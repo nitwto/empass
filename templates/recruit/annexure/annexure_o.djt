@@ -1,0 +1,295 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	   table {border-collapse:collapse; }
+	   table td {border:solid 1px; word-wrap:break-word;}
+	</style>
+	<title>Annexures</title>
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+				{% csrf_token %}
+			<div class="row">
+				<center><h3><u> Annexure - O</u></h3></center><br>
+				<center><h4>16.Conducting national programmes like GIAN etc.</h4></center><br>
+			</div>
+<div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+					Program of 2 week Duration : 2 credit points per course up to a max of
+					4 credit points since the last promotion.<br>
+
+					Program of 1 week Duration : 1 credit points per course up to a max of
+					2 credit points since the last promotion.  
+</div>
+			<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+			<br>
+			<br>
+				<hr>
+				<div class="row">
+					<div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+					<div class="col-sm-7">
+						<div class="form-group">
+							<input class="form-control" type="text" name="last_prom" value="{{last_prom}}" required>
+						</div>
+					</div>
+				</div>
+				<div id="alert" class="alert alert-danger">
+  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+</div>
+
+<table class="table table-bordered">
+					<thead>
+				        <tr style="background-color:#e3e3e3;">
+					        <th >S.No.</th>
+					        <th >Title</th>
+					        <th >GIAN/Other(Specify)</th>
+					        <th colspan="2">Duration</th>
+					        <th>Total no. of Weeks</th>
+					        <th colspan="2">Role</th>
+					        <th>Venue</th>
+					        <th>Credit Points</th>
+				        </tr>
+				        <tr style="background-color:#e3e3e3;">
+				        	<th colspan="3"></th>
+				        	<th>From</th>
+				        	<th>To</th>
+						  <th colspan="1"></th>
+						  <th>As Conventor/Coordinator</th>
+						  <th>Other(Specify)</th>
+						  <th colspan="2"></th>
+				        </tr>
+				    </thead>
+					<tfoot>
+						<tr>
+						  <td colspan="9"><b>Total</b></td>
+						  <td><div id="total_o">{{total}}</div></td>
+						</tr>
+					</tfoot>
+				    <tbody id="annexure_o">
+				    	{% for item in annex_o %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.title}}</td>
+				    		<td>{{item.gian}}</td>
+				    		<td>{{item.from}}</td>
+				    		<td>{{item.to_date}}</td>
+				    		<td>{{item.tot_weeks}}</td>
+				    		<td>{{item.roles}}</td>
+				    		<td>{{item.other}}</td>
+				    		<td>{{item.venue}}</td>
+				    		<td>{{item.credit}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table>
+
+				<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="title">Title</label>
+							<input for="title" class="form-control" id="title">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="gian">GIAN/Other(Specify)</label>
+							<input for="gian" class="form-control" id="gian">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="from">From Date</label>
+							<input for="from" type="date" class="form-control" id="from">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="to_date">To(dd/mm/yyyy) or Ongoing</label>
+							<input for="to_date" type="text" class="form-control" id="to_date">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="tot_weeks">Total Weeks</label>
+							<input for="tot_weeks" type="number" class="form-control" id="tot_weeks">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="roles">Role(Convenor/Coordinator)</label>
+							<input for="roles" class="form-control" id="roles">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="other">Other(Specify)</label>
+							<input for="other" class="form-control" id="other">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="venue">Venue</label>
+							<input for="venue" class="form-control" id="venue">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="credit">Credit Points</label>
+							<input for="credit" class="form-control" type="number" min="0" id="credit" step="0.01">
+						</div>
+					</div>
+				</div>
+				
+				<center><button type="button" id="Add">Add</button><br></center>
+
+				</div>
+				<br>
+
+				<input type="text" name="annexure_o" id="annexure_o" val="" hidden>			
+
+			</div>
+
+				<input type="text" name="total" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+			<a href="/refresh/o" class="btn btn-lg btn-danger">Refresh</a>
+			<a href="/academic/annexure_o_main" class="btn btn-lg btn-info">Back</a>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_o = [];
+	var total= $("#total_o").html();
+	if(!total)
+		total = 0;;
+	var rowCount = $('#annexure_o tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+
+	});
+
+	$('#Add').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var gian = $('#gian').val(); $('#gian').val("");
+		var from = $('#from').val(); $('#from').val("");
+		var to_date = $('#to_date').val(); $('#to_date').val("");
+		var tot_weeks = $('#tot_weeks').val(); $('#tot_weeks').val("");
+		var roles = $("#roles").val(); $('#roles').val("");
+		var other = $("#other").val(); $('#other').val("");
+		var venue = $("#venue").val(); $('#venue').val("");
+		var credit = $("#credit").val(); $('#credit').val("");
+
+		if(!title  || !gian || !from || !to_date || !tot_weeks || !roles || !other || !venue || !credit)
+		{
+			$('#alert').show();
+			return false;
+		}
+
+		total = parseFloat(total)+parseFloat(credit);
+
+		var data = {
+			'title' : title,
+			'gian' : gian,
+			'from' : from,
+			'to_date' : to_date,
+			'tot_weeks' : tot_weeks,
+			'roles' : roles,
+			'other' : other,
+			'venue' : venue,
+			'credit':credit
+		};
+
+		var i = rowCount+annexure_o.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + gian + '</td>';
+		rowHtml = rowHtml + '<td>' + from + '</td>';
+		rowHtml = rowHtml + '<td>' + to_date + '</td>';
+		rowHtml = rowHtml + '<td>' + tot_weeks + '</td>';
+		rowHtml = rowHtml + '<td>' + roles + '</td>';
+		rowHtml = rowHtml + '<td>' + other + '</td>';
+		rowHtml = rowHtml + '<td>' + venue + '</td>'
+		rowHtml = rowHtml + '<td>' + credit + '</td></tr>';
+
+		$('#annexure_o').append(rowHtml);
+		$('#total_o').html(total);
+
+		annexure_o.push(data);
+
+		var dataString = JSON.stringify(annexure_o);
+		console.log(dataString);
+		$('input[name="annexure_o"]').val(dataString);
+		$('input[name="total"]').val(total);
+	});
+
+	 $('#annexure').submit(function() {
+	 		if(annexure_o.length == 0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+			var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

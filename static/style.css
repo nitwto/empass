@@ -1,0 +1,112 @@
+.arrow {
+    display: inline-block;
+    height: 40px;
+    background: #d2d2f2;
+    color: #fff;
+    position: relative;
+    width: 130px;
+    text-align: center;
+    line-height: 40px;
+    color: #000000;
+}
+
+.arrow:after {
+
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 100%;
+    top: 0;
+    border: 20px solid transparent;
+    border-left: 20px solid #d2d2f2;
+}
+
+.arrow-visited {
+    display: inline-block;
+    height: 40px;
+    background: #006600;
+    color: #fff;
+    position: relative;
+    width: 130px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+}
+
+.arrow-visited:after {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 100%;
+    top: 0;
+    border: 20px solid transparent;
+    border-left: 20px solid #006600;
+}
+
+.current {
+    font-weight: bold;
+}
+
+
+.last {
+    display: inline-block;
+    height: 40px;
+    position: relative;
+    width: 130px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.last:after {
+
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 100%;
+    top: 0;
+    border: 00px solid transparent;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+.tick {
+    color: green;
+}
+
+.menu li {
+    list-style-type: none;
+    margin: 3px;
+    height: 30px;
+    background-color: #003A6A;
+}
+
+.menu li a {
+    display: block;
+    height: 30px;
+    padding: 3px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu li a:hover {
+    background-color: #336699;
+}
+
+.focus {
+    background-color: #CC6600;
+}
+.copyright{
+    clear: both;
+}

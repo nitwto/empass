@@ -1,0 +1,273 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+			{% csrf_token %}
+		<div class="row">
+			<center><h3><u> Annexure - H </u></h3></center><br>
+			<center><h4>9.Journal Papers in SCSI/Scopus/Web of Science(Paid Journal Papers not allowed)</h4></center><br>
+		</div>
+<div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+4 per paper since the last promotion.
+First Author / Main supervisor will get 2
+and rest will be divided among others. 
+<br>
+<br>
+<p><b> Note : Please do not copy-paste in annexures or atleast replace non-English characters when copied from somewhere. </p>
+<p> Put English name for Greek alphabets(if any) like alpha,beta etc.</p>
+</b>
+<br>
+
+</div>
+
+		<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+			<hr>
+			<!-- Annexure - E2 -->
+		<div class="row">
+			<div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+			<div class="col-sm-7">
+				<div class="form-group">
+					<input class="form-control" type="text" name="last_prom" value="{{last_prom}}" required>
+				</div>
+			</div>
+		</div>
+			<div id="alert" class="alert alert-danger">
+  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+</div>
+
+<table class="table table-bordered">
+				<thead>
+			        <tr style="background-color:#e3e3e3;">
+				        <th >S.No.</th>
+				        <th >Title of the Paper</th>
+				        <th>Name of Journal Volume,pg year</th>
+				        <th>Is it paid Journal(Y/N)?</th>
+				        <th>Indexed in Scopus / SCI / Web of Science (Y/N)</th>
+				        <th colspan="2">Role</th>
+				        <th>Credit Points</th>
+			        </tr>
+			        <tr style="background-color:#e3e3e3;">
+			        	<th colspan="5"></th>
+					  <th>As First Author/Main Supervisor/Other Authors</th>
+					  <th>Total No of Other Authors</th>
+					  <th></th>
+			        </tr>
+			    </thead>
+				<tfoot>
+					<tr>
+					  <td colspan="7"><b>Total</b></td>
+					  <td><div id="total_h">{{total}}</div></td>
+					</tr>
+				</tfoot>
+			    <tbody id="annexure_h">
+			    	{% for item in annex_h %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.title}}</td>
+				    		<td>{{item.journal}}</td>
+				    		<td>{{item.paid}}</td>
+				    		<td>{{item.indexed}}</td>
+				    		<td>{{item.roles}}</td>
+				    		<td>{{item.no_authors}}</td>
+				    		<td>{{item.credit}}</td>
+				    	</tr>
+				    {% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="title">Title of the Paper</label>
+						<input for="title" class="form-control" id="title" >
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="journal">Name of Journal Volume,pg year</label>
+						<input for="journal" class="form-control" id="journal" >
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="paid">Is it paid Journal(Y/N)?</label>
+						<input for="paid" class="form-control" id="paid" >
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="indexed">Indexed in Scopus / SCI / Web of Science (Y/N)</label>
+						<input for="indexed" class="form-control" id="indexed" >
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="roles">First Author/Main Supervisor/Other Authors</label>
+						<input for="roles" class="form-control" id="roles" >
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="no_authors">Total No of Other Authors</label>
+						<input for="no_authors" type="number" min="0" class="form-control" id="no_authors" >
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="credit">Credit Points</label>
+						<input for="credit" class="form-control" type="number" min="0" id="credit" step="0.01" >
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="annexure_h" id="annexure_h" val="" hidden>			
+
+		</div>
+
+			<input type="text" name="total" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+			<a href="/refresh/h" class="btn btn-lg btn-danger">Refresh</a>
+			<a href="/academic/annexure_h_main" class="btn btn-lg btn-info">Back</a>
+		</form>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_h = [];
+	var total= $("#total_h").html();
+	if(!total)
+		total = 0;;
+	var rowCount = $('#annexure_h tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+
+	});
+
+	$('#Add').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var journal = $('#journal').val(); $('#journal').val("");
+		var paid = $('#paid').val(); $('#paid').val("");
+		var indexed = $('#indexed').val(); $('#indexed').val("");
+		var roles = $("#roles").val(); $('#roles').val("");
+		var no_authors = $("#no_authors").val(); $('#no_authors').val("");
+		var credit = $('#credit').val(); $('#credit').val("");
+
+
+		if(!title || !journal || !paid || !indexed || !roles || !no_authors || !credit)
+		{
+			$('#alert').show();
+			return false;
+		}
+		total = parseFloat(total)+parseFloat(credit);
+		var data = {
+			'title' : title,
+			'journal' : journal,
+			'paid' : paid,
+			'indexed' : indexed,
+			'roles' : roles,
+			'no_authors' : no_authors,
+			'credit' : credit,
+		};
+
+		var i = rowCount+annexure_h.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + journal + '</td>';
+		rowHtml = rowHtml + '<td>' + paid + '</td>';
+		rowHtml = rowHtml + '<td>' + indexed + '</td>';
+		rowHtml = rowHtml + '<td>' + roles + '</td>';
+		rowHtml = rowHtml + '<td>' + no_authors + '</td>';
+		rowHtml = rowHtml + '<td>' + credit + '</td></tr>';
+
+		$('#annexure_h').append(rowHtml);
+		$('#total_h').html(total);
+
+		annexure_h.push(data);
+
+		var dataString = JSON.stringify(annexure_h);
+		console.log(dataString);
+		$('input[name="annexure_h"]').val(dataString);
+		$('input[name="total"]').val(total);
+	});
+
+	 $('#annexure').submit(function() {
+	 		if(annexure_h.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+			var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

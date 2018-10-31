@@ -1,0 +1,1552 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+		@media print {
+    		@page { size: landscape; }
+    		.notprint{
+    			 display: none; 
+    		}
+
+    		.onlyprint{
+    			display: table-row;
+    		}
+    		#line{
+			border-left: 0px solid black;
+			padding-left: 0px;
+			margin-left: 0px;
+			margin-top: 0px;
+			}
+
+		}
+	</style>
+
+</head>
+
+<body>
+<center> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#ffffff" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>
+</div>
+
+<div class="row">
+	<div class="col-sm-2">
+			<center class="notprint" style="padding-top: 100px;">
+
+				<a href="/recruit/viewscrutiny/{{profile.applicationID}}"><button class="btn btn-success" >&nbsp;&nbsp;View Scrutiny&nbsp;&nbsp;</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewappl/{{profile.applicationID}}"><button class="btn btn-success" disabled>View Application</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewannex/{{profile.applicationID}}"><button class="btn btn-success">View Annexures</button></a>
+				<br>
+				<br>
+				<a href="/faculty_admin" type="button" class="btn btn-warning">Home</a>
+				<br>
+				<br>
+				<a href="/faculty_admin/logout" type="button" class="btn btn-danger">Logout</a>		
+			</center>
+	</div>
+	<div class="col-sm-9" id="line" style="border-left: 1px solid grey;padding-left: 50px;">
+		<form style="margin-top:3%;" method="post" action="/">
+		{% csrf_token %}
+		<div class="row">
+			<center>
+			<h3><u> Application Form for faculty Position </u></h3>
+			<h3><u>Application ID : {{college}}{{profile.applicationID}}</u></h3>
+			</center>
+		</div>
+
+		<!-- ////////////////// Part1 ///////////////// -->
+		<div id="part1">
+
+			<div class="well well-lg">
+			<div class="row">
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-3"> <b>Application for the Post of</b> </div>
+					<div class="col-sm-3">
+						<div class="form-group" style="font-size:18px;">
+							<b><u>{{profile.postApplied}}</u></b>
+						</div>
+					</div>
+					<div class="col-sm-1"> <b>in</b> </div>
+					<div class="col-sm-3">
+						<div class="form-group" style="font-size:18px;">
+							<b><u>{{profile.departmentApplied}}</u></b>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-3"> <b>Specialization</b> </div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<!-- <input class="form-control" type="text" name="specialization" value="{{specialization}}" readonly> -->
+							<p><u>{{specialization}}</u></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-3"> <b>Name in Full (In Block Letters)</b> </div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<!-- <input class="form-control" type="text" name="Name" value="{{generalData.full_name}}" readonly> -->
+							<p>{{generalData.full_name}}</p>
+						</div>
+					</div>
+					<div class="col-sm-2"> <b>Gender</b> </div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<!-- <input class="form-control" type="text" name="gender" value="{{generalData.gender}}" readonly> -->
+							<p>{{generalData.gender}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+                        <div class="col-sm-3">
+                                <center>
+                                        {% if profile.profilePic %}
+                                        <img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
+                                        {% else %}
+                                        <img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;">
+                                        {% endif %}
+                                        <br><br>
+                                </center>
+                       </div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Father's Name</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="fatherName" value="{{generalData.father_name}}" readonly> -->
+						<p>{{generalData.father_name}}</p>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Occupation</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="fatherOccupation" value="{{generalData.father_occ}}"> -->
+						<p>{{generalData.father_occ}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Mother's Name</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="motherName" value="{{generalData.mother_name}}" readonly> -->
+						<p>{{generalData.mother_name}}</p>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Occupation</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="motherOccupation" value="{{generalData.mother_occ}}"> -->
+						<p>{{generalData.mother_occ}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Nationality</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="nationality" value="{{generalData.nation}}" readonly> -->
+						<p>{{generalData.nation}}</p>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Place of Birth</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="birthplace" value="{{generalData.pob}}" readonly> -->
+						<p>{{generalData.pob}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Date of Birth</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="dateOfBirth" value="{{generalData.dob}}" readonly> -->
+						<p>{{generalData.dob}}</p>
+					</div>
+				</div>
+				<div class="col-sm-1"> <b>Age</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="age" value="{{generalData.age}}" readonly> -->
+						<p>{{generalData.age}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3"><b>Aadhaar Number (optional)</b></div>
+				<div class="col-sm-3">
+					<!-- <input class="form-control" type="text" name="aadhaar" value="{{generalData.aadhaarNo}}" maxlength="12"> -->
+					<p>{% if generalData.aadhaarNo %} {{generalData.aadhaarNo}} {% else %} NA {% endif %}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3"> <b>Contact</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b><u>{{profile.contact}}</u></b>
+					</div>
+				</div>
+				<div class="col-sm-1"> <b>Email  </b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b><u>{{request.user.email}}</u></b>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Address of Correspondence</b> </div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="corresAddress" value="{{generalData.correspond_addr}}" readonly>
+					-->
+					<p>{{generalData.correspond_addr}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Permanent Address</b> </div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<!-- <input class="form-control" type="text" name="permanentAddress" value="{{generalData.permanent_addr}}" readonly>
+					-->
+					<p>{{generalData.permanent_addr}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Category</b> </div>
+				<div class="col-sm-6">
+					<p>{{generalData.category}}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b> PWD  </b> </div>
+				<div class="col-sm-3">
+					<p>{{generalData.pwd}}</p>
+				</div>
+				</div>
+			</div>
+			<hr>
+			<center><h4><u>Payment Details</u></h4></center>
+			<table id="datatable" class="display table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr style="background-color: #e7efe3;">
+                <th>Bank Name</th>
+                <th>Transaction ID</th>
+                <th>Account No</th>
+                <th>Payment Date</th>
+                <th>Payment Type</th>
+                <th>Amount</th>
+                <th class="notprint">Receipt</th>
+            </tr>
+        </thead>
+ 
+        <tbody>
+			<tr>
+				<td>{{paymentDetails.bankName}}</td>
+				<td>{{paymentDetails.TransID}}</td>
+				<td>{{paymentDetails.accountNum}}</td>
+				<td>{{paymentDetails.payDate}}</td>
+				<td>{{paymentDetails.payType}}</td>
+				<td>{{paymentDetails.amount}}</td>
+				<td class="notprint">
+				{% if paymentDetails.receipt %}<a target="_blank" href="{{paymentDetails.receipt.url}}"><button class="btn btn-success">Receipt</button></a>
+				{% else %}<a target="_blank" href=""><button class="btn btn-danger" disabled>Receipt</button></a>
+				{% endif %}
+				</td>
+			</tr>
+        </tbody>
+    </table>
+			<hr>
+			<div class="row">
+				<div class="col-sm-9">
+					<b><h3>Particulars of Educational Qualifications (Annexure A)</h3></b>
+					
+				</div>
+				<div class="col-sm-3">
+				{% if acad_annex_a_file %}
+					<a type="button" target="_blank" class="notprintbtn btn-success" href="{{acad_annex_a_file.url}}">Annexure A</a><br>
+					{% else %}
+					<a type="button" target="_blank" class="notprint btn btn-danger" disabled>Annexure A</a><br>
+					{% endif %}
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+					<tr style="background-color:#e3e3e3;">
+						<th>Degree Obtained & Specializations</th>
+						<th>Degree</th>
+						<th>Name of University/Institute</th>
+						<th>Year of Passing</th>
+						<th>% of Marks / CGPA</th>
+						<th>Class/Division</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Bachelor's Degree</td>
+						<td>{{Bqual.degreeName}}</td>
+						<td>{{Bqual.university}}</td>
+						<td>{{Bqual.passingYear}}</td>
+						<td>{{Bqual.marks}}</td>
+						<td>{{Bqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Master's Degree</td>
+						<td>{{Mqual.degreeName}}</td>
+						<td>{{Mqual.university}}</td>
+						<td>{{Mqual.passingYear}}</td>
+						<td>{{Mqual.marks}}</td>
+						<td>{{Mqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Ph.D. Degree</td>
+						<td>{{Phdqual.degreeName}}</td>
+						<td>{{Phdqual.university}}</td>
+						<td>{{Phdqual.passingYear}}</td>
+						<td>{{Phdqual.marks}}</td>
+						<td>{{Phdqual.division}}</td>
+					</tr>
+					<tr>
+						<td>Other's (If any)</td>
+						<td>{{Oqual.degreeName}}</td>
+						<td>{{Oqual.university}}</td>
+						<td>{{Oqual.passingYear}}</td>
+						<td>{{Oqual.marks}}</td>
+						<td>{{Oqual.division}}</td>
+					</tr>
+				</tbody>
+			</table>
+			{% if annex_a %}
+			<br>
+			<h3>Annexure A data</h3>
+			<table class="table table-bordered">
+				<thead>
+			        <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Qualification</th>
+				        <th>Degree</th>
+				        <th>%Mark/CGPA</th>
+				        <th>Div.</th>
+				        <th colspan="2"><center>Date</center></th>
+				        <th>University/Institution</th>
+			        </tr>
+			        <tr style="background-color:#e3e3e3;">
+			        	<th colspan="5"></th>
+			            <th>Entry</th>
+			            <th>Completion</th>
+			            <th></th>
+			        </tr>
+			    </thead>
+			    <tbody id="annexure_a">
+			    	{% for rec in annex_a %}
+			    	<tr>
+			    		<td>{{forloop.counter}}</td>
+			    		<td>{{rec.qualification_a}}</td>
+			    		<td>{{rec.degree_a}}</td>
+			    		<td>{{rec.marks_a}}</td>
+			    		<td>{{rec.div_a}}</td>
+			    		<td>{{rec.entry_a}}</td>
+			    		<td>{{rec.completion_a}}</td>
+			    		<td>{{rec.university_a}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+			{% endif %}
+		</div>
+
+		<!-- ////////////////// Part2 ///////////////// -->
+		<div id="part2">
+
+			<hr>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4 style="font-weight:900;">Details of Experience</h4>
+					{% if paper1 %}
+						<a type="button" target="_blank" class="notprint btn btn-success" href="{{paper1.url}}">Supporting Documents</a><br>
+					{% else %}
+						<a type="button" target="_blank" class="notprint btn btn-danger" disabled>Supporting Documents</a><br>
+					{% endif %}
+				</div>
+			</div>
+			<br>
+
+			<!-- Teaching Experience Code -->
+			<div class="row">
+				<div class="col-sm-3"> <b>Teaching Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="teachingExperience" value="{{Experience.teaching_exp}}" readonly>
+					</div>
+				</div>
+				<div class="col-sm-3"> <b>Post Ph.D. Experience (years) </b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input class="form-control" type="text" name="phdExperience" value="{{Experience.postPhd_exp}}" readonly>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Organization</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Last pay Band and Grade Pay</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="teachingExpTbody">
+					{% for texp in teachingData %}
+					<tr>
+						<td>{{forloop.counter}}.</td>
+						<td>{{texp.organization}}</td>
+						<td>{{texp.designation}}</td>
+						<td>{{texp.joiningDate}}</td>
+						<td>{{texp.leavingDate}}</td>
+						<td>{{texp.pay}}</td>
+						<td>{{texp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+			<input type="text" name="teachingExpData" id="teachingExp" hidden>
+
+			<!-- Research Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="researchExperience" value="{{Experience.research_exp}}" readonly>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Organization where employed</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Last pay Band and Grade Pay</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="researchExpTbody">
+					{% for rexp in researchData %}
+					<tr>
+						<td>{{forloop.counter}}.</td>
+						<td>{{rexp.organization}}</td>
+						<td>{{rexp.designation}}</td>
+						<td>{{rexp.joiningDate}}</td>
+						<td>{{rexp.leavingDate}}</td>
+						<td>{{rexp.pay}}</td>
+						<td>{{rexp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+			<input type="text" name="researchExpData" id="researchExp" hidden>
+
+			<!-- Industrial Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="industryExperience" value="{{Experience.industrial_exp}}" readonly>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+				  <tr style="background-color:#e3e3e3;">
+					<th>S.No.</th>
+					<th>Name of Industry</th>
+					<th>Designation</th>
+					<th>Date of Joining</th>
+					<th>Date of Leaving</th>
+					<th>Salary Drawn</th>
+					<th>Service (Regular/Contract)</th>
+				  </tr>
+				</thead>
+				<tbody id="industryExpTbody">
+					{% for iexp in industryData %}
+					<tr>
+						<td>{{for.counter}}</td>
+						<td>{{iexp.organization}}</td>
+						<td>{{iexp.designation}}</td>
+						<td>{{iexp.joiningDate}}</td>
+						<td>{{iexp.leavingDate}}</td>
+						<td>{{iexp.pay}}</td>
+						<td>{{iexp.service}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br>
+
+			<input type="text" name="industryExpData" id="industryExp" hidden>
+
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<div id="part6">
+
+					<div id="part6">
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-6" style="font-size:18px;"> 
+						<b>(i) External Sponsored R&D Projects:</b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_1" value = {% if total_e  %}"{{total_e}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6"> 
+						<b>Completed or Ongoing/ Patent granted</b><br><br> 
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-3"> 
+						Total Sponsored Projects 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_projects" value="{{external_sponsored_rnd.total_projects}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos.
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> As PI 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="projects_as_PI" value="{{external_sponsored_rnd.project_as_PI}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+
+				<!-- <div class="row">
+					<div class="col-sm-8"> <b>Please give details of number of investigators in projects in which you are not PI :</b><br><br> </div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8"> <b>Projects :</b><br><br> </div>
+				</div> -->
+
+				<div class="row hidden">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" id="projectCompletedNotPI">
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<center><button type="button" id="AddprojectCompletedNotPI">Add</button><br></center>
+					</div>
+					<input type="text" name="projects_not_pi" id="AddprojectCompletedNotPIHidden" hidden value = "{{projects_not_pi}}" readonly>
+				</div>
+
+				<!-- <table class="table table-bordered">
+					<thead>
+				      <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Number of Investigators</th>
+				      </tr>
+				    </thead>
+				    <tbody id="projectCompletedNotPITBody">
+				    {% for item in projects_not_pi %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.projectCompletedNotPI}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table> -->
+
+				<br><br>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Total Patents Granted 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_patents" value = "{{external_sponsored_rnd.total_patents}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> As PI 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="patents_as_pi" value = "{{external_sponsored_rnd.patents_as_pi}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+
+				<!-- <div class="row">
+					<div class="col-sm-8"> <b>Please give details of number inventors in which you are not PI :</b><br><br> </div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8"> <b>Pantents :</b><br><br> </div>
+				</div> -->
+
+
+				<div class="row hidden">
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" id="patentsNotPI" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<center><button type="button" id="AddPatentsNotPI">Add</button><br></center>
+					</div>
+					<input type="text" name="patents_not_pi" id="AddPatentsNotPIHidden" hidden>
+				</div>
+
+				<!-- <table class="table table-bordered">
+					<thead>
+				      <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Number of Inventors</th>
+				      </tr>
+				    </thead>
+				    <tbody id="patentsNotPITBody">			    	
+				    {% for item in patents_not_pi %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.patentsNotPI}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table> -->
+
+			</div>
+			<hr>
+
+		<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(ii) Consultancy Projects</b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_2" value = {% if acad_annex_f.credit_score %}"{{acad_annex_f.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Consultancy Projects Completed 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="consultancy_projects_completed" value = "{{consultancy_projects.consultancy_projects_completed}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> Amount Rs.
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="amount" value="{{consultancy_projects.amount}}"readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Lakhs
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+		<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(iii) Ph.D. guided (including thesis submitted cases) :</b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_3" value = {% if acad_annex_g.total %}"{{acad_annex_g.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Total PhD
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_phd" value="{{phd_completed.total_phd}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> As First Supervisor		
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="as_first_supervisor" value="{{phd_completed.as_first_supervisor}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos.
+					</div>
+				</div>
+				<!-- <div class="row">
+					<div class="col-sm-8"> <b>Please give details of number of supervisors in Ph.D. guided where you are NOT First Supervisor :</b><br><br> </div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8"> <b>Ph.D. :</b><br><br> </div>
+				</div> -->
+
+				<!-- <table class="table table-bordered">
+					<thead>
+				      <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Number of Supervisors</th>
+				      </tr>
+				    </thead>
+				    <tbody id="phdTBody">			    	
+				    {% for item in phds %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.phd}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table> -->
+
+				<div class="row hidden">
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" id="phd" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<center><button type="button" id="AddPhd">Add</button><br></center>
+					</div>
+					<input type="text" name="phds" id="AddPhdHidden" hidden>
+				</div>
+			</div>
+			<hr>
+
+		<!-- ////////////////// Part1 ///////////////// -->
+
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(iv) Journal papers in SCI / Scopus / Web of Science, since the last promotion :</b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_4" value = {% if acad_annex_h.total %}"{{acad_annex_h.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class = "row">
+					<div class = "col-sm-4">
+						<h6> (Paid journals are not allowed) </h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Total Journal Papers Listed under SCI / Scopus / Web of Science
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_journal_papers"
+							value = "{{journal_papers.total_journal_papers}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> As First Author/Main Supervisor		
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="as_first_supervisor"
+							value = "{{journal_papers.as_first_supervisor}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos.
+					</div>
+				</div>
+				<br>
+				<!-- <div class="row">
+					<div class="col-sm-12"> <b>Please give details of number of Co-Authors in Journal papers where you are NOT the first Author/Main supervisors :</b><br><br> </div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8"> <b>Papers. :</b><br><br> </div>
+				</div> -->
+
+				<!-- <table class="table table-bordered">
+					<thead>
+				      <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Count</th>
+				      </tr>
+				    </thead>
+				    <tbody id="papersTBody">
+				    {% for item in papers %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.papers}}</td>
+				    	</tr>
+				    {% endfor %}			    	
+				    </tbody>
+				</table> -->
+
+				<div class="row hidden">
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" id="papers" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<center><button type="button" id="AddPapers">Add</button><br></center>
+					</div>
+					<input type="text" name="papers" id="AddPapersHidden" hidden>
+				</div>
+			</div>
+			<hr>
+<!-- ////////////////// Part1 ///////////////// -->
+
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(v) Conference paper indexed in SCI / Scopus / Web of Science Confernece / internationally renowned confernece :</b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_5" value = {% if acad_annex_i.total %}"{{acad_annex_i.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Total Conference Papers Listed under Web of Science/Scopus/Internationally renowned conference
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_confernce_papers" value =" {{conference_paper_sci.total_confernce_papers}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+					<div class = "col-sm-1">
+					</div>
+					<div class="col-sm-2"> As First Author/Main Supervisor		
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="as_first_supervisor"
+							value = "{{conference_paper_sci.as_first_supervisor}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos.
+					</div>
+				</div>
+				<br>
+				<!-- <div class="row">
+					<div class="col-sm-12"> <b>Please give the number of Co-Authors in which you are NOT the first Author/Main supervisors :</b><br><br> </div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8"> <b>Papers. :</b><br><br> </div>
+				</div>
+
+				<table class="table table-bordered">
+					<thead>
+				      <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Count</th>
+				      </tr>
+				    </thead>
+				    <tbody id="papers1TBody">
+				    {% for item in papers1 %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.papers1}}</td>
+				    	</tr>
+				    {% endfor %}
+				    </tbody>
+				</table> -->
+
+				<div class="row hidden">
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" id="papers1" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<center><button type="button" id="AddPapers1">Add</button><br></center>
+					</div>
+					<input type="text" name="papers1" id="AddPapers1Hidden" hidden>
+				</div>
+			</div>
+			<hr>
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(vi) HoD, Dean, Chief Warden, Professor Incharge (Training and Placement Section), Advisor (Estate), CVO, PI (Exam), TEQIP (Coordinator), <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_6" value = {% if acad_annex_j.credit_score %}"{{acad_annex_j.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+						Total
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_semj"
+							value = "{{acad_annex_j.total_sem}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Semesters. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(vii) Warden, Assistant Wardens, Associate Dean, Chairman / Convener Institute academic committees, faculty incharge computer center, IT Services / library / Admission / student activites and other institutional activities, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_7" value = {% if acad_annex_k.credit_score %}"{{acad_annex_k.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+						Total
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_semk"
+							value = "{{acad_annex_k.total_sem}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Semesters. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(viii) Chairman and convener of different standing committees and special committee (Ex officio status will not be considered) Faculty incharges. (Each for one year duration) of different units or equivalent, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_8" value = {% if acad_annex_l.credit_score %}"{{acad_annex_l.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+						Total
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_seml"
+							value = "{{acad_annex_l.total_sem}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Semesters. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(ix) Department activities identified by HoD like lab incharges, or department level committee for a min. period of one year, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_9" value = {% if acad_annex_m.credit_score %}"{{acad_annex_m.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+						Total
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_semm"
+							value = "{{acad_annex_m.total_sem}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Semesters. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(x) Workshop / FDP / short term courses of min 05 working days duration offered as coordinator or convener, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_10" value = {% if acad_annex_n.total %}"{{acad_annex_n.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numbern" value = "{{acad_annex_n.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xi) For conducting national programs like GIAN etc. as course coordinator, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_11" value = {% if acad_annex_o.total %}"{{acad_annex_o.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Program of 2 weeks duration
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="prog_2_week_duration" value = "{{acad_annex_o.prog_2_week_duration}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"> 
+						Program of 1 week duration
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="prog_1_week_duration" value = "{{acad_annex_o.prog_1_week_duration}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xii) National / International conference oganized as Chairman / Secretary, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_12" value = {% if acad_annex_p.total %}"{{acad_annex_p.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberp" value = "{{acad_annex_p.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xiii) Length of service over and above the relevant minimum teaching experience readonly for a given cadre, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_13" value = {% if acad_annex_q.credit_score %}"{{acad_annex_q.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_years" value = "{{acad_annex_q.total_years}}" readonly>
+						</div>
+					</div>
+					<div class = "col-sm-1">Years</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_months" value = "{{acad_annex_q.total_months}}" readonly>
+						</div>
+					</div>
+					<div class = "col-sm-1">Months</div>
+
+					</div>
+				</div>
+			</div>
+
+						<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xiv) Establishment of new Lab(s), <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_14" value = {% if acad_annex_r.total %}"{{acad_annex_r.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberr" value = "{{acad_annex_r.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xv) Theory teaching of over and above 6 credit hrs. course, <u>since the last promotion :</u></b><br><br> 
+					</div>
+
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_15" value = {% if acad_annex_s.credit_score %}"{{acad_annex_s.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_creditss" value = "{{acad_annex_s.total_credit}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-2"> Credit Hrs.
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xvi) PG Dissertation guided, <u>since the last promotion :</u></b><br><br> 
+					</div>
+
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_16" value = {% if acad_annex_t.total %}"{{acad_annex_t.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numbert" value = "{{acad_annex_t.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xvii) UG Projects, <u>since the last promotion :</u></b><br><br> 
+					</div>
+
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_17" value = {% if acad_annex_u.total %}"{{acad_annex_u.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberu" value = "{{acad_annex_u.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+						<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xviii) Text / Reference book published on relevant subjects from reputed International publishers, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_18" value = {% if acad_annex_v.total %}"{{acad_annex_v.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberv" value = "{{acad_annex_v.total_number}}" readonly>
+						</div>
+						<div class="col-sm-1"  style="float:right;">
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+						<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-6" style="font-size:18px;"> 
+						<b>(xix) Text / Reference book published on relevant subjects from reputed national publishers or book chapters in the books published by reputed international publishers, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_19" value = {% if total_w  %}"{{total_w}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberw1_w2" value = "{{acad_annex_w1_w2.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+						<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xx) Significant outreach Institute out Activities, <u>since the last promotion :</u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_20" value = {% if acad_annex_x.total %}"{{acad_annex_x.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<input class="form-control" type="text" name="total_numberx" value = "{{acad_annex_x.total_number}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Nos. 
+					</div>
+				</div>
+			</div>
+			<hr>
+
+
+						<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xxi) Fellow IEEE, FNA, FNAE, FNASc. </u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_21" value = {% if acad_annex_y.credit_score %}"{{acad_annex_y.credit_score}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="valueyon" value = "{{acad_annex_y.value}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-2"> Yes / No?
+					</div>
+				</div>
+			</div>
+			<hr>
+
+<!-- ////////////////// Part1 ///////////////// -->
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-8" style="font-size:18px;"> 
+						<b>(xxii) Placement percentage (only for thre placement cell offers / faculty incharge of placement), since the last promotion : </u></b><br><br> 
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control credits" type="text" name="credits_22" value = {% if acad_annex_z.total %}"{{acad_annex_z.total}}" {% else %} "0" {% endif %} readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="col-sm-1"> 
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input class="form-control" type="text" name="percentagez" value = "{{acad_annex_z.percentage}}" readonly>
+						</div>
+					</div>
+					<div class="col-sm-1"> Percentage (%).
+					</div>
+				</div>
+			</div>
+			<hr>
+
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-10" style="font-size:18px;" style="float:right;">
+						<b>Total Credit Points</b><br><br>
+					</div>
+					<div class="col-sm-2" style="float:right;">
+						<input class="form-control" type="text" id="total_credit_pts" name="total_credit_pts" readonly>
+					</div>
+			</div>
+		</div>
+
+			
+
+	<!-- ////////////////////////////////////// -->
+			<div class="row">
+				<div class="col-sm-5">
+					<b><h3><u>Subjects Taught</u></h3></b><br>
+				</div>
+			</div>
+			<div class="well well-lg">
+				<div class="row">
+					<b>A) At UG (B.Tech) Level : Core Courses </b><br><br>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						{% for sub in coreUGobj %}
+							{{forloop.counter}}) {{sub}}&nbsp&nbsp&nbsp
+						{% endfor %}
+					</div>
+				</div>
+				<input type="text" name="coreUGdata" id="coreUG" hidden>
+			</div>
+
+			<div class="well well-lg">
+				<div class="row">
+					<b>B) At UG (B.Tech) Level : Elective Courses </b><br><br>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						{% for sub in electiveUGobj %}
+							{{forloop.counter}}) {{sub}}&nbsp&nbsp&nbsp
+						{% endfor %}
+					</div>
+				</div>
+				<input type="text" name="electiveUGdata" id="electiveUG" hidden>
+			</div>
+
+			<div class="well well-lg">
+				<div class="row">
+					<b>C) At PG Level : Core Courses </b><br><br>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						{% for sub in corePGobj %}
+							{{forloop.counter}}) {{sub}}&nbsp&nbsp&nbsp
+						{% endfor %}
+					</div>
+				</div>
+				<input type="text" name="corePGdata" id="corePG" hidden>
+			</div>
+				
+			<div class="well well-lg">
+				<div class="row">
+					<b>D) At PG/Doctoral Level : Elective Courses </b><br><br>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						{% for sub in electivePGobj %}
+							{{forloop.counter}}) {{sub}}&nbsp&nbsp&nbsp
+						{% endfor %}
+					</div>
+				</div>
+				<input type="text" name="electivePGdata" id="electivePG" hidden>
+			</div>
+
+			<hr>
+			<br>
+			<br>
+			<div>
+				<br><br>
+
+				<table class="table table-bordered">
+					<thead style="background-color:#e3e3e3;">
+						<tr>
+							<th>S.No.</th>
+							<th>Name</th>
+							<th>Designation</th>
+							<th>Dpeartment Address/Phone/Fax No./Email-Id</th>
+						</tr>
+					</thead>
+					<tbody id="referTable">
+						{% for refobj in refobjs %}
+							<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{refobj.name}}</td>
+								<td>{{refobj.designation}}</td>
+								<td>{{refobj.address}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<input type="text" name="refFinaldata" id="refData" hidden>
+			</div>
+		</form>
+		<br><br>
+		<br><br>
+	</div>
+	<center>
+	<div class="col-sm-12">
+		<button onclick="printPage()" type="button" id="printbtn" class="btn btn-primary">Print</button>
+	</div>
+	</center>
+</div>
+
+
+<script type="text/javascript">
+	var total = 0;
+	var button = document.getElementById('printbtn')
+    button.addEventListener('click',hideshow,false);
+
+    function hideshow() {
+        //document.getElementById('hidden-div').style.display = 'block'; 
+        this.style.display = 'none';
+        window.print();
+        this.style.display = 'block';
+    }   
+    $(".credits").each(function(){
+        total += parseFloat($(this).val());
+    });
+    $("#total_credit_pts").val(total.toFixed(2));
+	
+</script>
+
+</body>
+
+</html>

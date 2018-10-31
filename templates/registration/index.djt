@@ -1,0 +1,106 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Faculty Recruitment Portal</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        /*hr {
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+
+        .blink {
+            animation: blinker 2.0s linear infinite;
+        }
+
+        @keyframes blinker {
+            10% {
+                opacity: 0.0;
+            }
+        }
+*/
+        .opt-btn {
+            width: 250px;
+            height: 250px;
+            font-size: 2.5em;
+            position: relative;
+            color: black;
+        }
+
+        .opt-btn:hover {
+            transform: scale(1.01, 1.01);
+            color: whitesmoke;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- <div id="title" align="center"> -->
+
+    <!-- <div style="float:left;" align="center"> -->
+
+    <center><a href="/"> <img src="{% static './img/institute_logo_black.png' %}" align="center" style="background-color:white;" height="100px" width="54%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal" /></a></center>
+    <!-- </div> -->
+    <!-- </div> -->
+
+    <div class="row" style="background-color:#003A6A; color: white;">
+        <center>
+            <h2>NIT Warangal Recruitment Portal</h2>
+        </center>
+        <br>
+    </div>
+    <br />
+    <div class="container">
+
+        <div class="">
+            <center>
+                <img src="{% static './img/logo_wsdc.png' %}" width="100px" />
+
+                <div style="margin-top: 20px;">
+                    <span>
+
+                        <a class="btn opt-btn" href="/register/login/" style="background-color: #28b62c;">
+                            <img src="{% static './img/teaching_main.png' %}" width="180px" height="180px" alt="teaching_logo" />
+                            <br />Teaching
+                        </a>
+                    </span>
+                    &nbsp;
+                    <span>
+
+                        <a class="btn opt-btn" href="http://test.nitw.ac.in:8080" style="background-color: #158cba;">
+                            <img src="{% static './img/non _tch_main.png' %}" width="180px" height="180px" alt="teaching_logo" /><br />Non-Teaching
+                        </a>
+                    </span>
+                </div>
+            </center>
+        </div>
+    </div>
+    <br /><br />
+    <div class="copyright">
+        <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+        <div style="text-align:center">Designed and Developed by WSDC</div>
+    </div>
+
+</body>
+
+<style type="text/css">
+    .copyright {
+        background-color: #003A6A;
+        color: white;
+    }
+
+</style>
+
+</html>

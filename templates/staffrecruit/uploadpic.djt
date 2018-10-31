@@ -1,0 +1,148 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Non Teaching Staff Recruitment Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+    <link href="{% static 'style.css' %}" rel="stylesheet" />
+    <style type="text/css">
+        hr {
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <center><a href="/"> <img src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal" /></a></center>
+
+    <div class="row" style="background-color:#003A6A; color: white;">
+        <center>
+            <h2>Non Teaching Staff Recruitment Form</h2>
+        </center>
+        <br>
+    </div>
+    <center>
+        <div class="row" style="margin-top:2%;">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <div style="font-size: 1em;">
+                        <div class="arrow completed">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow current">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Annexure</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow">Subjects</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="arrow last">Submitted</div>
+                    </div>
+                    <br />
+                    <ul class="nav navbar-nav navbar-right">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </center>
+
+    <div class="row" style="margin-top:2%;">
+        <div class="col-sm-4 col-sm-offset-4">
+            <b>Upload Recent Photo</b>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:3%;">
+        <div class="col-sm-4 col-sm-offset-4">
+            {% if profile.profilePic %}
+            <img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
+            {% else %}
+            <img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;">
+            {% endif %}
+
+            <form method="post" action="/staffrecruit/uploadpic/" enctype="multipart/form-data" onsubmit="return validate()">
+                {% csrf_token %}
+                <br>
+                <div class="fileUpload btn btn-primary">
+                    <span>Choose Image</span>
+                    <input type="file" class="upload" name="profilepic" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-success" id="finalSubmitBtn">Upload</button>
+            </form>
+            <br />
+            <a href="/staffrecruit"><button type="button" id="back" class="btn btn-info">Back</button></a>
+            &nbsp;&nbsp;
+            <a href="/staffrecruit/educationalqual"><button id="nxt" class="btn btn-info">Next</button></a>
+        </div>
+    </div>
+
+    <!--
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div> -->
+
+</body>
+
+<style type="text/css">
+    .copyright {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 1rem;
+        background-color: #003A6A;
+        color: white;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+
+</style>
+
+<script type="text/javascript">
+    function validate() {
+        valid = true;
+        if ($('input[type="file"]').val() == '') {
+            valid = false;
+            alert('choose some file');
+        }
+        return valid;
+    }
+
+</script>
+
+</html>

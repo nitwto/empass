@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Non Teaching Staff Recruitment Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{% static 'style.css' %}" rel="stylesheet" />
+    <style type="text/css">
+        hr {
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+
+    </style>
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <center><a href="index.php"> <img src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#fff;" height="110px" width=auto alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal" /></a></center>
+    <div class="container-fluid">
+        <div class="row" style="background-color:#003A6A; color: white;">
+            <center>
+                <h2>Non Teaching Staff Recruitment Form</h2>
+            </center>
+            <br>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="copyright">
+        <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+        <div style="text-align:center">Designed and Developed by WSDC</div>
+    </div>
+
+
+</body>
+
+<style type="text/css">
+    .copyright {
+        background-color: #003A6A;
+        color: white;
+    }
+
+</style>
+{% block script %}
+{% endblock %}
+
+</html>

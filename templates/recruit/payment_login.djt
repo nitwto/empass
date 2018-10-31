@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+<div class="container-fluid">
+
+	<div class="row" style="background-color:#003A6A; color: white;">
+		<center><h2>Payment Verification Dashboard</h2></center>	
+		<br>
+	</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+    <form class="form-horizontal" method="POST" action="/payment_login/">
+    {% csrf_token %}
+	    <div class="form-group form-verticle">
+	      <label class="control-label col-sm-4" for="username">Username:</label>
+	      <div class="col-sm-8">
+	        <input type="text" class="form-control" id="username" placeholder="username" name="username">
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      <label class="control-label col-sm-4" for="pwd">Password:</label>
+	      <div class="col-sm-8">          
+	        <input type="password" class="form-control" id="pwd" placeholder="password" name="password">
+	      </div>
+	    </div>
+	    {% if message %}
+	    	<p class="text-center" style="color: red;">{{message}}</p>
+	    {% endif %}
+	    <div class="form-group text-center">        
+	      <div>
+	        <button type="submit" class="btn btn-success">Login</button>
+	      </div>
+	    </div>
+ 	</form>
+
+</div>
+	<div class="copyright" style="position: fixed;bottom: 0;width: 100%;">
+	  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+	  <div style="text-align:center">Designed and Developed by WSDC</div>
+	</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+	form{
+		border:1px solid grey;
+		border-radius: 10px;
+		padding: 40px 50px 20px 50px;
+		background-color: #e7efe3;
+	}
+</style>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

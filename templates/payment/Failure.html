@@ -1,0 +1,33 @@
+{% extends "registration/base.djt" %}
+{% load staticfiles %}
+{% block content %}
+<div style="display:none">
+   	<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">
+</div>
+
+<div class="row main_header">
+	<center><h2>Transaction Fail</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	
+	<div class="row" style="margin-top:9%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger" style="height: auto; width: 500px; margin-bottom: 100px;border-radius: 30px;padding-top: 30px;">
+				<center>			  
+			  <strong>
+			  Sorry your Transdaction is failed.
+			  <br><br>
+			  <a href="/pay" class="btn btn-danger">Try Again</a>
+			  </strong>
+			  </center>
+			</div>
+		</div>
+		<div style="height: 160px; clear: both;"></div>
+	</div>
+	
+	
+</div>
+
+{% endblock%}

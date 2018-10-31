@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+	<div class="row" style="background-color:#003A6A; color: white;">
+		<center><h2>Faculty Recruitment Form</h2></center>
+		<br>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">
+			<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="alert alert-info" style="font-size:16px;">
+			<ol>
+				<b>
+				<li>Upload Experience related supporting documnets pdf here (combine documents of all type of experiences into one)</li>
+				</b>
+			</ol>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 1%;">
+		<div class="col-sm-4 col-sm-offset-4">
+			<center>
+				<form method="POST" enctype="multipart/form-data" action="/uploadExpDoc/" onsubmit="return validate()">
+			    {% csrf_token %}
+			    <div class="row">
+			    	<div class="col-sm-6"><b>Experience Documents pdf : </b></div>
+			    	{% if obj.paper1 %}
+			    	<div class="col-sm-4"><a href="{{obj.paper1.url}}">open</a></div>
+			    	{% endif %}
+			    </div>
+			    <br>
+			    <div class="row">
+			    	<div class="col-sm-7">
+			    		<input type="file" class="btn {% if obj.paper1 %} btn-success {% else %} btn-danger {% endif %}" name="paper1">
+			    	</div>
+			    	<div class="col-sm-5">
+			    		<input type="submit" class="btn btn-primary" value="Save">
+			    	</div>
+			    </div>	       
+			    </form>
+			    <br>
+			</center>
+			
+		</div>
+
+		<br><br><br>
+
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<a href="/experiencedetails"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
+			</div>
+		</div>
+	</div>
+	
+</body>
+
+<script type="text/javascript">
+	function validate(){
+	  valid = true;
+	     if($('input[type="file"]').val() == ''){
+	        valid = false;
+	        alert('choose some file');
+	     }
+	    return valid;
+	}
+</script>
+
+</html>

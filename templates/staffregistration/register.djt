@@ -1,0 +1,171 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Non Teaching Staff Recruitment Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+    </style>
+</head>
+
+<body>
+    <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="90%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+    <center><h2>Registration</h2></center>
+    <br>
+</div>
+
+<div class="container">
+    {% if error %}
+    <div class="row" style="margin-top:2%">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>{{error}}</strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row" style="margin-top:3%;">
+        <div class="col-sm-4">
+            <div class="well well-lg">
+                <center>
+
+                <h3 style="color: red; text-decoration:underline;">Important</h3>
+                Payment needs to be done before Registration, as Transaction ID of payment is needed for registration.<br><br>
+
+                <b style="color:blue;">Bank Details :</b><br>
+                    Institute Bank Account No.52109375198<br>
+                    State Bank of India<br>
+                    NIT Warangal Branch​<br>
+                    IFSC code:SBIN0020149​<br>
+                    Swift Code:​ ​SBININBBH14<br>​
+                    MICR​ ​Code:​ ​506002030
+
+                <br>
+                <br>
+                <b>Fee Amount :</b><br>
+                General/OBC : Rs.1000<br>
+                SC/ST/PWD : Rs.500<br>
+                Candidates applying from abroad : $25  
+
+                <br><br>
+                <b style="color:red;">Note :</b> Keep Transaction Receipt ready for uploading. Once you login after registration, you will have to upload it.
+                </center>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-sm-offset-1">
+            <div class="well well-lg">
+                <form method="POST" action="/staffregister/createApp/" onsubmit="return validateForm();">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input for="firstName" class="form-control" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name (Surname)</label>
+                        <input for="lastName" class="form-control" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email-ID</label>
+                        <input for="email" class="form-control" name="email" type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Phone Number</label>
+                        <input for="contact" class="form-control" name="contact" type="number" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input for="password1" class="form-control" name="password1" type="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input for="password2" class="form-control" name="password2" type="password" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="post">Applying for the POST of</label>
+                      <select class="form-control" name="post" id="postDropdown">
+                        <option disabled selected value> -- select an option -- </option>
+                        {% for post in posts %}
+                        <option value="{{post.postID}}">{{post.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transID">Payment Transcation Number</label>
+                        <input for="transID" class="form-control" name="transID" type="text" required>
+                    </div>
+
+                   <!-- <div class="form-group" >
+                        <label for="nitW">Are you NITW staff?</label>
+                        <label class="radio-inline" id ='radio'><input type="radio" onclick = 'thisFunction1();'value="Y" name="nitW">Yes</label>
+
+                        <label class="radio-inline"><input type="radio" value="N" onclick = 'thisFunction2();' name="nitW">No</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="inID">Internal ID provided(only for NITW staff)</label>
+                        <input id="inID" for="inID" class="form-control" name="inID" type="number" min="0">
+                    </div>-->
+                    <center><button type="submit" class="btn btn-success btn-md">Submit</button></center>
+                </form>
+                    <center><a href="/staffregister/">Or login</a></center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+    
+</body>
+
+<style type="text/css">
+    .copyright {
+      background-color: #003A6A;
+      color: white;
+    }
+</style>
+
+<script>
+// Function to validate the form.
+function validateForm() {
+    var isValid = true;
+    if(document.getElementById("postDropdown").selectedIndex == 0)
+    {
+        isValid = false;
+        alert("Please select a post.");
+    }
+    return isValid;
+}
+
+    function thisFunction1()
+    {
+        // alert(1);
+        document.getElementById('inID').setAttribute("required", "required");
+        // document.getElementById('inID').innerHTML = "yes";
+
+    }
+    function thisFunction2()
+    {
+        document.getElementById('inID').removeAttribute("required");
+    }
+</script>
+
+</html>

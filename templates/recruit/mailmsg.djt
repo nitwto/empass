@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Call Letter</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	Dear Applicant,<br>
+        Please find the interview schedule below. You can download the call letter by logging into your account (in the same <a href="http://recruit.nitw.ac.in:8000">application portal</a>).<br><br>
+        <table class="table table-bordered" style="page-break-inside:avoid">
+			<tr>
+				<td>1</td>
+				<td>Venue</td>
+				<td>National Institute of Technology Warangal (NITW), Warangal- 506004</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Date, Time & Place for reporting for verification of Original Certificates</td>
+				<td>On <b>{{data.report_time|date}}</b> at <b>{{data.report_time|time:'H:i'}} A.M</b> in the <b>CSE Seminar Hall</b> (Ground Floor of CSE Dept.)</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Date, Time & Place of Seminar/Lecture Demonstration</td>
+				<td>On <b>{{data.seminar_time|date}}</b> at <b>{{data.seminar_time|time:'H:i'}} A.M</b> in the <b>{{data.dept.name}}</b> <b>{{data.seminar_place}}</b></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Date, time & Place of Interview</td>
+				<td>On <b>{{data.interview_time|date}}</b> at <b>{{data.interview_time|time:'H:i'}} A.M</b> in the <b>Committee Room, Kalam International Hall, NITW</b></td>
+			</tr>
+		</table>
+<br>{{id}}
+</body>

@@ -1,0 +1,257 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+    <style type="text/css">
+        hr{
+            border: none;
+            height: 1px;
+            background-color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+            {% csrf_token %}
+        <div class="row">
+            <center><h3><u> Annexure - L</u></h3></center><br>
+            <center><h4>13.Administrative assignments-III</h4>
+                <br>
+                <p>(Chairman and Convener of different standing committee and special committee(Ex officio status will not be considered)<br>Faulty in-charge(<u>each for one year duration</u>) of different units or equivalent not covered above</p></center><br>
+        </div>
+        <div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+1 Credit / Semesters up to a maximum of
+8 credits points since the last promotion
+</div>
+        <div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="last_prom" value="{{last_prom}}" >
+                    </div>
+                </div>
+            </div>
+        <div id="alert" class="alert alert-danger">
+            <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+        </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color:#e3e3e3;">
+                        <th >S.No.</th>
+                        <th >Assignment</th>
+                        <th colspan="2">Date</th>
+                        <th>Is the assignment more than 1 year</th>
+                        <th>No. of Semester</th>
+                    </tr>
+                    <tr style="background-color:#e3e3e3;">
+                        <th colspan="2"></th>
+                        <th>From</th>
+                        <th>To</th>
+                      <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                      <td colspan="5"><b>Total</b></td>
+                      <td><div id="total_i">{{total}}</div></td>
+                    </tr>
+                </tfoot>
+                <tbody id="annexure_l">
+                    {% for item in annex_l %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{item.title}}</td>
+                            <td>{{item.from}}</td>
+                            <td>{{item.to_date}}</td>
+                            <td>{{item.assign}}</td>
+                            <td>{{item.sem}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="well well-lg">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="title">Assignment</label>
+                        <input for="title" class="form-control" id="title">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="from">From Date</label>
+                        <input for="from" type="date" class="form-control" id="from">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="to_date">To Date(dd/mm/yyyy) or Continuing</label>
+                        <input for="to_date" type="text" class="form-control" id="to_date">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="assign">Is the assignment for more than 1 year</label>
+                        <input for="assign" class="form-control" id="assign">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="sem">No. of Semester</label>
+                        <input for="sem" type="number" class="form-control" id="sem">
+                    </div>
+                </div>
+            </div>
+            
+            <center><button type="button" id="Add">Add</button><br></center>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6"><b>Credit Points</b> </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input class="form-control" type="number" min="0" name="credit" value="{{credit}}" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <input type="text" name="annexure_l" id="annexure_l" val="" hidden>         
+            <input type="text" name="total" val="" hidden>
+            <input type="text" name="file" value="{{annexure_file}}" hidden>
+        </div>
+
+            <center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn">Submit</button></center>
+
+            <a href="/refresh/l" class="btn btn-lg btn-danger">Refresh</a>
+            <a href="/academic/annexure_l_main" class="btn btn-lg btn-info">Back</a>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_l = [];
+	var total= $("#total_i").html();
+	if(!total)
+		total = 0;;
+    var rowCount = $('#annexure_l tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+
+	});
+
+	$('#Add').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var from = $('#from').val(); $('#from').val("");
+		var to_date = $('#to_date').val(); $('#to_date').val("");
+		var assign = $("#assign").val(); $('#assign').val("");
+		var sem = $("#sem").val(); $('#sem').val("");
+
+		if(!title || !from || !to_date || !assign || !sem)
+		{
+			$('#alert').show();
+			return false;
+		}
+
+		total = parseFloat(total)+parseInt(sem);
+
+		var data = {
+			'title' : title,
+			'from' : from,
+			'to_date' : to_date,
+			'assign' : assign,
+			'sem' : sem,
+		};
+
+		var i = rowCount+annexure_l.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + from + '</td>';
+		rowHtml = rowHtml + '<td>' + to_date + '</td>';
+		rowHtml = rowHtml + '<td>' + assign + '</td>';
+		rowHtml = rowHtml + '<td>' + sem + '</td></tr>';
+
+		$('#annexure_l').append(rowHtml);
+		$('#total_i').html(total);
+
+		annexure_l.push(data);
+
+		var dataString = JSON.stringify(annexure_l);
+		console.log(dataString);
+		$('input[name="annexure_l"]').val(dataString);
+        $('input[name="total"]').val(total);
+	});
+
+	 $('#annexure').submit(function() {
+	 		if(annexure_l.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+            var formData = new FormData();
+            var fileName = $("#annexure_file").val();
+            var extension = fileName.split('.').pop();
+            if(fileName) {
+                if(extension != 'pdf')
+                {
+                    alert("PDF format not uploaded");
+                    return false;
+                }
+            } else {
+                file = $('input[name="file"]').val();
+                if(file.length<=0)
+                {
+                    alert("No file selected");
+                    return false;
+                }
+            }
+            formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

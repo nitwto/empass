@@ -1,0 +1,228 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+			{% csrf_token %}
+		<div class="row">
+			<center><h3><u> Annexure - T </u></h3></center><br>
+
+			<center><h4>21.PG Disseration</h4></center><br>
+
+		</div>
+<div class="well well-lg"><b>Rules to calculate credit points:</b><br>
+0.5 credit points per project to a maximum of
+10 points since the last promotion.  
+</div>
+
+		<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+			<hr>
+			<!-- Annexure - A -->
+			<div class="row">
+				<div class="col-sm-4"> <b>Date of Last Promotion (YYYY-MM-DD or NA):</b> </div>
+				<div class="col-sm-7">
+					<div class="form-group">
+						<input class="form-control" type="text" name="last_prom" value="{{last_prom}}" required>
+					</div>
+				</div>
+			</div>
+			<div id="alert" class="alert alert-danger">
+  <strong>Annexure</strong> Fill all the fields,put NA if needed while adding.
+</div>
+
+<table class="table table-bordered">
+				<thead>
+			        <tr style="background-color:#e3e3e3;">
+				        <th>S.No.</th>
+				        <th>Title of Disseration</th>
+				        <th>Name of Student</th>
+				        <th>Pass out Year</th>
+				        <th>Credit Points</th>
+			        </tr>
+			    </thead>
+			    <tfoot>
+			    	<tr>
+			    		<td colspan="4">Total</td>
+			    		<td><div id="total_t">{{total}}</div></td>
+			    	</tr>	
+			    </tfoot>
+			    <tbody id="annexure_t">
+			    	{% for item in annex_t %}
+				    	<tr>
+				    		<td>{{forloop.counter}}</td>
+				    		<td>{{item.title}}</td>
+				    		<td>{{item.name}}</td>
+				    		<td>{{item.passout}}</td>
+				    		<td>{{item.credit}}</td>
+				    	</tr>
+				    {% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="title">Title of Disseration</label>
+						<input for="title" class="form-control" id="title">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="name">Name of Student</label>
+						<input for="name" class="form-control" id="name">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="passout">Pass out Year</label>
+						<input for="passout" class="form-control" id="passout">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="credit">Credit Points</label>
+						<input for="credit" class="form-control" type="number" min="0" id="credit" step="0.01">
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add_a">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="annexure_t" id="annexure_t" hidden>			
+
+		</div>
+
+			<input type="text" name="total" hidden>
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+			<a href="/refresh/t" class="btn btn-lg btn-danger">Refresh</a>
+			<a href="/academic/annexure_t_main" class="btn btn-lg btn-info">Back</a>
+		</form>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_t = [];
+	var total= $("#total_t").html();
+	if(!total)
+		total = 0;;
+	var rowCount = $('#myTable tr').length;
+	$(document).ready(function() {
+		$('#finalData').val("");
+	});
+
+	$('#Add_a').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var name = $('#name').val(); $('#name').val("");
+		var passout = $('#passout').val(); $('#passout').val("");
+		var credit = $('#credit').val(); $('#credit').val("");
+
+		if(!title || !name || !passout || !credit)
+		{
+			$('#alert').show();
+			return false;
+		}
+
+		total = parseFloat(total) + parseFloat(credit);
+
+		var data = {
+			'title' : title,
+			'name' : name,
+			'passout' : passout,
+			'credit' : credit
+		};
+
+		var i = rowCount+annexure_t.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + name + '</td>';
+		rowHtml = rowHtml + '<td>' + passout + '</td>';
+		rowHtml = rowHtml + '<td>' + credit + '</td></tr>';
+
+		$('#annexure_t').append(rowHtml);
+
+		annexure_t.push(data);
+
+		var dataString = JSON.stringify(annexure_t);
+		console.log(dataString);
+		$("#total_t").html(total);
+		$('input[name="annexure_t"]').val(dataString);
+		$('input[name="total"]').val(total);
+	});
+	 $('#annexure').submit(function() {
+	 		if(annexure_t.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+	 		var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

@@ -1,0 +1,152 @@
+{% extends "staffrecruit/base.djt" %}
+
+{% block content %}
+<center>
+    <div class="row" style="margin-top:2%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div style="font-size: 1em;">
+                    <div class="arrow completed">Personal Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Upload Image</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Educational Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Experience Info</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow completed">Miscellaneous</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow current">References</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="arrow last">Submitted</div>
+                </div>
+                <br />
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <li><a href="/register/changePassword"><button class="btn btn-primary">Change Password</button> </a> </li>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <li><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</center>
+<center>
+<div class="row">
+    <div class="col-sm-12 text-center">
+        
+            <h3><b>References</b></h3>
+        
+    </div>
+</div>
+</center>
+
+<div style="justify-content: space-around;">
+<form enctype="multipart/form-data" style="margin-top:3%;" method="post" action="/staffrecruit/educationalqual/">
+    {% csrf_token %}
+    <div class="well well-lg">
+        <div class="row">
+                            <div class="col-sm-3"> <b>Reference 1:</b> </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" type="text" name="corresAddr1" id="corresAddr1" value="{{corresAddr.addr1}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <input class="form-control" type="text" name="corresAddr2" id="corresAddr2" value="{{corresAddr.addr2}}">
+                                </div>
+                                 <div class="form-group">
+                                    <label>Address</label>
+                                    <input class="form-control" type="text" name="corresAddr2" id="corresAddr2" value="{{corresAddr.addr2}}">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Email ID</label>
+                                            <input class="form-control" type="text" name="corresCity" id="corresCity" value="{{corresAddr.city}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Phone No</label>
+                                            <input class="form-control" type="text" name="corresState" id="corresState" value="{{corresAddr.state}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Contact</label>
+                                            <input class="form-control" type="text" name="corresCountry" id="corresCountry" value="{{corresAddr.country}}" required>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <br> -->
+                        <hr><br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <b>
+                                    <p>Reference 2:</p>
+                                </b>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" type="text" name="permAddr1" id="permAddr1" value="{{permAddr.addr1}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <input class="form-control" type="text" name="permAddr2" id="permAddr2" value="{{permAddr.addr2}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input class="form-control" type="text" name="permAddr2" id="permAddr2" value="{{permAddr.addr2}}">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Email ID</label>
+                                            <input class="form-control" type="text" name="permCity" id="permCity" value="{{permAddr.city}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Phone No.</label>
+                                            <input class="form-control" type="text" name="permState" id="permState" value="{{permAddr.state}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Mobile</label>
+                                            <input class="form-control" type="text" name="permCountry" id="permCountry" value="{{permAddr.country}}" required>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+        <br>
+
+<center>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <b style="color:red;">Save the data on the page before proceeding to the next page, else it will be lost.</b>
+        </div>
+    </div>
+    </center><br>
+        <center>
+        <a href="/staffrecruit/uploadpic"><button type="button" id="back" class="btn btn-info">Back</button></a>&nbsp;&nbsp;
+        <button type="submit" name="savebutton" value="savebutton" class="btn btn-success" id="finalSubmitBtn">Save</button>&nbsp;&nbsp;
+         <button type="submit" name="nextBtn" value="nextBtn" id="nxt" class="btn btn-info">Submit</button>
+         </center>
+        
+       
+
+    </div>
+
+</form>
+</div>
+<br><br>
+{% endblock %}

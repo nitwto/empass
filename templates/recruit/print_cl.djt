@@ -1,0 +1,177 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Call Letter Prints</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+	@media print{
+		table{
+			page-break-inside: avoid;
+		}
+		@page{
+			size: portrait;
+		}
+		/*#p1{
+			line-height: 30px;
+		}*/
+    }
+    p, li{
+			text-align: justify;
+			text-justify:inter-word;
+		}
+	</style>
+</head>
+
+<body>
+	<center class="hidden-print"><button class="btn btn-success btn-lg" onclick="window.print();">Print this Call Letter</button>
+		<br><br><br>
+	</center>
+	{% for response in responses %}
+	<br><br>
+	<div class="container" style="border: 1px solid black; page-break-before: always;">
+		<div class="row">
+			<div class="col-sm-12">
+				<img src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="80px;" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Warangal"/><br>
+				<center>
+					<span>WARANGAL - 506 004, Telangana State, INDIA</span><br>
+					<small>Phones:  0870-2462010, 2459366 * Fax :0870-2459119 * E-mail : recruitment_faculty@nitw.ac.in * Website: www.nitw.ac.in</small>
+				</center>
+			</div>
+	    </div>
+	    <hr style="border-top: 3px solid black;">
+	    <br>
+		<div class="row">
+			<div class="col-sm-12"><span style="float: left;">No.NITW/AD-1/2018/{{response.data.disp_no}}</span><br>
+				<span style="float: left; width: 80%;">
+				<br>
+				<b>To:</b><br>
+				<p>{{response.name}} (Application ID: {{response.app_id}})<br>
+				{% for line in response.addr %}
+				{{line}},{%if forloop.counter|divisibleby:"2" %}<br>{% endif %}
+				{% endfor %}
+			    </p>
+				</span>
+				<span style="float: right;">Date: {{response.data.send_time|date}}</span></div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-12"><center><b><h4 style="font-weight: bolder;">CALL LETTER FOR INTERVIEW</h4></b></center></div>
+		</div>
+		<br><center>&#9734;&#9734;&#9734;&#9734;&#9734;&#9734;</center><br>
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-11" style="align-items: left;">
+				<p id="p1"><b>Sub</b>:-	NIT, Warangal – Administration – Faculty Recruitment – Interview Call letter for the Post of <b>{{response.short.agp}}</b> – Reg.<br>
+                  <b>Ref</b>:-	Our Advt. No. 
+                                {%if response.data.post.id == 1%}NITW/ Admn./ Faculty/ 2017/ 02
+                                {%elif response.data.post.id == 2%}NITW/ Admn./ Faculty/ 2017/ 03 
+                                {%elif response.data.post.id == 3%}NITW/ Admn./ Faculty/ 2017/ 04 
+                                {%endif%}
+                                dated 21-09-2017.</p>
+			</div>
+		</div>
+		<br><center>&#9734;&#9734;&#9734;&#9734;&#9734;&#9734;</center><br>
+		<div class="row">
+			<div class="col-sm-12">
+				<p id="p1">Thank you for applying for the position of  <b>{{response.data.post.name}}</b> in the <b>
+					{%if response.data.dept.name == 'Electrical and Electronics Engineering Department' %} Department of Electrical Engineering
+					{%else%} {{response.data.dept.name}} {%endif%}
+				</b> against our Institute advertisement referred above. You are hereby advised to appear for the selection process which includes Lecture Demonstration followed by an Interview as per the schedule and venue given below: </p>
+			</div>
+		</div>
+		<br>
+		<table id="p1" class="table table-bordered" style="page-break-inside:avoid">
+			<tr>
+				<td>1</td>
+				<td>Venue</td>
+				<td>National Institute of Technology Warangal (NITW), Warangal- 506004</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Date, Time & Place for reporting for verification of Original Certificates and other documents</td>
+				<td>On <b>{{response.data.report_time|date}}</b> at <b>{{response.data.report_time|time:'H:i'}} A.M</b> in the <b>CSE Seminar Hall</b> (Ground Floor of CSE Dept.)</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Date, Time & Place of Seminar/Lecture Demonstration</td>
+				<td>On <b>{{response.data.seminar_time|date}}</b> at <b>{{response.data.seminar_time|time:'H:i'}} A.M</b> in the <b>
+					{%if response.data.dept.name == 'Electrical and Electronics Engineering Department' %} Department of Electrical Engineering
+				{%else%} {{response.data.dept.name}} {%endif%}
+				</b> <b>{{response.data.seminar_place}}</b></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Date, time & Place of Interview</td>
+				<td>On <b>{{response.data.interview_time|date}}</b> at <b>{{response.data.interview_time|time:'H:i'}} A.M</b> in the <b>Committee Room, Kalam International Hall, NITW</b></td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	<div class="container" style="border: 1px solid black; page-break-before: always;">
+		<div class="row" style="page-break-inside:avoid;">
+			<div class="col-sm-12">
+                                <br>
+				<p>We would like you to be aware and be prepared to present a ten minutes <i>Chalk and Talk</i> Lecture demonstration (No PPT).  This may be based on your recent research or be a part of the B.Tech. course element. You may further note that you will be interviewed, subject to fulfillment of the following and submission of documents for verification of your claims:</p>
+				<ol>
+					<li>Producing <b>all the Original Certificate (s)</b> (i.e., education: Degrees & Marks Memos, R&D projects, research, publications, experience, and any reservation claim etc.) in support of all your claims for verification. In case you want to claim the reservation under any category, appropriate certificate should be produced. However, claims under OBC reservation should be supported by the latest OBC Certificate taken during the financial year 2017-18 clearly stating whether the candidate belongs to creamy layer or not.</li>
+					<li>10th or Matriculation or equivalent certificate in support of your Date of Birth</li>
+					<li>Producing hard copies of all your paper publications, books, etc., for verification in support of your claims.</li>
+					<li>Submission of ‘No Objection Certificate’ from your present employer invariably, if you are employed and your application is not submitted through proper channel.</li>
+					<li>Submission of the Personal Profile in original (Form to be downloaded from <a href="http://nitw.ac.in/media/uploads/PERSONAL_PROFILE.doc" target="_blank">here</a>), duly filled in with original photograph affixed.</li>
+				</ol>
+				<p>If you do not produce any of the above mentioned documents, in original, along with a set of attested copies of the same (except those listed under item 3), you will not be admitted for the Interview under any circumstances. Once you fulfill the above requirements and satisfy the relevant terms and conditions of the Advertisement, you are required to deliver a Seminar/ Lecture demonstration on <b>{{response.data.seminar_time|date}}</b> and thereafter you will be interviewed by the Selection Committee on <b>{{response.data.interview_time|date}}</b>. Therefore, you are advised to come prepared to stay for two days (from <b>{{response.data.report_time|date}}</b> to <b>{{response.data.interview_time|date}}</b>) at your own cost and make your own arrangements for your stay.</p>
+                        </div>
+                  </div>
+          <div class="row" style="page-break-inside:avoid;">
+            <div class="col-sm-12">
+				<h4><b>NOTE:</b></h4>
+				<ol>
+					<li>All positions are notified as per the Government of India Gazette notification dated 21.07.2017 and the Institute reserves the right to fill or not to fill any or all available positions.</li>
+					<li>Candidates should have an excellent academic record, good communication skills, a commitment to high quality undergraduate and post-graduate education and the potential for creative research.</li>
+					<li>Depending upon the qualifications and experience, candidates will be offered suitable salary (higher or lower) based on the recommendation of the Selection Committee and decision of Board of Governors.</li>
+					<li>Institute is not responsible for any postal/transit delays. </li>
+					<li>No T.A., D.A., etc., is payable for attending the selection process. </li>
+					<li>Bring your original identity proof (like: Aadhaar card, Driving license, Passport, etc.) for verification along with this letter.</li>
+					<li>For all selection formalities and processes, the decision of the Selection Committee and the Board of Governors of the Institute shall be final. </li>
+					<li>In case you fail to attend the interview, it will be presumed that you are not interested in the post and your candidature will be treated as ‘cancelled’. No further correspondence will be entertained in this regard.</li>
+				</ol>
+			</div>
+		</div>
+		<div class="row" style="page-break-inside: avoid;">
+			<div class="col-sm-12">
+				<span style="float: right; width: 20%;"><center><img src="{% static 'img/registrar.png' %}" width="80%" height="80%"><br><b>REGISTRAR I/C</b></center></span>
+				<!-- <span style="float: left; width: 80%;">
+				<br>
+				<b>To:</b><br>
+				<p>{{response.name}} (Application ID: {{response.app_id}})<br>
+				{% for line in response.addr %}
+				{{line}},{%if forloop.counter|divisibleby:"2" %}<br>{% endif %}
+				{% endfor %}
+			    </p>
+				</span>
+				<br> -->
+			</div>
+		</div>
+		</div>
+	<br><br>
+	{% endfor %}
+</body>
+<style type="text/css">
+	img {
+    pointer-events: none;
+    }
+</style>
+<script type="text/javascript">
+	window.onload = function(){window.print();};
+</script>
+

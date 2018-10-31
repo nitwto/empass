@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{% static 'scripts.js' %}" type="text/javascript"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+	<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+		{% csrf_token %}
+		<div class="row">
+			<center><h3><u> Annexure - D </u></h3></center><br>
+			<center><h4>4.Existing Emoluments</h4></center><br>
+		</div>
+		<div id="part2">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-7">
+                <input type="file" name="annexure_file" id="annexure_file" class="{% if annexure_file|length > 1 %}btn btn-success {% else %} btn btn-info {% endif %}">
+            </div>
+        {% if annexure_file %}
+            File uploaded
+            <div class="col-md-1"><a href="{{annexure_file.url}}">open</a></div>
+        {% else %}
+        	File not uploaded
+        {% endif %}
+        </div>
+			<hr>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="basic_pay">Basic Pay</label>
+						<input for="basic_pay" name="basic_pay" class="form-control" id="basic_pay" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="payband">in pay band (Rs)</label>
+						<input for="payband" name="payband" class="form-control" id="payband" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="payband_b">to (Rs)</label>
+						<input for="payband_b" name = "payband_b" class="form-control" id="payband_b" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="total_a">Total</label>
+						<input for="total_a" name="total_a" class="form-control" id="total_a" >
+					</div>
+				</div>
+			</div>
+			<center><b>OR</b></center>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="basic_pay_d">Basic Pay</label>
+						<input for="basic_pay_d" name="basic_pay_d" class="form-control" id="basic_pay_d" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="payband_d">in pay band ($)</label>
+						<input for="payband_d" name="payband_d" class="form-control" id="payband_d" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="payband_b_d">to ($)</label>
+						<input for="payband_b_d" name="payband_b_d" class="form-control" id="payband_b_d" >
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="total_ad">Total($)</label>
+						<input for="total_ad" name="total_ad" class="form-control" id="total_ad" >
+					</div>
+				</div>
+			</div>
+
+			</div>
+			<br>
+
+			<input type="text" name="annexure_d" id="annexure_d" hidden>			
+
+		</div>
+
+			<!-- <input type="text" name="total" hidden> -->
+			<input type="text" name="file" value="{{annexure_file}}" hidden>
+			<center><button type="submit" style="float:right;" class="btn btn-success btn-lg" id="finalSubmitBtn" >Submit</button></center>
+
+		</form>
+	</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	$(document).ready(function() {
+		$('#finalData').val("");
+	});
+	 $('#annexure').submit(function() {
+		var formData = new FormData();
+	    var fileName = $("#annexure_file").val();
+	    var extension = fileName.split('.').pop();
+	    if(fileName) {
+	    	if(extension != 'pdf')
+	    	{
+	    		alert("PDF format not uploaded");
+	    		return false;
+	    	}
+	    } else {
+	    	file = $('input[name="file"]').val();
+	    	if(file.length<=0)
+	    	{
+	    		alert("No file selected");
+	        	return false;
+	    	}
+	    }
+			formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

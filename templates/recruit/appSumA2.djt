@@ -1,0 +1,2160 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+
+	thead {
+      display: table-row-group;
+  }
+	tr { page-break-inside: avoid }
+		hr{
+			/*border: none;*/
+			height: 1px;
+			background-color: black;
+		}
+
+
+	.summa {
+		    float: left;
+		    /*text-align: left;*/
+		    border-right: 1px solid;
+		}
+
+	.title {
+		    text-align: left;
+		}
+		table{
+			border:1px solid black;
+		}
+
+		#signature{
+			position: fixed;
+			bottom: 5%;
+			right: 15%;
+		}
+		#appid{
+			position: relative;
+			bottom: 0;
+		}
+
+		#scrutiny_form{
+			border-left: 1px solid grey;
+			padding-left: 50px;
+			margin-left: 50px;
+			margin-top: 50px;
+		}
+		#side_navbar{
+			margin-top: 80px;
+			/*border-right: 1px solid grey;*/
+		}
+		#sidenav_ul li{
+			/*background-color: silver;*/
+		}
+		#sidenav_ul li a{
+			font-weight: 600;
+			text-decoration: none;
+			color: black;
+			width: inherit;
+		}
+		.sidelink{
+			display: block;
+			text-decoration: none !important;
+			padding: 10px 10px;
+			color: black;
+			border: 1px solid grey;
+			border-radius: 5px;
+			margin:5px;
+		}
+		/*input{
+			text-align: right;
+		}*/
+
+		.onlyprint{
+			display: none;
+		}
+
+
+		@media print {
+
+    		@page { size: portrait; }
+    		.notprint{
+    			 display: none; 
+    		}
+
+    		.onlyprint{
+    			display: table-row;
+    		}
+    		#scrutiny_form{
+			border-left: 0px solid black;
+			padding-left: 0px;
+			margin-left: 0px;
+			margin-top: 0px;
+			}
+
+		}
+
+		@page {
+		    
+		  }
+
+		  .modal-header{
+		  	background-color: #003A6A;
+		  	color: white;
+		  	text-align: center;
+		  }
+
+
+		  
+	/*	.table td {
+		   text-align: center;   
+		}
+		.table th{
+			text-align: center;
+		}*/
+	</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Scrutiny Form</h2></center>
+</div>
+
+
+	<div>
+		<div class="row">
+			<center>
+				<h3>Name of the Candidate <u>{{fac.full_name}}</u>  <br><br>  Post Applied For <u>{{fac.app_id.post_for}}</u></h3>
+				<h3><u>Application ID : {{college}}{{app_id}}</u></h3>
+			</center>
+
+		</div>
+
+		<div class="row">
+
+		<div class="col-sm-2" id="side_navbar">
+			<center class="notprint">
+
+			
+				<!-- <a class="sidelink" href="/recruit/viewscrutiny/{{app_id}}">View Scrutiny&nbsp;&nbsp;</a>
+				<a class="sidelink" href="/recruit/viewappl/{{app_id}}">View Application</a>
+				<a class="sidelink" href="/recruit/viewannex/{{app_id}}">View Annexures</a>
+				<a class="sidelink" href="/faculty_admin" type="button">Home</a> -->
+			
+
+				<a href="/recruit/viewscrutiny/{{app_id}}"><button class="btn btn-success" disabled>&nbsp;&nbsp;View Scrutiny&nbsp;&nbsp;</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewappl/{{app_id}}"><button class="btn btn-success">View Application</button></a>
+				<br>
+				<br>
+					<a href="/recruit/viewannex/{{app_id}}"><button class="btn btn-success">View Annexures</button></a>
+				<br>
+				<br>
+				<a href="/faculty_admin" type="button" class="btn btn-warning">Home</a>
+				<br>
+				<br>
+				<a href="/faculty_admin/logout" type="button" class="btn btn-danger">Logout</a>
+
+				
+				
+			</center>
+		</div>
+		<div class="col-sm-9" id="scrutiny_form">
+		<center>
+			
+			<!-- AnnE -->
+			<form method="POST" enctype="multipart/form-data" action="" onkeypress="return event.keyCode != 13;">
+			    {% csrf_token %}
+			   
+			<table class="table table-bordered table-striped print-friendly">
+			
+			    <thead>
+			    
+			      <tr class="table-info">
+			        <th>SN</th>
+			        <th>Activity</th>
+			        <th>Applicant Entered Values</th>
+			        <th>System Generated Values</th>
+			        <th>Reviewer 1</th>
+			        <th>Scrutinized Values</th>
+			      </tr>
+			    </thead>
+
+			    <tbody>
+			      <tr>
+			        <th>1</th>
+			        <td>(a) Externally Sponsored R&D Projects<br>
+			        	{% if annex_e1_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_e1_file.url}}">Annexure E1</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_e1 %}
+					    <a data-toggle="modal" class="notprint" data-target="#e1" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+			        </td>
+			        <td>{% if annex_e1_total %} {{annex_e1_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_e1_total %} {{annex_e1_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{Sc_annex_e1}}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_e1" value="{{Sc_annex_e1_2}}" step="0.1" min="0" required min="0" required>
+						</div>
+			        </td>
+			      </tr>
+			      <tr>
+			        <td> </td>
+			        <td>(b) Patent Granted<br>
+			        	{% if annex_e2_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_e2_file.url}}">Annexure E2</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_e2 %}
+					    <a data-toggle="modal" class="notprint" data-target="#e2" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+			        </td>
+			        <td>{% if annex_e2_total %} {{annex_e2_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_e2_total %} {{annex_e2_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_e2 }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_e2" value="{{Sc_annex_e2_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnF -->
+			      <tr>
+			        <th>2</th>
+			        <td>Consultancy Projects [Max 10 Credit Points]<br>
+			        	<br>
+						{% if annex_f_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_f_file.url}}">Annexure F</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_f %}
+					    <a data-toggle="modal" class="notprint" data-target="#f" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+
+			        </td>
+			        <td>{% if annex_f_credit %} {{annex_f_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_f_system %} {{annex_f_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_f }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_f" value="{{Sc_annex_f_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnG -->
+			      <tr>
+			        <th>3</th>
+			        <td>Ph.D. Completed (including submitted cases)<br>
+						{% if annex_g_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_g_file.url}}">Annexure G</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_g %}
+					    <a data-toggle="modal" class="notprint" data-target="#g" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					 </td>
+			        <td>{% if annex_g_total %} {{annex_g_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_g_total %} {{annex_g_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_g }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_g" value="{{Sc_annex_g_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnH -->
+			      <tr>
+			        <th>4</th>
+			        <td>Journal Papers in SCI/Scopus (Paid Journal not
+					allowed)<br>(since last promotion)<br>
+						{% if annex_h_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_h_file.url}}">Annexure H</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_h %}
+					    <a data-toggle="modal" class="notprint" data-target="#h" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{% if annex_h_total %} {{annex_h_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_h_total %} {{annex_h_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_h }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_h" value="{{Sc_annex_h_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+			      
+			      <!-- AnnI -->
+			      <tr>
+			        <th>5</th>
+			        <td>Conference Papers indexed in SCI/Scopus/Web of<br>
+						Science  Conference  /any  internationally  renowned
+						conference.<br>[Max 10 Credit Points]<br>
+					
+					{% if annex_i_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_i_file.url}}">Annexure I</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_i %}
+					    <a data-toggle="modal" class="notprint" data-target="#i" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+
+			        <td>{% if annex_i_total %} {{annex_i_total}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_i_system %} {{annex_i_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_i }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_i" value="{{Sc_annex_i_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+
+			      
+
+
+			      <!-- AnnJ -->
+			      <tr>
+			        <th>6</th>
+			        <td>HOD,Dean,  Chief  Warden,  Prof  In-Charge(T&P),Advisor  (Estate),<br>
+			          CVO,  PI  (Exam),  TEQIP (Coordinator) <br>
+			          (Max 16 Credit Points since last promotion)<br>
+			          {% if annex_j_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_j_file.url}}">Annexure J</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_j %}
+					    <a data-toggle="modal" class="notprint" data-target="#j" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{% if annex_j_credit %} {{annex_j_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_j_system %} {{annex_j_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_j }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_j" value="{{Sc_annex_j_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			     
+
+			      <!-- AnnK -->
+			      <tr>
+			        <th>7</th>
+			        <td>Warden,Asst.Warden,Asso.Dean,<br>Chairman/Convener institute academic committee,<br> faculty InCharge Computer Center/IT <br>Services/Library/Admission/Student activities and other institution activities <br>(Max 8 Credit Points since last promotion)<br>
+			        {% if annex_k_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_k_file.url}}">Annexure K</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_k %}
+					    <a data-toggle="modal" class="notprint" data-target="#k" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{% if annex_k_credit %} {{annex_k_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_k_system %} {{annex_k_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_k }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_k" value="{{Sc_annex_k_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnL -->
+			      <tr>
+			        <th>8</th>
+			        <td>Chairman  and  Convener  of  different  standing
+					committee and <br>special committee (ex officio status will
+					not be considered).<br> Faculty in charges (each for one
+					yr duration) of different units or equivalent <br>(Max 3
+					Credit Points since last promotion)<br>
+					{% if annex_l_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_l_file.url}}">Annexure L</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_l %}
+					    <a data-toggle="modal" class="notprint" data-target="#l" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{% if annex_l_credit %} {{annex_l_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_l_system %} {{annex_l_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_l }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_l" value="{{Sc_annex_l_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnM -->
+			      <tr>
+			        <th>9</th>
+			        <td>Departmental activities identified by HODs like lab in
+					charge, <br>or department level committee for a min
+					period of 1 yr. <br>(Max 3 Credit Points since last
+					promotion)<br>
+					{% if annex_m_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_m_file.url}}">Annexure M</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_m %}
+					    <a data-toggle="modal" class="notprint" data-target="#m" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{% if annex_m_credit %} {{annex_m_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_m_system %} {{annex_m_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_m }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_m" value="{{Sc_annex_m_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnN -->
+			      <tr>
+			        <th>10</th>
+			        <td>Workshop/FDP/Short term courses of min 05 working<br>
+					days duration offered as coordinator or convener
+					<br>
+					(Max 8 Credit Points since last promotion)<br>
+					{% if annex_n_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_n_file.url}}">Annexure N</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_n %}
+					    <a data-toggle="modal" class="notprint" data-target="#n" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+			        <td>{% if annex_n_credit %} {{annex_n_credit}} {% else %} 0.0 {% endif %}</td>
+			        <td>{% if annex_n_system %} {{annex_n_system}} {% else %} 0.0 {% endif %}</td>
+			        <td>{{ Sc_annex_n }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_n" value="{{Sc_annex_n_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnO -->
+			      <tr>
+			        <th>11</th>
+			        <td>For conducting national programs like GIAN etc. <br>
+			        as
+					course coordinator <br>
+					[max 4 credit points (of 2 weeks
+					duration)/ <br> max  2  credit  points  (for  1  week
+					duration) since last promotion]<br>
+					{% if annex_o_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_o_file.url}}">Annexure O</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_o %}
+					    <a data-toggle="modal" class="notprint" data-target="#o" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_o_credit}}</td>
+			        <td>{{ annex_o_system }}</td>
+			        <td>{{ Sc_annex_o }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_o" value="{{Sc_annex_o_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+
+
+			      <tr class="onlyprint" style="height:220px;">
+
+			      </tr>
+			      <tr class="onlyprint table-info">
+			        <th>SN</th>
+			        <th>Activity</th>
+			        <th>Applicant Entered Values</th>
+			        <th>System Generated Values</th>
+			        <th>Scrutinized Values</th>
+			      </tr>
+
+			      
+			      
+			      <!-- AnnP -->
+			      <tr style=>
+			        <th>12</th>
+			        <td>National/International
+					Conference  organized  as
+					Chairman/Secretary
+					<br>
+					(Max 6 Credit Points since last
+					promotion)<br>
+					{% if annex_p_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_p_file.url}}">Annexure P</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_p %}
+					    <a data-toggle="modal" class="notprint" data-target="#p" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_p_credit}}</td>
+			        <td>{{ annex_p_system }}</td>
+			        <td>{{ Sc_annex_p }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_p" value="{{Sc_annex_p_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+
+
+			      <!-- AnnQ -->
+			      <tr>
+			        <th>13</th>
+			        <td>Length of service over and above the relevant
+					minimum <br>teaching experience required for a given
+					cadre <br>(Max 10 Credit Points since last promotion)
+					<br>
+					<b>Date of last Promotion : </b><u>{{annex_q_last_prom}}</u><br>
+					{% if annex_q_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_q_file.url}}">Annexure Q</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_q %}
+					    <a data-toggle="modal" class="notprint" data-target="#q" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_q_credit}}</td>
+			        <td>{{ annex_q_system }}</td>
+			        <td>{{ Sc_annex_q }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_q" value="{{Sc_annex_q_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnR -->
+			      <tr>
+			        <th>14</th>
+			        <td>Establishment of New Lab(s) (4 Credit points since
+					last promotion)<br>
+					{% if annex_r_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_r_file.url}}">Annexure R</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_r %}
+					    <a data-toggle="modal" class="notprint" data-target="#r" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_r_credit}}</td>
+			        <td>{{ annex_r_system }}</td>
+			        <td>{{ Sc_annex_r }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_r" value="{{Sc_annex_r_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnS -->
+			      <tr>
+			        <th>15</th>
+			        <td>Theory Teaching of over and above 6 credit hrs
+				course. <br>(Max 6 Credit Points since last promotion)<br>
+					{% if annex_s_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_s_file.url}}">Annexure S</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_s %}
+					    <a data-toggle="modal" class="notprint" data-target="#s" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_s_credit}}</td>
+			        <td>{{annex_s_system}}</td>
+			        <td>{{ Sc_annex_s }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_s" value="{{Sc_annex_s_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnT -->
+			      <tr >
+			        <th >16</th>
+			        <td>PG Dissertation Guided (Max 10 Credit Points since last promotion)<br>
+			        {% if annex_t_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_t_file.url}}">Annexure T</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_t %}
+					    <a data-toggle="modal" class="notprint" data-target="#t" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{ annex_t_total }}</td>
+			        <td>{{annex_t_system}}</td>
+			        <td>{{ Sc_annex_t }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_t" value="{{Sc_annex_t_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnU -->
+			      <tr>	
+			        <th>17</th>
+			        <td>UG Dissertation Guided (Max 4 Credit Points since last promotion)<br>
+			       	{% if annex_u_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_u_file.url}}">Annexure U</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_u %}
+					    <a data-toggle="modal" class="notprint" data-target="#u" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+			        </td>
+			        <td>{{ annex_u_total }}</td>
+			        <td>{{annex_u_system}}</td>
+			        <td>{{ Sc_annex_u }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_u" value="{{Sc_annex_u_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnV -->
+			      <tr>
+			        <th>18</th>
+			        <td>Text/Reference Books Published on relevant subjects from reputed <br>international publishers <br>(Max 18 Credit Points since last promotion)<br>
+			       {% if annex_v_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_v_file.url}}">Annexure V</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_v %}
+					    <a data-toggle="modal" class="notprint" data-target="#v" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{ annex_v_total }}</td>
+			        <td>{{annex_v_system}}</td>
+			        <td>{{ Sc_annex_v }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_v" value="{{Sc_annex_v_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnW1 -->
+			      <tr>
+			        <th>19</th>
+			        <td>(a)Text/Reference Books Published on relevant subjects
+						from reputed <br>national publishers or book chapters in the
+						bbok published by <br>reputed international publishers
+						<br>(Max 6 Credit Points since last promotion)<br>
+					{% if annex_w1_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_w1_file.url}}">Annexure W1</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_w1 %}
+					    <a data-toggle="modal" class="notprint" data-target="#w" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_w1_total}}</td>
+			        <td>{{annex_w1_system}}</td>
+			        <td>{{ Sc_annex_w }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_w" value="{{Sc_annex_w_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+
+			      <!-- AnnW2 -->
+			      <tr>
+			        <th> </th>
+			        <td>((b)Chapters in the Books Published on relevant subjects from reputed national publishers<br>
+					{% if annex_w2_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_w2_file.url}}">Annexure W2</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_w2 %}
+					    <a data-toggle="modal" class="notprint" data-target="#w2" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_w2_total}}</td>
+			        <td>{{annex_w2_system}}</td>
+			        <td>{{ Sc_annex_w2 }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_w2" value="{{Sc_annex_w2_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnX -->
+			      <tr>
+			        <th>20</th>
+			        <td>Significant Outreach Institute Activities (Max 4 Credit
+						Points since last promotion)<br>
+					{% if annex_x_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_x_file.url}}">Annexure X</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_x %}
+					    <a data-toggle="modal" class="notprint" data-target="#x" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_x_total}}</td>
+			        <td>{{annex_x_system}}</td>
+			        <td>{{ Sc_annex_x }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_x" value="{{Sc_annex_x_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnY -->
+			      <tr>
+			        <th>21</th>
+			        <td>Fellow IEEE, FNA, FNAE, FNASc [Max 10 Credit
+						Points]<br>
+					{% if annex_y_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_y_file.url}}">Annexure Y</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_y_area %}
+					    <a data-toggle="modal" class="notprint" data-target="#y" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>					
+					<td>{{annex_y_credit}}</td>
+			        <td>{{annex_y_system}}</td>
+			        <td>{{ Sc_annex_y }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" name="form_annex_y" value="{{Sc_annex_y_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+
+			      <!-- AnnZ -->
+			      <tr>
+			        <th>22</th>
+			        <td>Placement % (Only for the placement cell
+						officers/Faculty in-charge of Placement) <br>(since last
+						promotion) [Placement % above 85%, max 20 points, <br>Placement % from 75- 84%, max 10 points]<b>({{annex_z_percentage}}%)</b><br>					
+					{% if annex_z_file %}
+			        	<a target="_blank" class="notprint"  href="{{annex_z_file.url}}">Annexure Z</a>&nbsp &nbsp
+			        	{% endif %}
+			        	{% if annex_z %}
+					    <a data-toggle="modal" class="notprint" data-target="#z" href="#">
+					      Data
+					    </a>
+					    {% endif %}
+					</td>
+			        <td>{{annex_z_total}}</td>
+			        <td>{{annex_z_system}}</td>
+			        <td>{{ Sc_annex_z }}</td>
+			        <td>
+			        	<div class="form-group">
+							<input class="form-control" type="number" min="0" required name="form_annex_z" value="{{Sc_annex_z_2}}" step="0.1" min="0" required>
+						</div>
+			        </td>
+			      </tr>
+			      <tr>
+			      <td></td>
+			      <th style="text-align: right;">Total : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			      	&nbsp;&nbsp;
+			      </th>
+			      <th>{{total_credit}}</th>
+			      <th> {{total_system_credit}} </th>
+			      <th>{{review1_total}}</th>
+			      <th id="total_points" style=""> </th>
+			      </tr>
+
+
+
+			      
+			    </tbody>
+			  </table>
+
+
+
+
+			  <div class="onlyprint" id="signature">
+			  	SIGNATURE
+			  </div>
+			  <br>
+			  <br>
+			  <br>
+			  <br>
+			  <div class="form-group form-inline">
+ 					 <label class="col-xs-2 col-xs-offset-4" for="selectStatus">Status : &nbsp;</label>
+					<select id="selectStatus"  name="appln_status" class="form-control col-xs-6" style="width: 17%;">
+					  <option value ="1">Under Review</option>
+					  <option value="3">Eligible</option>
+					  <option value="2">Not Eligible</option>				      
+					</select>
+				</div>
+
+
+				{% if assistant %}
+				<br>
+				<br>
+				<div id="appliedfor" class="form-group ">
+ 					 <label for="selectEligibility" class="col-xs-2 col-xs-offset-4">Eligible for : &nbsp;</label>
+					<select id="selectEligibility"  name="eligibility" class="form-control col-xs-6" style="width: 17%;">
+						<option value ="0">Select Post</option>
+					  <option value ="6">AGP-6000</option>
+					  <option value="7">AGP-7000</option>
+					  <option value="8">AGP-8000</option>				      
+					</select>
+				</div>
+				<br>
+				{% endif %}
+
+			<div class="col-sm-12" style="margin-top: 2%">
+			<div>
+			<h4><u>A1 user remarks :-</u></h4>
+			{{remarks}}
+		</div>
+			  		<h4>Remarks</h4>
+					<textarea rows="4" cols="50" name="remarks" placeholder="Remarks">{{remarks_A2}}</textarea>
+			  </div>
+
+			  <br>
+			  <br>
+			  
+			  	<div class="notprint" class="col-sm-12">
+			  		<!-- <label class="radio-inline"><input type="radio" name="eligibility1">Not Eligible</label>
+					<label class="radio-inline"><input type="radio" name="eligibility2">Eligible</label> -->
+					
+			  		<br>
+
+			  			<a href="/faculty_admin" type="button" class="btn btn-danger">Back</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  			<input id="scrutiny_total" type="hidden" name="scrutiny_total" value="0.0" />
+			    		<input type="submit" class="btn btn-success" value="Submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    		<button onclick="printPage()" type="button" class="btn btn-primary">Print</button>
+			    	</div>
+
+			    </form>	
+
+			    <br>
+		</center>
+		</div>
+		<div class="col-sm-1">
+		</div>
+		</div>
+		<div>
+		<br>
+		<br>
+		<br>
+		</div>
+		<div class="onlyprint" id="appid">
+			  	Page 2 of Application : {{fac.app_no}}
+		</div>
+</div>
+</div>
+
+<div class="modal fade" id="e1" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+    <!-- Modal content-->
+      	<div class="modal-content">
+        	<div class="modal-header">
+          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+          		<h4 class="modal-title">External Sponsored R&D Projects completed or ongoing/patent granted (Annexure E1)</h4>
+        	</div>
+        	<div class="modal-body">
+          		<div id="part2">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background-color:#e3e3e3;">
+								<th>S.No.</th>
+								<th>Title of R&D Project</th>
+								<th>Completed/Ongoing</th>
+								<th colspan="2"><center>Duration</center></th>
+								<th>Funding Agency</th>
+								<th>Amount in  Lakhs</th>
+								<th colspan="2"><center>Role</center>
+								<th>Credit Points</th>
+							</tr>
+							<tr style="background-color:#e3e3e3;">
+								<th colspan="3"></th>
+								<th>From</th>
+								<th>To</th>
+								<th colspan="2"></th>
+								<th>As PI or Co PI</th>
+								<th>Total No. of Co PIs for the project</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="annexure_e1">
+							{% for item in annex_e1 %}
+							<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{item.title}}</td>
+								<td>{{item.progress}}</td>
+								<td>{{item.funding_agency}}</td>
+								<td>{{item.from}}</td>
+								<td>{{item.to}}</td>
+								<td>{{item.amount}}</td>
+								<td>{{item.pi_co}}</td>
+								<td>{{item.total_co_pi}}</td>
+								<td>{{item.credit}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+        		</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        	</div>
+      		</div>
+    	</div>
+	</div>
+</div>
+<div class="modal fade" id="e2" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Patent Details (Annexure E2)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Patent Title</th>
+							<th>Status</th>
+							<th>Details</th>
+							<th colspan="2">Role</th>
+							<th colspan="2">Credit Points</th>
+						</tr>
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="2"></th>
+							<th>Applied/Granted</th>
+							<th>No. & Date of application/grant</th>
+							<th>Principal Inventor or Coinventor</th>
+							<th>Total No of Co Inventors in patent</th>
+							<th colspan="2"></th>
+						</tr>
+					</thead>
+					<tbody id="annexure_e2">
+						{% for item in annex_e2 %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.patent}}</td>
+							<td>{{item.status}}</td>
+							<td>{{item.details}}</td>
+							<td>{{item.principal_role}}</td>
+							<td>{{item.total_coinv}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+<div class="modal fade" id="f" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Consultancy Project (Annexure F)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Sponsoring Agency</th>
+							<th>Completion Date</th>
+							<th>Number of Coordinators</th>
+							<th>Consultancy Amount</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_f">
+						{% for item in annex_f %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.spons_ag}}</td>
+							<td>{{item.comp_date}}</td>
+							<td>{{item.noc}}</td>
+							<td>{{item.con_amt}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="g" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">PhD Completed(Including thesis submitted cases) (Annexure G)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Name of Research Scholar</th>
+							<th>Title of Thesis</th>
+							<th>Status(Submitted/Awarded)</th>
+							<th>Date of Submission/PhD Award</th>
+							<th colspan="2">Role</th>
+							<th>Credit Points</th>
+						</tr>
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="5"></th>
+							<th>As Main/Co Supervisor</th>
+							<th>Total No of Co Supervisor/s</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="annexure_g">
+						{% for item in annex_g %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.res_name}}</td>
+								<td>{{item.thesis}}</td>
+								<td>{{item.status}}</td>
+								<td>{{item.sub_date}}</td>
+								<td>{{item.role_main}}</td>
+								<td>{{item.co_sup}}</td>
+								<td>{{item.credit}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="h" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Journal Papers in SCSI/Scopus(Paid Journal Papers not allowed) (Annexure H)</h4>
+	        </div>
+	        <form action="/save_h2/{{app_id}}/{{number_of_h}}/" method="POST">
+	        	{% csrf_token %}
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Title of the Paper</th>
+							<th>Name of Journal Volume,pg year</th>
+							<th>Is it paid Journal(Y/N)?</th>
+							<th>Indexed in Scopus/SCI (Y/N)</th>
+							<th colspan="2">Role</th>
+							<th>Credit Points</th>
+							<th>Reviewer 1</th>
+							<th>Scrutinized Values</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_h">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="5"></td>
+							<td>As First Author/Main Supervisor/Other Authors</td>
+							<td>Total No of Other Authors</td>
+							<td></td>
+						</tr>
+						{% for item in annex_h %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.journal}}</td>
+							<td>{{item.paid}}</td>
+							<td>{{item.indexed}}</td>
+							<td>{{item.roles}}</td>
+							<td>{{item.no_authors}}</td>
+							<td>{{item.credit}}</td>
+							<td>
+								<div class="form-group">
+									<input class="form-control" type="number" value="{{item.scrutinized_values}}" step="0.1" min="0" disabled>
+								</div>
+							</td>
+							<td>
+								<div class="form-group">
+									<input class="form-control" type="number" name="scrutiny_h2_{{forloop.counter}}" value="{{item.scrutinized_values2}}" step="0.1" min="0">
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <input type="submit" class="btn btn-success" value="Save and Close">
+	        </div>
+	      </div>
+	      </form>
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="i" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Conference Paper Indexed (Annexure I)</h4>
+	        </div>
+	        <form action="/save_i2/{{app_id}}/{{number_of_i}}/" method="POST">
+	        	{% csrf_token %}
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Title of the Paper</th>
+							<th>Proceeding Details</th>
+							<th>Indexed in Scopus/SCI (Y/N)</th>
+							<th colspan="2">Role</th>
+							<th>Credit Points</th>
+							<th>Reviewer 1</th>
+							<th>Scrutinized Values</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_i">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="2"></td>
+							<td>Name of Conference Pg,Year</td>
+							<td></td>
+							<td>As First Author/Main Supervisor/Other Authors</td>
+							<td>Total No of Other Authors</td>
+							<td colspan="2"></td>
+						</tr>
+						{% for item in annex_i %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.conference}}</td>
+							<td>{{item.indexed}}</td>
+							<td>{{item.roles}}</td>
+							<td>{{item.no_authors}}</td>
+							<td>{{item.credit}}</td>
+							<td>
+								<div class="form-group">
+									<input class="form-control" type="number" value="{{item.scrutinized_values}}" step="0.1" min="0" disabled>
+								</div>
+							</td>
+							<td>
+								<div class="form-group">
+									<input class="form-control" type="number" name="scrutiny_i2_{{forloop.counter}}" value="{{item.scrutinized_values2}}" step="0.1" min="0">
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <input type="submit" class="btn btn-success" value="Save and Close">
+	        </div>
+	      </div>
+	      </form>
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="j" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Administrative assignments-I (Annexure J)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Assignment</th>
+							<th colspan="2">Date</th>
+							<th>No. of Semester</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_j">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="2"></td>
+							<td>From</td>
+							<td>To</td>
+							<td colspan="1"></td>
+						</tr>
+						{% for item in annex_j %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.sem}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="k" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Administrative assignments-II (Annexure K)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Assignment</th>
+							<th colspan="2">Date</th>
+							<th>No. of Semester</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_k">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="2"></td>
+							<td>From</td>
+							<td>To</td>
+							<td colspan="1"></td>
+						</tr>
+						{% for item in annex_k %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.sem}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="l" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Administrative assignments-III (Annexure L)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Assignment</th>
+							<th colspan="2">Date</th>
+							<th>Is the assignment more than 1 year</th>
+							<th>No. of Semester</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_l">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="2"></td>
+							<td>From</td>
+							<td>To</td>
+							<td colspan="2"></td>
+						</tr>
+						{% for item in annex_l %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.assign}}</td>
+							<td>{{item.sem}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="m" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Administrative assignments-IV (Annexure M)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Assignment</th>
+							<th colspan="2">Date</th>
+							<th>Is the assignment more than 1 year</th>
+							<th>No. of Semester</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_m">
+						<tr style="background-color:#e3e3e3;">
+							<td colspan="2"></td>
+							<td>From</td>
+							<td>To</td>
+							<td colspan="2"></td>
+						</tr>
+						{% for item in annex_m %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.assign}}</td>
+							<td>{{item.sem}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="n" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Workshop/FDP/STTP (Annexure N)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Title</th>
+							<th >W/s /FDP/STTP</th>
+							<th colspan="2">Duration</th>
+							<th>Total no. of Days</th>
+							<th colspan="2">Role</th>
+							<th>Venue</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_n">
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="3"></th>
+							<th>From</th>
+							<th>To</th>
+							<th colspan="1"></th>
+							<th>As Conventor/Coordinator</th>
+							<th>Other(Specify)</th>
+							<th colspan="2"></th>
+						</tr>
+						{% for item in annex_n %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.ws}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.tot_day}}</td>
+							<td>{{item.roles}}</td>
+							<td>{{item.other}}</td>
+							<td>{{item.venue}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="o" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Conducting national programmes like GIAN etc. (Annexure O)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Title</th>
+							<th >GIAN/Other(Specify)</th>
+							<th colspan="2">Duration</th>
+							<th>Total no. of Weeks</th>
+							<th colspan="2">Role</th>
+							<th>Venue</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_o">
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="3"></th>
+							<th>From</th>
+							<th>To</th>
+							<th colspan="1"></th>
+							<th>As Conventor/Coordinator</th>
+							<th>Other(Specify)</th>
+							<th colspan="2"></th>
+						</tr>
+						{% for item in annex_o %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.gian}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.tot_weeks}}</td>
+							<td>{{item.roles}}</td>
+							<td>{{item.other}}</td>
+							<td>{{item.venue}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="p" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">National /International Conference organized as Chairman/Secretary (Annexure P)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th >Title of the conference</th>
+							<th >Level</th>
+							<th colspan="2">Duration</th>
+							<th colspan="2">Role</th>
+							<th>Venue</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_p">
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="2"></th>
+							<th>National/International</th>
+							<th>From</th>
+							<th>To</th>
+							<th colspan="1"></th>
+							<th>As Chairman/Secretary</th>
+							<th>Other(Specify)</th>
+							<th></th>
+						</tr>
+						{% for item in annex_p %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.level}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.roles}}</td>
+							<td>{{item.other}}</td>
+							<td>{{item.venue}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="q" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Length of Service (Annexure Q)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th >S.No.</th>
+							<th colspan="7">Details of teaching experience since last promotion</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_q">
+						<tr style="background-color:#e3e3e3;">
+							<th colspan="1"></th>
+							<th>AGP</th>
+							<th>Place</th>
+							<th>From</th>
+							<th>To</th>
+							<th colspan="2">Total</th>
+							<th colspan="2"></th>
+						</tr>
+						<tr>
+							<th colspan="6"></th>
+							<th>Yrs</th>
+							<th>Mnth</th>
+						</tr>	
+						{% for item in annex_q %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.post}}</td>
+							<td>{{item.agp}}</td>
+							<td>{{item.place}}</td>
+							<td>{{item.from}}</td>
+							<td>{{item.to_date}}</td>
+							<td>{{item.tot_yrs}}</td>
+							<td>{{item.tot_mnth}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="r" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Establishment of new labs (Annexure R)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Name(s) of lab established</th>
+							<th>Academic Year</th>
+							<th>Department concerned</th>
+							<th>No. of experiments</th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_r">
+						{% for item in annex_r %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.lab_name}}</td>
+							<td>{{item.academic}}</td>
+							<td>{{item.department}}</td>
+							<td>{{item.experiments}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="s" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Theory Teaching (Annexure S)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Academics</th>
+							<th>Semester</th>
+							<th>Teaching load hrs/week Theory only</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_s">
+						{% for item in annex_s %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.academics}}</td>
+							<td>{{item.odd}}</td>
+								<td>{{item.even}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="t" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">PG Disseration (Annexure T)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Title of Disseration</th>
+							<th>Name of Student</th>
+							<th>Pass out Year</th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_t">
+						{% for item in annex_t %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.passout}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="u" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">UG Projects (Annexure U)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Title of project report</th>
+							<th>Name of Student</th>
+							<th>Pass out Year</th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_u">
+						{% for item in annex_u %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.passout}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="v" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Books Published on relevant subjects from reputed international publishers (Annexure V)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Title of book</th>
+							<th>Name of Publisher</th>
+							<th>Year of Publications</th>
+							<th>Year of Latest Edition</th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_v">
+						{% for item in annex_v %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.publish_yr}}</td>
+							<td>{{item.edition_yr}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="w1" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Books Published on relevant subjects from reputed national publishers (Annexure W1</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Title of Book</th>
+							<th>Name of Publisher</th>
+							<th>Year of </th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_w1">
+						{% for item in annex_w1 %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.passout}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="w2" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Chapters in the Books Published on relevant subjects from reputed national publishers (Annexure W2)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+					<thead>
+						<tr style="background-color:#e3e3e3;">
+							<th>S.No.</th>
+							<th>Title of Book</th>
+							<th>Name of Publisher</th>
+							<th>Year of </th>
+							<th>Credit Points</th>
+						</tr>
+					</thead>
+					<tbody id="annexure_w2">
+						{% for item in annex_w2 %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{item.title}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.passout}}</td>
+							<td>{{item.credit}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="x" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Outreach Activity (Annexure X)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+				<thead>
+					<tr style="background-color:#e3e3e3;">
+						<th>S.No.</th>
+						<th>Name of Activity</th>
+						<th>Place</th>
+						<th>Date</th>
+						<th>Credit Points</th>
+					</tr>
+				</thead>
+				<tbody id="annexure_x">
+					{% for item in annex_x %}
+					<tr>
+						<td>{{forloop.counter}}</td>
+						<td>{{item.act}}</td>
+						<td>{{item.place}}</td>
+						<td>{{item.date}}</td>
+						<td>{{item.credit}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+<!-- YYYYYYYY -->
+<div class="modal fade" id="y" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Fellow IEEE, FNA, FNAE, FNASc (Annexure Y)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<center>
+	          {% if annex_y_ieee %}
+	          <h6>IEEE</h6>
+	          {% endif %}
+	          {% if annex_y_fna %}
+	          <h6>FNA</h6>
+	          {% endif %}
+	          {% if annex_y_fnae %}
+	          <h6>FNAE</h6>
+	          {% endif %}
+	          {% if annex_y_fnasc %}
+	          <h6>FNASC</h6>
+	          {% endif %}
+	          </center>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+<div class="modal fade" id="z" role="dialog">
+    <div style="width:75%" class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Placement percentage(only for the placment cell officers/Faculty in-charge of Placement) (Annexure Z)</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div id="part2">
+				<table class="table table-bordered">
+				<thead>
+					<tr style="background-color:#e3e3e3;">
+						<th>S.No.</th>
+						<th>Academic Year</th>
+						<th>No of students passing out</th>
+						<th>No of Jobs offered</th>
+						<th>Percentage</th>
+						<th>Credit Points</th>
+					</tr>
+				</thead>
+				<tbody id="annexure_z">
+					{% for item in annex_z %}
+					<tr>
+						<td>{{forloop.counter}}</td>
+						<td>{{item.acad_yr}}</td>
+						<td>{{item.students}}</td>
+						<td>{{item.jobs_off}}</td>
+						<td>{{item.percent}}</td>
+						<td>{{item.credit}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+	function printPage() {
+		{% if assistant %}
+			var val = $('#selectStatus').val();
+			if (val != 3)
+				$('#appliedfor').addClass('notprint');
+			else
+			{
+				if($("#appliedfor").hasClass("notprint"))
+          			$('#appliedfor').removeClass('notprint');
+			}
+		{% endif %}
+
+	    window.print();
+	    
+	}
+	function updateEligibility(){
+		{% if assistant %}
+			var val = $('#selectStatus').val();
+			if (val == 3)
+				document.getElementById("selectEligibility").disabled = false;
+			else
+				document.getElementById("selectEligibility").disabled = true;
+		{% endif %}
+	}
+
+	function getTotal(){
+
+		// alert(document.getElementsByName("form_annex_e1")[0].value);
+		var scrutiny_total = 0.0;
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_e1")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_e2")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_f")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_g")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_h")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_i")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_j")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_k")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_l")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_m")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_n")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_o")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_p")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_q")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_r")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_s")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_t")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_u")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_v")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_w")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_w2")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_x")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_y")[0].value);
+		scrutiny_total += parseFloat(document.getElementsByName("form_annex_z")[0].value);
+
+		document.getElementById("total_points").innerHTML =  scrutiny_total;
+		document.getElementById("scrutiny_total").value =  scrutiny_total;
+		// document.getElementById('log').innerHTML += '<br>Some new content!';
+	}
+
+
+	
+
+	 $(document).keypress(function(e) {
+	 	getTotal();
+        });
+	$(document).mousedown(function(e) {
+		getTotal();
+        });
+
+	
+
+	  $('#selectStatus').click(function(){
+		    updateEligibility();
+		});
+
+
+	  getTotal();
+	  
+	  var val = {{application_status_2}};
+		if(val == 0)
+			val = 1
+	  $('#selectStatus').val(val);
+	  var eli = {{eligible_for}};
+	  {% if assistant %}
+	  $('#selectEligibility').val(eli);
+	  {%endif%}
+	  // alert(val);
+	  // alert(1);
+	  updateEligibility();
+</script>
+
+</body>
+
+</html>

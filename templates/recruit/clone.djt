@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>	
+	<br>
+</div>
+{% if len > 0%}
+<form method="post">
+{% csrf_token %}
+<b>Note: All data except AGP will be cloned. You need to check AGP manually.</b>
+Clone all data from application id
+<select name="appid" class="form-control" required>
+	<option value="" disabled selected>---------</option>
+	{% for appid in otherapps %}
+	<option value="{{appid}}">{{appid}}</option>
+	{% endfor %}
+</select><br>
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% else %}
+No other applications found with your email !
+{% endif %}
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+
+
+</body>

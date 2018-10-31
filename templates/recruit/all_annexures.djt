@@ -1,0 +1,155 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+			height: 1px;
+			background-color: black;
+		}
+	</style>
+
+</head>
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>
+</div>
+
+<div class="row">
+	<div class="row">
+		<center>
+		<h3><u> Application Form for faculty Position </u></h3>
+		<h3><u>Application ID : {{profile.applicationID}}</u></h3>
+		</center><br>
+	</div>
+</div>
+<center><h4>All Annexures Uploaded</h4></center>
+<div class="well well-lg">
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_a %} class="btn btn-success" href="{{acad_annex_a.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure A</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_e1 %} class="btn btn-success" href="{{acad_annex_e1.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure E1</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_e2 %} class="btn btn-success" href="{{acad_annex_e2.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure E2</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_f %} class="btn btn-success" href="{{acad_annex_f.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure F</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_g %} class="btn btn-success" href="{{acad_annex_g.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure G</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_h %} class="btn btn-success"  href="{{acad_annex_h.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure H</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_i %} class="btn btn-success" href="{{acad_annex_i.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure I</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_j %} class="btn btn-success" href="{{acad_annex_j.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure J</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+
+
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_k %} class="btn btn-success" href="{{acad_annex_k.url}}"{% else %} class="btn btn-danger" disabled {% endif %} >Annexure K</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_l %} class="btn btn-success" href="{{acad_annex_l.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure L</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_m %} class="btn btn-success"  href="{{acad_annex_m.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure M</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_n %} class="btn btn-success" href="{{acad_annex_n.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure N</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_o %} class="btn btn-success" href="{{acad_annex_o.url}}"{% else %} class="btn btn-danger" disabled {% endif %} >Annexure O</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_p %} class="btn btn-success" href="{{acad_annex_p.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure P</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_q %} class="btn btn-success"  href="{{acad_annex_q.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure Q</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_r %} class="btn btn-success" href="{{acad_annex_r.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure R</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_s %} class="btn btn-success" href="{{acad_annex_s.url}}"{% else %} class="btn btn-danger" disabled {% endif %} >Annexure S</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_t %} class="btn btn-success" href="{{acad_annex_t.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure T</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_u %} class="btn btn-success"  href="{{acad_annex_u.url}}" {% else %} class="btn btn-danger" disabled{% endif %} >Annexure U</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_v %} class="btn btn-success" href="{{acad_annex_v.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure V</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+			<a {% if acad_annex_w1 %} class="btn btn-success" href="{{acad_annex_w1.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure W1</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_w2 %} class="btn btn-success" href="{{acad_annex_w2.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure W2</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_x %} class="btn btn-success" href="{{acad_annex_x.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure X</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if acad_annex_y %} class="btn btn-success" href="{{acad_annex_y.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure Y</a>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<a {% if acad_annex_z %} class="btn btn-success" href="{{acad_annex_z.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Annexure Z</a>
+		</div>
+		<div class="col-sm-3">
+			<a {% if expDoc %} class="btn btn-success" href="{{expDoc.url}}" {% else %} class="btn btn-danger" disabled {% endif %} >Experience Supporting Docs</a>
+		</div>
+	</div>
+</div>

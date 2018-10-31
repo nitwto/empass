@@ -1,0 +1,79 @@
+<br />
+<ul class="menu">
+    <li id="e"><a class="focus" style="" href="#">External Sponsored RD Projects
+            {% if acad_annex_e12.store_e1 or acad_annex_e12.store_e2 %} <span class="tick">&nbsp; &#10004;</span>{% endif %}
+        </a>
+    </li>
+
+
+    <li id="f">
+        <a style="" href="#">Consultancy Projects {% if acad_annex_f.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a>
+    </li>
+
+    <li id="g"><a style="" href="#">Ph.D. guided {% if acad_annex_g.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="h"><a style="" href="#">Journal papers{% if acad_annex_h.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="i"><a style="" href="#">Conference paper{% if acad_annex_i.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="j"><a style="" href="#">HoD, Dean, Chief Warden, Professor{% if acad_annex_j.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="k"><a style="" href="#">Warden, Assistant Wardens{% if acad_annex_k.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="l"><a style="" href="#">Chairman and convener{% if acad_annex_l.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="m"><a style="" href="#">Department activities{% if acad_annex_m.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="n"><a style="" href="#">Workshop / FDP / short term courses{% if acad_annex_n.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="o"><a style="" href="#">For conducting national programs{% if acad_annex_o.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="p"><a style="" href="#">National / International conference{% if acad_annex_p.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="q"><a style="" href="#">Length of service over{% if acad_annex_q.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="r"><a style="" href="#">Establishment of new Lab{% if acad_annex_r.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="s"><a style="" href="#">Theory teaching of over{% if acad_annex_s.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="t"><a style="" href="#">PG Dissertation guided{% if acad_annex_t.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="u"><a style="" href="#">UG Projects{% if acad_annex_u.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="v"><a style="" href="#">Text / Reference book published{% if acad_annex_v.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="w"><a style="" href="#">Text / Reference book II{% if acad_annex_w1_w2.store_w1 or acad_annex_w1_w2.store_w2 %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="x"><a style="" href="#">Significant outreach Institute{% if acad_annex_x.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="y"><a style="" href="#"> Fellow IEEE, FNA, FNAE, FNASc{% if acad_annex_y.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <li id="z"><a style="" href="#">Placement percentage{% if acad_annex_z.store %} <span class="tick">&nbsp; &#10004;</span>{% endif %}</a></li>
+
+    <!---<li><button id="z" class="btn {% if acad_annex_z.store %} btn-success read-only {% else %} btn-danger {% endif %}">Chairman and convener </button></li>--->
+
+</ul>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.well-lg').hide();
+        $('#dve').show();
+        $('#dvz1').show();
+
+        $('li').click(function() {
+            $('.well-lg').hide();
+            $('#dv' + this.id).show();
+            $('#dvz1').show();
+            // alert("ID:"+(this.id));
+        });
+
+        $('li').click(function() {
+            $('li').find('a').removeClass('focus');
+            $(this).find('a').addClass('focus');
+        });
+    });
+
+</script>
