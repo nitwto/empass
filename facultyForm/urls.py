@@ -27,6 +27,8 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'favicon\.ico$', favicon_view),
+    #url(r'favicon\.ico$', favicon_view),
+    #url(r'favicon\.ico$', favicon_view),
 
     #list of app urls
     url(r'^', include('recruit.urls', namespace = 'recruit')),
